@@ -16,6 +16,7 @@ import CommunityEditPage from '~/social/pages/CommunityEdit';
 import ProfileSettings from '~/social/components/ProfileSettings';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 import useSDK from '~/core/hooks/useSDK';
+import { ILA26_internalFeedProps } from '~/ila26/types/customPosts';
 
 const ApplicationContainer = styled.div`
   height: 100%;
@@ -26,7 +27,7 @@ const StyledCommunitySideMenu = styled(CommunitySideMenu)`
   min-height: 100%;
 `;
 
-const Community = () => {
+const Community = ({ ILA26_getInternalData }: ILA26_internalFeedProps) => {
   const { page } = useNavigation();
 
   const { client } = useSDK();
@@ -65,7 +66,11 @@ const Community = () => {
         )}
 
         {page.type === PageTypes.UserFeed && (
-          <UserFeedPage userId={page.userId} socialSettings={socialSettings} />
+          <UserFeedPage
+            ILA26_getInternalData={ILA26_getInternalData}
+            userId={page.userId}
+            socialSettings={socialSettings}
+          />
         )}
 
         {page.type === PageTypes.UserEdit && <ProfileSettings userId={page.userId} />}

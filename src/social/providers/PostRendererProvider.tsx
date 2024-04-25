@@ -2,6 +2,7 @@ import { PostContentType } from '@amityco/ts-sdk';
 import React, { ReactNode, createContext, useContext, useMemo } from 'react';
 import DefaultPostRenderer from '../components/post/Post/DefaultPostRenderer';
 import UnknownPostRenderer from '../components/post/Post/UnknownPostRenderer';
+import { ILA26_customTypeDataTypes } from '~/ila26/constants';
 
 export type PostRendererProps = {
   childrenPosts?: Amity.Post[];
@@ -30,6 +31,14 @@ export type PostRendererConfigType = Record<
   (props: PostRendererProps) => ReactNode
 >;
 
+const ILA26_customDataTypesPostRenderer = Object.values(ILA26_customTypeDataTypes).reduce(
+  (prev, current) =>
+    Object.assign(prev, {
+      [current]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
+    }),
+  {},
+); // get ILA 26 custom types to be appended to Amity datatypes renderer list
+
 const defaultPostRenderer: PostRendererConfigType = {
   [PostContentType.FILE]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
   [PostContentType.IMAGE]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
@@ -38,6 +47,7 @@ const defaultPostRenderer: PostRendererConfigType = {
   [PostContentType.TEXT]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
   [PostContentType.VIDEO]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
   [PostContentType.CUSTOM]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
+  ...ILA26_customDataTypesPostRenderer, // ILA26 custom types
 };
 
 const PostRendererContext = createContext(defaultPostRenderer);
