@@ -45,6 +45,12 @@ import useSDK from '~/core/hooks/useSDK';
 import useSocialMention from '~/social/hooks/useSocialMention';
 import useCommunityModeratorsCollection from '~/social/hooks/collections/useCommunityModeratorsCollection';
 import { ERROR_RESPONSE } from '~/social/constants';
+import {
+  ILA26_internalData,
+  ILA26_internalElementsTypes,
+  ILA26_internalFeedProps,
+} from '~/ila26/types/customPosts';
+import { ILA26_matchPostTextIsInternalElement } from '~/ila26/utils';
 
 const useTargetData = ({
   targetId,
@@ -95,7 +101,7 @@ const overCharacterModal = () =>
     type: 'info',
   });
 
-interface PostCreatorBarProps {
+interface PostCreatorBarProps extends ILA26_internalFeedProps {
   className?: string;
   targetType: string;
   targetId?: string | null;
@@ -118,6 +124,7 @@ const PostCreatorBar = ({
   hasMoreCommunities,
   loadMoreCommunities,
   onCreateSuccess,
+  ILA26_getInternalData,
   maxFiles = MAX_FILES_PER_POST,
 }: PostCreatorBarProps) => {
   const { currentUserId } = useSDK();
@@ -193,13 +200,23 @@ const PostCreatorBar = ({
         return;
       }
 
+      const ILA26_isPostTextURL = ILA26_matchPostTextIsInternalElement(data.text ?? '');
+      const ILA26_PostDataType = ILA26_isPostTextURL
+        ? `customPost.${ILA26_isPostTextURL.type}`
+        : 'text';
+      const ILA26_PostElementData =
+        ILA26_isPostTextURL && data.text
+          ? await ILA26_getInternalData(ILA26_isPostTextURL.type, ILA26_isPostTextURL.id)
+          : metadata;
+
       const createPostParams: Parameters<typeof PostRepository.createPost>[0] = {
         targetId: target.targetId,
         targetType: target.targetType,
         data,
-        dataType: 'text',
+        //@ts-ignore
+        dataType: ILA26_PostDataType,
         attachments,
-        metadata,
+        metadata: ILA26_PostElementData,
         mentionees,
       };
 

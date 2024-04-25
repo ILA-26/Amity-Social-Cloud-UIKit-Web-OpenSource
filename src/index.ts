@@ -1,3 +1,4 @@
+import { ILA26_internalElementsTypes, ILA26_internalData } from '~/ila26/types/customPosts';
 export { default as AmityUiKitProvider } from '~/v4/core/providers/AmityUIKitProvider';
 export { default as AmityUiKitFeed } from '~/social/components/Feed';
 export { default as AmityUiKitSocial } from '~/social/pages/Application';
@@ -17,6 +18,10 @@ export { PostContainer as AmityPostContainer } from '~/social/components/post/Po
 export { default as AmityPostEngagementBar } from '~/social/components/EngagementBar';
 export { default as AmityExpandableText } from '~/social/components/Comment/CommentText';
 export { useSDK as useAmitySDK } from '~/core/hooks/useSDK';
+export {
+  ILA26_internalElementsTypes as ILA26_Amity_types,
+  ILA26_internalData as ILA26_Amity_DataTypes,
+};
 
 // v4
 export { default as AmityUIKitManager } from '~/v4/core/AmityUIKitManager';

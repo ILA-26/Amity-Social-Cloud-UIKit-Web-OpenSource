@@ -13,13 +13,18 @@ import useSDK from '~/core/hooks/useSDK';
 import UserInfo from '~/social/components/UserInfo';
 import useFollowStatus from '~/core/hooks/useFollowStatus';
 import { isPrivateNetwork } from '~/helpers/utils';
+import {
+  ILA26_internalData,
+  ILA26_internalElementsTypes,
+  ILA26_internalFeedProps,
+} from '~/ila26/types/customPosts';
 
-interface UserFeedProps {
+interface UserFeedProps extends ILA26_internalFeedProps {
   userId?: string | null;
   socialSettings: Amity.SocialSettings | null;
 }
 
-const UserFeed = ({ userId, socialSettings }: UserFeedProps) => {
+const UserFeed = ({ userId, socialSettings, ILA26_getInternalData }: UserFeedProps) => {
   const { currentUserId } = useSDK();
 
   const [activeTab, setActiveTab] = useState(UserFeedTabs.TIMELINE);
@@ -71,6 +76,7 @@ const UserFeed = ({ userId, socialSettings }: UserFeedProps) => {
 
       {activeTab === UserFeedTabs.TIMELINE && (
         <Feed
+          ILA26_getInternalData={ILA26_getInternalData}
           targetType={isMe ? 'myFeed' : 'user'}
           targetId={userId}
           showPostCreator={isMe}

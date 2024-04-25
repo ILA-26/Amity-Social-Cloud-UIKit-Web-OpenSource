@@ -15,8 +15,13 @@ import useCommunitySubscription from '~/social/hooks/useCommunitySubscription';
 import { SubscriptionLevels } from '@amityco/ts-sdk';
 import usePostsCollection from '~/social/hooks/collections/usePostsCollection';
 import useCommunitiesCollection from '~/social/hooks/collections/useCommunitiesCollection';
+import {
+  ILA26_internalData,
+  ILA26_internalElementsTypes,
+  ILA26_internalFeedProps,
+} from '~/ila26/types/customPosts';
 
-interface GlobalFeedProps {
+interface GlobalFeedProps extends ILA26_internalFeedProps {
   className?: string;
   feedType?: 'reviewing' | 'published';
   showPostCreator?: boolean;
@@ -32,6 +37,7 @@ const GlobalFeed = ({
   goToExplore,
   readonly = false,
   isHiddenProfile = false,
+  ILA26_getInternalData,
 }: GlobalFeedProps) => {
   const { currentUserId } = useSDK();
   const { contents, isLoading, loadMore, prependItem, removeItem, hasMore, loadMoreHasBeenCalled } =
@@ -58,6 +64,7 @@ const GlobalFeed = ({
               targetId={currentUserId || undefined}
               enablePostTargetPicker={false}
               onCreateSuccess={(newPost) => prependItem(newPost)}
+              ILA26_getInternalData={ILA26_getInternalData}
             />
           ) : null}
           {isLoading && !loadMoreHasBeenCalled ? renderLoadingSkeleton() : null}
@@ -97,7 +104,7 @@ const GlobalFeed = ({
   );
 };
 
-interface MyFeedProps {
+interface MyFeedProps extends ILA26_internalFeedProps {
   className?: string;
   feedType?: 'reviewing' | 'published';
   targetType?: string;
@@ -118,6 +125,7 @@ const MyFeed = ({
   goToExplore,
   readonly = false,
   isHiddenProfile = false,
+  ILA26_getInternalData,
 }: MyFeedProps) => {
   const { currentUserId } = useSDK();
 
@@ -164,6 +172,7 @@ const MyFeed = ({
             hasMoreCommunities={hasMoreCommunities}
             loadMoreCommunities={loadMoreCommunitiesCB}
             onCreateSuccess={onPostCreated}
+            ILA26_getInternalData={ILA26_getInternalData}
           />
 
           {isLoading && !loadMoreHasBeenCalled ? renderLoadingSkeleton() : null}
@@ -206,7 +215,7 @@ const MyFeed = ({
   );
 };
 
-interface CommunityFeedProps {
+interface CommunityFeedProps extends ILA26_internalFeedProps {
   className?: string;
   targetType: string;
   targetId?: string | null;
@@ -228,6 +237,7 @@ const CommunityFeed = ({
   goToExplore,
   readonly = false,
   isHiddenProfile = false,
+  ILA26_getInternalData,
 }: CommunityFeedProps) => {
   const { posts, hasMore, loadMore, isLoading, loadMoreHasBeenCalled } = usePostsCollection({
     targetType,
@@ -261,6 +271,7 @@ const CommunityFeed = ({
               targetId={targetId}
               enablePostTargetPicker={false}
               onCreateSuccess={onPostCreated}
+              ILA26_getInternalData={ILA26_getInternalData}
             />
           ) : null}
 
@@ -303,7 +314,7 @@ const CommunityFeed = ({
   );
 };
 
-interface BaseFeedProps {
+interface BaseFeedProps extends ILA26_internalFeedProps {
   className?: string;
   feedType?: 'reviewing' | 'published';
   targetType: string;
@@ -325,6 +336,7 @@ const BaseFeed = ({
   goToExplore,
   readonly = false,
   isHiddenProfile = false,
+  ILA26_getInternalData,
 }: BaseFeedProps) => {
   const { posts, hasMore, loadMore, isLoading, loadMoreHasBeenCalled } = usePostsCollection({
     targetType,
@@ -363,6 +375,7 @@ const BaseFeed = ({
               hasMoreCommunities={hasMoreCommunities}
               loadMoreCommunities={loadMoreCommunities}
               onCreateSuccess={onPostCreated}
+              ILA26_getInternalData={ILA26_getInternalData}
             />
           )}
 
@@ -406,7 +419,7 @@ const BaseFeed = ({
   );
 };
 
-interface FeedProps {
+interface FeedProps extends ILA26_internalFeedProps {
   className?: string;
   feedType?: 'reviewing' | 'published';
   targetType?: string;
@@ -427,22 +440,40 @@ const getActualTargetType = (targetType: string | undefined | null) => {
 };
 
 const Feed = (props: FeedProps) => {
-  const { targetType, ...rest } = props;
+  const { targetType, ILA26_getInternalData, ...rest } = props;
 
   const actualTargetType = getActualTargetType(targetType);
 
   if (actualTargetType === 'feed') {
-    return <GlobalFeed {...rest} />;
+    return <GlobalFeed ILA26_getInternalData={ILA26_getInternalData} {...rest} />;
   }
   if (actualTargetType === 'myFeed') {
-    return <MyFeed {...rest} targetType={actualTargetType} />;
+    return (
+      <MyFeed
+        ILA26_getInternalData={ILA26_getInternalData}
+        {...rest}
+        targetType={actualTargetType}
+      />
+    );
   }
 
   if (actualTargetType === 'community') {
-    return <CommunityFeed {...rest} targetType={actualTargetType} />;
+    return (
+      <CommunityFeed
+        ILA26_getInternalData={ILA26_getInternalData}
+        {...rest}
+        targetType={actualTargetType}
+      />
+    );
   }
 
-  return <BaseFeed {...rest} targetType={actualTargetType} />;
+  return (
+    <BaseFeed
+      ILA26_getInternalData={ILA26_getInternalData}
+      {...rest}
+      targetType={actualTargetType}
+    />
+  );
 };
 
 export default memo((props: FeedProps) => {
