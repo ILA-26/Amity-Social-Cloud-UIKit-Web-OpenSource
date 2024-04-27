@@ -86,9 +86,9 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           # Defaults to the user or organization that owns the workflow file
           scope: '@ila-26'
-          
+
       - name: Publish
-        run: npm publish --tag ${{ env.TAG }} 
+        run: npm publish --tag ${{ env.TAG }} --registry=https://npm.pkg.github.com/
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN }}
           TAG: ${{ github.ref == 'refs/heads/main' && 'release' || github.ref == 'refs/heads/ila26-develop' && 'dev' || startsWith(github.ref, 'refs/heads/release/') && 'pre-release' || 'custom' }}
