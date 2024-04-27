@@ -64,7 +64,7 @@ jobs:
         run: pnpm run build
 
       - name: Publish
-        run: npm publish --tag ${{ env.TAG }} --registry=https://npm.pkg.github.com/
+        run: npm publish --tag ${{ env.TAG }} --registry=https://npm.pkg.github.com/:_authToken=${{secrets.PACKAGE_MANAGER_TOKEN}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.PACKAGE_MANAGER_TOKEN}}
           TAG: ${{ github.ref == 'refs/heads/main' && 'release' || github.ref == 'refs/heads/ila26-develop' && 'dev' || startsWith(github.ref, 'refs/heads/release/') && 'pre-release' || 'custom' }}
