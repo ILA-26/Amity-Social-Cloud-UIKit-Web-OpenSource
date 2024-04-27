@@ -1,5 +1,9 @@
 {
   "name": "@amityco/ui-kit-open-source",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ILA-26/Amity-Social-Cloud-UIKit-Web-OpenSource.git"
+  },
   "version": "3.2.4",
   "engines": {
     "node": ">=16",
