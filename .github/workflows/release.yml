@@ -1,10 +1,10 @@
-name: Production release pipeline
+name: Package release pipeline
 
 on:
   workflow_dispatch:
     inputs:
       release_as:
-        description: 'release as'
+        description: 'release as patch, minor, major or custom'
         required: true
       custom_version:
         description: 'custom version'
@@ -63,11 +63,8 @@ jobs:
       - name: build
         run: pnpm run build
 
-      - name: publish on npm
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: public
-
-      - name: push version
-        run: git push --follow-tags
+      - name: Publish
+        run: npm publish --tag ${{ env.TAG }}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PACKAGE_MANAGER_TOKEN}}
+          TAG: ${{ github.ref == 'refs/heads/main' && 'release' || github.ref == 'refs/heads/ila26-develop' && 'dev' || startsWith(github.ref, 'refs/heads/release/') && 'pre-release' || 'custom' }}
