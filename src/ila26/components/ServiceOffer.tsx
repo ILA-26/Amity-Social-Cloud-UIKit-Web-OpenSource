@@ -1,5 +1,7 @@
 import React from 'react';
 import { ILA26_ServiceOfferProps } from '../types/componentProps';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 
 const ILA26_ServiceOffer = ({ metadata }: ILA26_ServiceOfferProps) => {
   return (
@@ -25,6 +27,18 @@ const ILA26_ServiceOffer = ({ metadata }: ILA26_ServiceOfferProps) => {
         }}
       >
         {metadata?.description}
+      </p>
+      <p
+        style={{
+          overflow: 'hidden',
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          lineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+        }}
+      >
+        <FontAwesomeIcon icon={faMapMarkedAlt} style={{ marginRight: '10px' }} />
+        {`${metadata?.address?.streetLine1 ?? ' - '}`}
       </p>
     </>
   );

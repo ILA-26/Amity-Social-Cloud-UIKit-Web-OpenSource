@@ -1,4 +1,5 @@
 import './inter.css';
+import './avenir.css';
 import './index.css';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Client as ASCClient } from '@amityco/ts-sdk';
