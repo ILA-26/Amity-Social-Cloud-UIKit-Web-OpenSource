@@ -1,7 +1,10 @@
 import { ILA26_MarketplaceProductProps } from '../types/componentProps';
 import React from 'react';
+import { ILA26_UiKitProviderProps } from '../types/kitProviderProps';
+import { useIntl } from 'react-intl';
 
 const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) => {
+  const { locale } = useIntl();
   return (
     <>
       <span
@@ -12,7 +15,7 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
           borderRadius: '3px',
         }}
       >
-        Produit
+        {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US' ? 'Product' : 'Produit'}
       </span>
 
       <h1>{metadata?.title}</h1>
