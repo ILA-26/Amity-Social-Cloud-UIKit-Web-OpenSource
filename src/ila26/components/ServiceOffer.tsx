@@ -2,8 +2,11 @@ import React from 'react';
 import { ILA26_ServiceOfferProps } from '../types/componentProps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+import { useIntl } from 'react-intl';
+import { ILA26_UiKitProviderProps } from '../types/kitProviderProps';
 
 const ILA26_ServiceOffer = ({ metadata }: ILA26_ServiceOfferProps) => {
+  const { locale } = useIntl();
   return (
     <>
       <span
@@ -14,7 +17,9 @@ const ILA26_ServiceOffer = ({ metadata }: ILA26_ServiceOfferProps) => {
           borderRadius: '3px',
         }}
       >
-        Offre de service
+        {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US'
+          ? 'Service offer'
+          : 'Offre de service'}
       </span>
       <h1>{metadata?.title}</h1>
       <p

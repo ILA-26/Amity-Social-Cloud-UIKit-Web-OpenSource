@@ -19,6 +19,7 @@ import CustomComponentsProvider, { CustomComponentType } from '../CustomComponen
 import PostRendererProvider, {
   PostRendererConfigType,
 } from '~/social/providers/PostRendererProvider';
+import { ILA26_UiKitProviderProps } from '~/ila26/types/kitProviderProps';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -66,7 +67,8 @@ const UiKitProvider = ({
   actionHandlers,
   onConnectionStatusChange,
   onDisconnected,
-}: UiKitProviderProps) => {
+  locale,
+}: UiKitProviderProps & ILA26_UiKitProviderProps) => {
   const queryClient = new QueryClient();
   const [isConnected, setIsConnected] = useState(false);
   const [client, setClient] = useState<Amity.Client | null>(null);
@@ -124,7 +126,7 @@ const UiKitProvider = ({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Localization locale="en">
+      <Localization locale={locale}>
         <ThemeProvider theme={buildGlobalTheme(theme)}>
           <UIStyles>
             <SDKContext.Provider value={sdkContextValue}>
