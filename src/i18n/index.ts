@@ -1,3 +1,3 @@
 import en from './en.json';
-
-export default { en };
+import fr from '../ila26/fr.json';
+export default { en, fr };
