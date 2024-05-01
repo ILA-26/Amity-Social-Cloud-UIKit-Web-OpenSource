@@ -25,6 +25,7 @@
   "types": "dist/index.d.ts",
   "description": "React Ui-Kit for Amity Social Cloud",
   "scripts": {
+    "clean": "rimraf dist",
     "prepare": "husky install",
     "build": "tsup --minify",
     "build:dev": "tsup --sourcemap --metafile",
@@ -87,6 +88,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
+    "rimraf": "^5.0.5",
     "standard-version": "^9.5.0",
     "storybook": "^7.6.7",
     "styled-components": "^6.1.6",
