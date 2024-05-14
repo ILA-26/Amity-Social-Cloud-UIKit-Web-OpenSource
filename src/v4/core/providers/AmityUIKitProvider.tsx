@@ -25,6 +25,7 @@ import { PageBehaviorProvider } from './PageBehaviorProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { UIStyles } from '~/core/providers/UiKitProvider/styles';
 import AmityUIKitManager from '../AmityUIKitManager';
+import { ILA26_UiKitProviderProps } from '~/ila26/types/kitProviderProps';
 
 export type AmityUIKitConfig = typeof amityUKitConfig;
 
@@ -62,7 +63,7 @@ interface AmityUIKitProviderProps {
   configs?: AmityUIKitConfig;
 }
 
-const AmityUIKitProvider: React.FC<AmityUIKitProviderProps> = ({
+const AmityUIKitProvider: React.FC<AmityUIKitProviderProps & ILA26_UiKitProviderProps> = ({
   apiKey,
   apiRegion,
   apiEndpoint,
@@ -77,6 +78,7 @@ const AmityUIKitProvider: React.FC<AmityUIKitProviderProps> = ({
   onConnectionStatusChange,
   onDisconnected,
   configs,
+  locale,
 }) => {
   const queryClient = new QueryClient();
   const [client, setClient] = useState<Amity.Client | null>(null);
@@ -129,7 +131,7 @@ const AmityUIKitProvider: React.FC<AmityUIKitProviderProps> = ({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Localization locale="en">
+      <Localization locale={locale}>
         <CustomizationProvider initialConfig={configs as Config}>
           <StyledThemeProvider theme={buildGlobalTheme(theme)}>
             <ThemeProvider initialConfig={configs?.theme}>
