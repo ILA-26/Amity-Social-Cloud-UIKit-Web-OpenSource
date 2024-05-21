@@ -79,8 +79,10 @@ export const RemoveButton = styled(Button).attrs<{
   children: <RemoveIcon />,
 })`
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  height: 2.5vw;
+  aspect-ratio: 1;
+  top: 1vw;
+  right: 1vw;
 `;
 
 export const CircleIcon = styled(ExclamationCircle).attrs<{ icon?: ReactNode }>({ width: 24, height: 24 })`
