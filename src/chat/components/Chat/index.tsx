@@ -16,7 +16,7 @@ import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannel from '~/chat/hooks/useChannel';
 import useChannelMembers from '~/chat/hooks/useChannelMembers';
 
-interface ChatProps {
+export interface ChatProps {
   channelId: string;
   onChatDetailsClick: () => void;
   shouldShowChatDetails: boolean;

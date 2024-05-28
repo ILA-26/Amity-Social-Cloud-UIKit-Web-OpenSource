@@ -17,6 +17,8 @@ export const ChatHeaderContainer = styled.div`
   background: ${({ theme }) => theme.palette.system.background};
   border-top: 1px solid #e3e4e8;
   border-bottom: 1px solid #e3e4e8;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
   display: flex;
   justify-content: space-between;
 `;
