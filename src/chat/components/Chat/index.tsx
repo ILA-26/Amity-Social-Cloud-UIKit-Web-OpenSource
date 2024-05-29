@@ -18,11 +18,11 @@ import useChannelMembers from '~/chat/hooks/useChannelMembers';
 
 export interface ChatProps {
   channelId: string;
-  onChatDetailsClick: () => void;
-  shouldShowChatDetails: boolean;
+  variant: 'regular' | 'popup';
+  onChatActionClick: () => void;
 }
 
-const Chat = ({ channelId, onChatDetailsClick, shouldShowChatDetails }: ChatProps) => {
+const Chat = ({ channelId, variant = 'regular', onChatActionClick }: ChatProps) => {
   const channel = useChannel(channelId);
   useEffect(() => {
     async function run() {
@@ -51,11 +51,7 @@ const Chat = ({ channelId, onChatDetailsClick, shouldShowChatDetails }: ChatProp
 
   return (
     <ChannelContainer>
-      <ChatHeader
-        channelId={channelId}
-        shouldShowChatDetails={shouldShowChatDetails}
-        onChatDetailsClick={onChatDetailsClick}
-      />
+      <ChatHeader channelId={channelId} onChatActionClick={onChatActionClick} variant={variant} />
       <MessageList channelId={channelId} />
       <MessageComposeBar onSubmit={sendMessage} />
     </ChannelContainer>

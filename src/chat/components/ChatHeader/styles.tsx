@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ReactNode } from 'react';
-import { BarsIcon } from "~/icons";
+import { BarsIcon, Close } from "~/icons";
 
 export const DetailsIcon = styled(BarsIcon).attrs<{ icon?: ReactNode }>({
   width: 24,
@@ -11,16 +11,22 @@ export const DetailsIcon = styled(BarsIcon).attrs<{ icon?: ReactNode }>({
     align-self: center;
 `;
 
-export const ChatHeaderContainer = styled.div`
+export const ChatHeaderContainer = styled.div<{ $variant: 'regular' | 'popup' }>`
   height: 76px;
   padding: 0 20px;
   background: ${({ theme }) => theme.palette.system.background};
   border-top: 1px solid #e3e4e8;
   border-bottom: 1px solid #e3e4e8;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-top-right-radius: ${(props) => (props.$variant === 'popup' ? '10px' : '0px')};
+  border-top-left-radius: ${(props) => (props.$variant === 'popup' ? '10px' : '0px')};
   display: flex;
   justify-content: space-between;
+`;
+
+export const HeaderCloseIcon = styled(Close).attrs<{ icon?: ReactNode }>({ width: 20, height: 20 })`
+  fill: ${({ theme }) => theme.palette.neutral.main};
+  cursor: pointer;
+  align-self: center;
 `;
 
 export const Channel = styled.div`

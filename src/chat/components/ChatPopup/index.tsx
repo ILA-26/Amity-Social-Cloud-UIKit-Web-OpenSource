@@ -2,16 +2,12 @@ import React from 'react';
 import Chat, { ChatProps } from '../Chat';
 import { Popup } from './styles';
 
-const ChatPopup = (props: ChatPopupProps) => {
+const ChatPopup = (props: Omit<ChatProps, 'variant'>) => {
   return (
     <Popup>
-      <Chat {...props} />
+      <Chat variant="popup" {...props} />
     </Popup>
   );
-};
-
-type ChatPopupProps = Required<ChatProps> & {
-  open?: boolean;
 };
 
 export default ChatPopup;
