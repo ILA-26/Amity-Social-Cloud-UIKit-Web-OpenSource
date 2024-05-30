@@ -149,26 +149,24 @@ const UiKitProvider = ({
   return (
     <Localization locale={locale}>
       <ThemeProvider theme={buildGlobalTheme(theme)}>
-        <UIStyles>
-          <SDKContext.Provider value={sdkContextValue}>
-            <SDKConnectorProvider>
-              <CustomComponentsProvider config={customComponents}>
-                <ConfigProvider
-                  config={{
-                    socialCommunityCreationButtonVisible:
-                      socialCommunityCreationButtonVisible || true,
-                  }}
-                >
-                  <PostRendererProvider config={postRendererConfig}>
-                    <NavigationProvider {...actionHandlers}>{children}</NavigationProvider>
-                  </PostRendererProvider>
-                </ConfigProvider>
-                <NotificationsContainer />
-                <ConfirmContainer />
-              </CustomComponentsProvider>
-            </SDKConnectorProvider>
-          </SDKContext.Provider>
-        </UIStyles>
+        <SDKContext.Provider value={sdkContextValue}>
+          <SDKConnectorProvider>
+            <CustomComponentsProvider config={customComponents}>
+              <ConfigProvider
+                config={{
+                  socialCommunityCreationButtonVisible:
+                    socialCommunityCreationButtonVisible || true,
+                }}
+              >
+                <PostRendererProvider config={postRendererConfig}>
+                  <NavigationProvider {...actionHandlers}>{children}</NavigationProvider>
+                </PostRendererProvider>
+              </ConfigProvider>
+              <NotificationsContainer />
+              <ConfirmContainer />
+            </CustomComponentsProvider>
+          </SDKConnectorProvider>
+        </SDKContext.Provider>
       </ThemeProvider>
     </Localization>
   );

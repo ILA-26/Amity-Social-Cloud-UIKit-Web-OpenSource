@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+/**
+ * ! Deprecated
+ * * These styles now wrap imported Amity components on client app
+ */
 export const UIStyles = styled.div`
   ${({ theme }) => theme.typography.body};
   color: ${({ theme }) => theme.palette.base.main};
