@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import MessageComponent from '~/chat/components/Message';
+import MessageComponent from '~/ila26/chat/components/Message';
 
 import { InfiniteScrollContainer, MessageListContainer } from './styles';
 import useSDK from '~/core/hooks/useSDK';
@@ -9,7 +9,7 @@ import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannelSubscription from '~/social/hooks/useChannelSubscription';
 import useUser from '~/core/hooks/useUser';
 import useImage from '~/core/hooks/useImage';
-import useMessagesCollection from '~/chat/hooks/collections/useMessagesCollection';
+import useMessagesCollection from '~/ila26/chat/hooks/collections/useMessagesCollection';
 
 interface MessageItemProps {
   message: Amity.Message;

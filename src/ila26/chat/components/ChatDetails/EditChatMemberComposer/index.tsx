@@ -21,7 +21,7 @@ import {
 import { ChannelRepository } from '@amityco/ts-sdk';
 import { isNonNullable } from '~/helpers/utils';
 import { notification } from '~/core/components/Notification';
-import useChannelMembersCollection from '~/chat/hooks/collections/useChannelMembersCollection';
+import useChannelMembersCollection from '~/ila26/chat/hooks/collections/useChannelMembersCollection';
 
 const FormBlock = ({ children }: { children: ReactNode }) => (
   <FormBlockContainer>

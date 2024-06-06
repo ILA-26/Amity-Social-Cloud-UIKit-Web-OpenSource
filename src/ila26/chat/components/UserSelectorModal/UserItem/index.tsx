@@ -2,7 +2,7 @@ import React from 'react';
 import trim from 'lodash/trim';
 
 import CheckCircleIcon from '~/icons/CheckCircle';
-import UserAvatar from '~/chat/components/UserAvatar';
+import UserAvatar from '~/ila26/chat/components/UserAvatar';
 
 import { UserContainer, AvatarContainer, ProfileContainer, CheckIconWrapper } from './styles';
 

@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { ChannelRepository } from '@amityco/ts-sdk';
 
 import Modal from '~/core/components/Modal';
-import ChatComposer from '~/chat/components/Chat/ChatComposer';
+import ChatComposer from '~/ila26/chat/components/Chat/ChatComposer';
 import { confirm } from '~/core/components/Confirm';
 import { notification } from '~/core/components/Notification';
 import EditChatMemberComposer from './EditChatMemberComposer';

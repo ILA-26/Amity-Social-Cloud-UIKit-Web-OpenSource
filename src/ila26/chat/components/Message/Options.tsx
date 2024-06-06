@@ -8,7 +8,7 @@ import Menu, { MenuItem } from '~/core/components/Menu';
 import { notification } from '~/core/components/Notification';
 
 import { MessageOptionsIcon, SaveIcon, CloseIcon, EditingInput, EditingContainer } from './styles';
-import useMessageFlaggedByMe from '~/chat/hooks/useMessageFlaggedByMe';
+import useMessageFlaggedByMe from '~/ila26/chat/hooks/useMessageFlaggedByMe';
 import useMessageSubscription from '~/social/hooks/useMessageSubscription';
 
 const StyledPopover = styled(Popover)<{ align?: string; className?: string }>`

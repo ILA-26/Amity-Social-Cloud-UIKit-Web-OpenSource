@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import UserAvatar from '~/chat/components/UserAvatar';
+import UserAvatar from '~/ila26/chat/components/UserAvatar';
 import { backgroundImage as backgroundUserImage } from '~/icons/User';
 
 import AddNewMember from './AddNewMember';
@@ -16,8 +16,8 @@ import {
 } from './styles';
 import { SIZE_ALIAS } from '~/core/hooks/useSize';
 import LoadMoreWrapper from '~/social/components/LoadMoreWrapper';
-import useChannel from '~/chat/hooks/useChannel';
-import useChannelMembersCollection from '~/chat/hooks/collections/useChannelMembersCollection';
+import useChannel from '~/ila26/chat/hooks/useChannel';
+import useChannelMembersCollection from '~/ila26/chat/hooks/collections/useChannelMembersCollection';
 
 const DEFAULT_DISPLAY_NAME = 'Anonymous';
 

@@ -3,7 +3,7 @@ import React, { ReactNode, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import ChatTypeSelector from '~/chat/components/Chat/ChatTypeSelector';
+import ChatTypeSelector from '~/ila26/chat/components/Chat/ChatTypeSelector';
 import AvatarUploader from '~/social/components/CommunityForm/AvatarUploader';
 import Button from '~/core/components/Button';
 import UserSelector from '~/social/components/UserSelector';

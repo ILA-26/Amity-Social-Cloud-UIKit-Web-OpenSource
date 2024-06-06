@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ChannelRepository } from '@amityco/ts-sdk';
 
-import GroupSettings from '~/chat/components/GroupSettings';
+import GroupSettings from '~/ila26/chat/components/GroupSettings';
 
 import { ControlItem, ControlItemLabel, SideWrapper, GroupSettingIcon } from './styles';
 

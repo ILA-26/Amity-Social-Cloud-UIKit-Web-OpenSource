@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ChannelRepository } from '@amityco/ts-sdk';
 
-import UserAvatar from '~/chat/components/UserAvatar';
+import UserAvatar from '~/ila26/chat/components/UserAvatar';
 import { backgroundImage as userBackgroundImage } from '~/icons/User';
 import { backgroundImage as communityBackgroundImage } from '~/icons/Community';
-import useChatInfo from '~/chat/hooks/useChatInfo';
+import useChatInfo from '~/ila26/chat/hooks/useChatInfo';
 
 import {
   ChatHeaderContainer,
@@ -14,9 +14,10 @@ import {
   ChannelInfo,
   ChannelName,
   MemberCount,
+  HeaderCloseIcon,
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
-import useChannel from '~/chat/hooks/useChannel';
+import useChannel from '~/ila26/chat/hooks/useChannel';
 
 type ChatHeaderProps = {
   channelId: string;

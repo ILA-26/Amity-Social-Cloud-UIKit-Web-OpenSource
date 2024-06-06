@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import SideMenuItem from '~/core/components/SideMenuItem';
-import UserAvatar from '~/chat/components/UserAvatar';
+import UserAvatar from '~/ila26/chat/components/UserAvatar';
 
 export const ChatItemContainer = styled(SideMenuItem)`
   display: flex;

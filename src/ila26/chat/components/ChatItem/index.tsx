@@ -2,12 +2,12 @@ import React from 'react';
 
 import { backgroundImage as userBackgroundImage } from '~/icons/User';
 import { backgroundImage as communityBackgroundImage } from '~/icons/Community';
-import useChatInfo from '~/chat/hooks/useChatInfo';
+import useChatInfo from '~/ila26/chat/hooks/useChatInfo';
 
 import { ChatItemLeft, Title, Avatar, ChatItemContainer, UnreadCount } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannelSubscription from '~/social/hooks/useChannelSubscription';
-import useChannel from '~/chat/hooks/useChannel';
+import useChannel from '~/ila26/chat/hooks/useChannel';
 
 function getNormalizedUnreadCount(channelUnreadCount: number) {
   // Within this range the unread counter will show an actuall number

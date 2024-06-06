@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import useChatInfo from '~/chat/hooks/useChatInfo';
-import useChannel from '~/chat/hooks/useChannel';
-import UserAvatar from '~/chat/components/UserAvatar';
+import useChatInfo from '~/ila26/chat/hooks/useChatInfo';
+import useChannel from '~/ila26/chat/hooks/useChannel';
+import UserAvatar from '~/ila26/chat/components/UserAvatar';
 import { backgroundImage as communityBackgroundImage } from '~/icons/Community';
 
 import ChatDetailsControls from './ChatDetailsControls';

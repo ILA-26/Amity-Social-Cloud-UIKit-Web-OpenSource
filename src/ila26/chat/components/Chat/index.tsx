@@ -6,15 +6,15 @@ import {
   CommunityRepository,
 } from '@amityco/ts-sdk';
 
-import MessageList from '~/chat/components/MessageList';
-import MessageComposeBar from '~/chat/components/MessageComposeBar';
+import MessageList from '~/ila26/chat/components/MessageList';
+import MessageComposeBar from '~/ila26/chat/components/MessageComposeBar';
 
-import ChatHeader from '~/chat/components/ChatHeader';
+import ChatHeader from '~/ila26/chat/components/ChatHeader';
 
 import { ChannelContainer } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
-import useChannel from '~/chat/hooks/useChannel';
-import useChannelMembers from '~/chat/hooks/useChannelMembers';
+import useChannel from '~/ila26/chat/hooks/useChannel';
+import useChannelMembers from '~/ila26/chat/hooks/useChannelMembers';
 
 interface ChatProps {
   channelId: string;

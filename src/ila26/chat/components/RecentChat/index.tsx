@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FormattedMessage } from 'react-intl';
 
-import ChatItem from '~/chat/components/ChatItem';
+import ChatItem from '~/ila26/chat/components/ChatItem';
 
 import {
   CreateNewChatIcon,
@@ -12,7 +12,7 @@ import {
   InfiniteScrollContainer,
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
-import useChannelsCollection from '~/chat/hooks/collections/useChannelsCollection';
+import useChannelsCollection from '~/ila26/chat/hooks/collections/useChannelsCollection';
 
 interface RecentChatProps {
   onChannelSelect?: (data: { channelId: string; type: string }) => void;

@@ -3,13 +3,13 @@ import { ChannelRepository, Client as ASCClient } from '@amityco/ts-sdk';
 import { useIntl } from 'react-intl';
 
 import { notification } from '~/core/components/Notification';
-import RecentChat from '~/chat/components/RecentChat';
-import Chat from '~/chat/components/Chat';
-import ChatDetails from '~/chat/components/ChatDetails';
+import RecentChat from '~/ila26/chat/components/RecentChat';
+import Chat from '~/ila26/chat/components/Chat';
+import ChatDetails from '~/ila26/chat/components/ChatDetails';
 
 import { ApplicationContainer } from './styles';
-import CreateChatModal from '~/chat/components/Chat/CreateChatModal';
-import EditChatMemberModal from '~/chat/components/ChatDetails/EditChatMemberModal';
+import CreateChatModal from '~/ila26/chat/components/Chat/CreateChatModal';
+import EditChatMemberModal from '~/ila26/chat/components/ChatDetails/EditChatMemberModal';
 
 type PartialChannel = Pick<Amity.Channel, 'channelId' | 'type'>;
 
