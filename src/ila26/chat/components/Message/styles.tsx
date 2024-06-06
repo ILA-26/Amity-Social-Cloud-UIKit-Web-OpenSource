@@ -54,11 +54,11 @@ export const MessageReservedRow = styled.div<{ isIncoming?: boolean }>`
 
 export const MessageWrapper = styled.div`
   display: flex;
-  max-width: 60%;
+  max-width: 70%;
 `;
 
 export const MessageContainer = styled.div`
-  min-width: 265px;
+  /* min-width: 265px; */
 `;
 
 export const AvatarWrapper = styled.div`

@@ -101,8 +101,8 @@ const ChatApplication = ({
       {currentChannelData ? (
         <Chat
           channelId={currentChannelData.channelId}
-          shouldShowChatDetails={shouldShowChatDetails}
-          onChatDetailsClick={showChatDetails}
+          onChatActionClick={showChatDetails}
+          variant="regular"
         />
       ) : null}
       {shouldShowChatDetails && currentChannelData ? (
