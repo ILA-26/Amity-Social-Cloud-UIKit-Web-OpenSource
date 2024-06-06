@@ -149,7 +149,7 @@ const UiKitProvider = ({
   return (
     <Localization locale={locale}>
       <ThemeProvider theme={buildGlobalTheme(theme)}>
-        <UIStyles>
+        <>
           <SDKContext.Provider value={sdkContextValue}>
             <SDKConnectorProvider>
               <CustomComponentsProvider config={customComponents}>
@@ -168,7 +168,7 @@ const UiKitProvider = ({
               </CustomComponentsProvider>
             </SDKConnectorProvider>
           </SDKContext.Provider>
-        </UIStyles>
+        </>
       </ThemeProvider>
     </Localization>
   );

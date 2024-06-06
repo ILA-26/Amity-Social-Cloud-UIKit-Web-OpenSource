@@ -1,14 +1,26 @@
 import { ILA26_internalElementsTypes, ILA26_internalData } from '~/ila26/types/customPosts';
 export { default as AmityUiKitProvider } from '~/core/providers/UiKitProvider';
-export { default as AmityUiKitFeed } from '~/social/components/Feed';
-export { default as AmityUiKitSocial } from '~/social/pages/Application';
 export { default as AmityUiKitChat } from '~/chat/pages/Application';
+
+import ILA26_AmityUiKitChat_unwrapped from '~/ila26/chat/pages/Application';
+import ILA26_AmityUiKitChatPopup_unwrapped from '~/ila26/chat/components/ChatPopup';
+import { default as AmityUiKitFeed_unwrapped, FeedProps } from '~/social/components/Feed';
+import { default as AmityUiKitSocial_unwrapped } from '~/social/pages/Application';
+
+// HOC that wrappes the passed component inside UIStyles
+import withUIStyles from './ila26/exportsWrapper';
+
+// ILA26 exports with UIStyles wrap at component level
+export const ILA26_AmityUiKitChat = withUIStyles(ILA26_AmityUiKitChat_unwrapped);
+export const ILA26_AmityUiKitChatPopup = withUIStyles(ILA26_AmityUiKitChatPopup_unwrapped);
+export const AmityUiKitFeed = withUIStyles(AmityUiKitFeed_unwrapped);
+export const AmityUiKitSocial = withUIStyles(AmityUiKitSocial_unwrapped);
 
 // Export helper
 export {
   addChatMembers as amityAddChatMembers,
   removeChatMembers as amityRemoveChatMembers,
-} from '~/chat/helpers';
+} from '~/ila26/chat/helpers';
 
 export { default as useAmityUser } from '~/core/hooks/useUser';
 export { useNavigation as useAmityNavigation } from '~/social/providers/NavigationProvider';
