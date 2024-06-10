@@ -420,7 +420,7 @@ const BaseFeed = ({
   );
 };
 
-interface FeedProps extends ILA26_internalFeedProps {
+export interface FeedProps extends ILA26_internalFeedProps {
   className?: string;
   feedType?: 'reviewing' | 'published';
   targetType?: string;
