@@ -24,6 +24,8 @@ export const Close = styled(Remove).attrs({ width: 12, height: 12 })`
 `;
 
 export const RoundButton = styled(Button)`
-  padding: 0.4rem 0.55rem;
+  padding: 5px;
   border-radius: 10rem;
+  aspect-ratio: 1;
+  width: 25px;
 `;
