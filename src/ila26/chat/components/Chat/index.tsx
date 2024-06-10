@@ -18,11 +18,11 @@ import useChannelMembers from '~/ila26/chat/hooks/useChannelMembers';
 
 export interface ChatProps {
   channelId: string;
-  variant: 'regular' | 'popup';
+  ila26_variant: 'regular' | 'popup';
   onChatActionClick: () => void;
 }
 
-const Chat = ({ channelId, variant = 'regular', onChatActionClick }: ChatProps) => {
+const Chat = ({ channelId, ila26_variant = 'regular', onChatActionClick }: ChatProps) => {
   const channel = useChannel(channelId);
   useEffect(() => {
     async function run() {
@@ -51,7 +51,7 @@ const Chat = ({ channelId, variant = 'regular', onChatActionClick }: ChatProps) 
 
   return (
     <ChannelContainer>
-      <ChatHeader channelId={channelId} onChatActionClick={onChatActionClick} variant={variant} />
+      <ChatHeader channelId={channelId} onChatActionClick={onChatActionClick} ila26_variant={ila26_variant} />
       <MessageList channelId={channelId} />
       <MessageComposeBar onSubmit={sendMessage} />
     </ChannelContainer>

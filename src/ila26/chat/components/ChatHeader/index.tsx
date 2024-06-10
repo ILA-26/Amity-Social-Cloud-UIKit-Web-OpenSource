@@ -22,15 +22,15 @@ import useChannel from '~/ila26/chat/hooks/useChannel';
 type ChatHeaderProps = {
   channelId: string;
   onChatActionClick: () => void;
-  variant?: 'regular' | 'popup';
+  ila26_variant?: 'regular' | 'popup';
 };
 
-const ChatHeader = ({ channelId, onChatActionClick, variant = 'regular' }: ChatHeaderProps) => {
+const ChatHeader = ({ channelId, onChatActionClick, ila26_variant = 'regular' }: ChatHeaderProps) => {
   const channel = useChannel(channelId);
   const { chatName, chatAvatar } = useChatInfo({ channel });
 
   return (
-    <ChatHeaderContainer $variant={variant} data-qa-anchor="chat-header">
+    <ChatHeaderContainer $variant={ila26_variant} data-qa-anchor="chat-header">
       <Channel>
         <UserAvatar
           avatarUrl={chatAvatar || undefined}
@@ -49,7 +49,7 @@ const ChatHeader = ({ channelId, onChatActionClick, variant = 'regular' }: ChatH
           </MemberCount>
         </ChannelInfo>
       </Channel>
-      {variant === 'regular' ? (
+      {ila26_variant === 'regular' ? (
         <DetailsIcon onClick={onChatActionClick} />
       ) : (
         <HeaderCloseIcon onClick={onChatActionClick} />
