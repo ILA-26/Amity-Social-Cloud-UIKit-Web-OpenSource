@@ -29,9 +29,10 @@ interface ChatItemProps {
   channelId: string;
   isSelected: boolean;
   onSelect: ({ channelId, type }: { channelId: string; type: string }) => void;
+  ila26_displayName?: string;
 }
 
-const ChatItem = ({ channelId, isSelected, onSelect }: ChatItemProps) => {
+const ChatItem = ({ channelId, isSelected, onSelect, ila26_displayName }: ChatItemProps) => {
   const channel = useChannel(channelId);
   const { chatName, chatAvatar } = useChatInfo({ channel });
 
@@ -58,7 +59,9 @@ const ChatItem = ({ channelId, isSelected, onSelect }: ChatItemProps) => {
             (channel?.memberCount || 0) > 2 ? communityBackgroundImage : userBackgroundImage
           }
         />
-        <Title>{chatName}</Title>
+        <Title>
+          {ila26_displayName ? chatName?.replace(ila26_displayName, '').replace(',', '') : chatName}
+        </Title>
       </ChatItemLeft>
       {normalizedUnreadCount && (
         <UnreadCount data-qa-anchor="chat-item-unread-count">{normalizedUnreadCount}</UnreadCount>

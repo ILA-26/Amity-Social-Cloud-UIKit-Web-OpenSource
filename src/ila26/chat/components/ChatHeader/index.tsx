@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ChannelRepository } from '@amityco/ts-sdk';
 
 import UserAvatar from '~/ila26/chat/components/UserAvatar';
 import { backgroundImage as userBackgroundImage } from '~/icons/User';
@@ -18,14 +17,14 @@ import {
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannel from '~/ila26/chat/hooks/useChannel';
+import { ChatProps } from '../Chat';
 
-type ChatHeaderProps = {
-  channelId: string;
-  onChatActionClick: () => void;
-  ila26_variant?: 'regular' | 'popup';
-};
-
-const ChatHeader = ({ channelId, onChatActionClick, ila26_variant = 'regular' }: ChatHeaderProps) => {
+const ChatHeader = ({
+  channelId,
+  ila26_displayName,
+  ila26_variant = 'regular',
+  onChatActionClick,
+}: ChatProps) => {
   const channel = useChannel(channelId);
   const { chatName, chatAvatar } = useChatInfo({ channel });
 
@@ -42,7 +41,9 @@ const ChatHeader = ({ channelId, onChatActionClick, ila26_variant = 'regular' }:
         />
         <ChannelInfo data-qa-anchor="chat-header-channel-info">
           <ChannelName data-qa-anchor="chat-header-channel-info-channel-name">
-            {chatName}
+            {ila26_displayName
+              ? chatName?.replace(ila26_displayName, '').replace(',', '')
+              : chatName}
           </ChannelName>
           <MemberCount data-qa-anchor="chat-header-channel-info-member-count">
             <FormattedMessage id="chat.members.count" values={{ count: channel?.memberCount }} />
@@ -58,8 +59,8 @@ const ChatHeader = ({ channelId, onChatActionClick, ila26_variant = 'regular' }:
   );
 };
 
-export default (props: ChatHeaderProps) => {
-  const CustomComponentFn = useCustomComponent<ChatHeaderProps>('ChatHeader');
+export default (props: ChatProps) => {
+  const CustomComponentFn = useCustomComponent<ChatProps>('ChatHeader');
 
   if (CustomComponentFn) return CustomComponentFn(props);
 
