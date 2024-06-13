@@ -20,19 +20,22 @@ export const EditingInput = styled.input`
 
 export const SaveIcon = styled(Save)<{ icon?: ReactNode }>`
   opacity: 0.7;
-  padding: 0 10px;
+  width: 20px;
+  margin: 0px 5px;
+  aspect-ratio: 1;
   cursor: pointer;
 `;
 
 export const DeleteIcon = styled(TrashIcon)`
   opacity: 0.7;
-  padding: 0 10px;
   cursor: pointer;
 `;
 
 export const CloseIcon = styled(Close)<{ icon?: ReactNode }>`
   opacity: 0.7;
-  padding: 0 10px;
+  width: 20px;
+  margin: 0px 5px;
+  aspect-ratio: 1;
   cursor: pointer;
 `;
 

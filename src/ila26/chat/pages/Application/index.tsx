@@ -16,6 +16,7 @@ type PartialChannel = Pick<Amity.Channel, 'channelId' | 'type'>;
 const ChatApplication = ({
   membershipFilter = 'all',
   defaultChannelId,
+  ila26_displayName,
   onMemberSelect,
   onChannelSelect,
   onAddNewChannel,
@@ -23,6 +24,7 @@ const ChatApplication = ({
 }: {
   membershipFilter?: 'all' | 'member' | 'notMember';
   defaultChannelId: string | null;
+  ila26_displayName?: string;
   onMemberSelect?: (member: Amity.Membership<'channel'>) => void;
   onChannelSelect?: (channel: PartialChannel) => void;
   onAddNewChannel?: () => void;
@@ -92,6 +94,7 @@ const ChatApplication = ({
       <RecentChat
         selectedChannelId={currentChannelData?.channelId}
         membershipFilter={membershipFilter}
+        ila26_displayName={ila26_displayName}
         onChannelSelect={handleChannelSelect}
         onAddNewChannelClick={() => {
           openChatModal();
@@ -102,6 +105,7 @@ const ChatApplication = ({
         <Chat
           channelId={currentChannelData.channelId}
           onChatActionClick={showChatDetails}
+          ila26_displayName={ila26_displayName}
           ila26_variant="regular"
         />
       ) : null}
