@@ -45,12 +45,9 @@ import useSDK from '~/core/hooks/useSDK';
 import useSocialMention from '~/social/hooks/useSocialMention';
 import useCommunityModeratorsCollection from '~/social/hooks/collections/useCommunityModeratorsCollection';
 import { ERROR_RESPONSE } from '~/social/constants';
-import {
-  ILA26_internalData,
-  ILA26_internalElementsTypes,
-  ILA26_internalFeedProps,
-} from '~/ila26/types/customPosts';
+import { ILA26_internalFeedProps } from '~/ila26/types/customPosts';
 import { ILA26_matchPostTextIsInternalElement } from '~/ila26/utils';
+import ILA26_CustomPostCreatorPostButton from '~/ila26/components/ILA26_CustomPostCreatorPostButton';
 
 const useTargetData = ({
   targetId,
@@ -125,6 +122,7 @@ const PostCreatorBar = ({
   loadMoreCommunities,
   onCreateSuccess,
   ILA26_getInternalData,
+  ILA26_communityManagerProps,
   maxFiles = MAX_FILES_PER_POST,
 }: PostCreatorBarProps) => {
   const { currentUserId } = useSDK();
@@ -172,7 +170,7 @@ const PostCreatorBar = ({
     });
   const [isCreating, setIsCreating] = useState(false);
 
-  async function onCreatePost() {
+  async function onCreatePost(ILA26_IsCommunityManager: boolean) {
     if (!target.targetId) return;
     try {
       setIsCreating(true);
@@ -210,8 +208,10 @@ const PostCreatorBar = ({
           : metadata;
 
       const createPostParams: Parameters<typeof PostRepository.createPost>[0] = {
-        targetId: target.targetId,
-        targetType: target.targetType,
+        targetId: ILA26_IsCommunityManager
+          ? ILA26_communityManagerProps.communityId
+          : target.targetId,
+        targetType: ILA26_IsCommunityManager ? 'community' : target.targetType,
         data,
         //@ts-ignore
         dataType: ILA26_PostDataType,
@@ -421,13 +421,14 @@ const PostCreatorBar = ({
               <PollIcon />
             </FileLoaderContainer>
           </PollButton>
-          <PostButton
-            disabled={isDisabled}
-            data-qa-anchor="post-creator-post-button"
-            onClick={onCreatePost}
-          >
-            <FormattedMessage id="post" />
-          </PostButton>
+          <ILA26_CustomPostCreatorPostButton
+            isCommunityManager={ILA26_communityManagerProps.isCommunityManager}
+            communityName={ILA26_communityManagerProps.communityName}
+            userName={user?.displayName ?? 'User'}
+            onAsEnterpriseClick={() => onCreatePost(true)}
+            onAsUserClick={() => onCreatePost(false)}
+            isDisabled={isDisabled}
+          />
         </Footer>
       </PostContainer>
     </PostCreatorContainer>

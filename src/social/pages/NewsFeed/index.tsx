@@ -6,8 +6,12 @@ import Feed from '~/social/components/Feed';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 
 import { Wrapper } from './styles';
+import { ILA26_internalFeedProps } from '~/ila26/types/customPosts';
 
-const NewsFeed = () => {
+const NewsFeed = ({
+  ILA26_communityManagerProps,
+  ILA26_getInternalData,
+}: ILA26_internalFeedProps) => {
   const { onChangePage } = useNavigation();
 
   return (
@@ -16,6 +20,8 @@ const NewsFeed = () => {
         targetType={'globalFeed'}
         goToExplore={() => onChangePage(PageTypes.Explore)}
         showPostCreator
+        ILA26_communityManagerProps={ILA26_communityManagerProps}
+        ILA26_getInternalData={ILA26_getInternalData}
       />
     </Wrapper>
   );

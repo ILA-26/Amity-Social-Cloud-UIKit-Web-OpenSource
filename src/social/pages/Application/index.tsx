@@ -27,7 +27,10 @@ const StyledCommunitySideMenu = styled(CommunitySideMenu)`
   min-height: 100%;
 `;
 
-const Community = ({ ILA26_getInternalData }: ILA26_internalFeedProps) => {
+const Community = ({
+  ILA26_getInternalData,
+  ILA26_communityManagerProps,
+}: ILA26_internalFeedProps) => {
   const { page } = useNavigation();
 
   const { client } = useSDK();
@@ -51,10 +54,20 @@ const Community = ({ ILA26_getInternalData }: ILA26_internalFeedProps) => {
       <MainLayout aside={<StyledCommunitySideMenu activeCommunity={page.communityId} />}>
         {page.type === PageTypes.Explore && <ExplorePage />}
 
-        {page.type === PageTypes.NewsFeed && <NewsFeedPage />}
+        {page.type === PageTypes.NewsFeed && (
+          <NewsFeedPage
+            ILA26_communityManagerProps={ILA26_communityManagerProps}
+            ILA26_getInternalData={ILA26_getInternalData}
+          />
+        )}
 
         {page.type === PageTypes.CommunityFeed && (
-          <CommunityFeedPage communityId={page.communityId} isNewCommunity={page.isNewCommunity} />
+          <CommunityFeedPage
+            ILA26_communityManagerProps={ILA26_communityManagerProps}
+            ILA26_getInternalData={ILA26_getInternalData}
+            communityId={page.communityId}
+            isNewCommunity={page.isNewCommunity}
+          />
         )}
 
         {page.type === PageTypes.CommunityEdit && (
@@ -67,6 +80,7 @@ const Community = ({ ILA26_getInternalData }: ILA26_internalFeedProps) => {
 
         {page.type === PageTypes.UserFeed && (
           <UserFeedPage
+            ILA26_communityManagerProps={ILA26_communityManagerProps}
             ILA26_getInternalData={ILA26_getInternalData}
             userId={page.userId}
             socialSettings={socialSettings}

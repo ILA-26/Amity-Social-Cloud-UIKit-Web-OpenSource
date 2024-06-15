@@ -14,17 +14,22 @@ import FeedHeaderTabs from '~/social/components/FeedHeaderTabs';
 import { CommunityFeedTabs } from './constants';
 import { getTabs } from './utils';
 import { DeclineBanner, Wrapper } from './styles';
-import usePosts from '~/social/hooks/usePosts';
 import useCommunityPermission from '~/social/hooks/useCommunityPermission';
 import useCommunitySubscription from '~/social/hooks/useCommunitySubscription';
 import usePostsCollection from '~/social/hooks/collections/usePostsCollection';
+import { ILA26_internalFeedProps } from '~/ila26/types/customPosts';
 
-interface CommunityFeedProps {
+interface CommunityFeedProps extends ILA26_internalFeedProps {
   communityId: string;
   isNewCommunity: boolean;
 }
 
-const CommunityFeed = ({ communityId, isNewCommunity }: CommunityFeedProps) => {
+const CommunityFeed = ({
+  communityId,
+  isNewCommunity,
+  ILA26_communityManagerProps,
+  ILA26_getInternalData,
+}: CommunityFeedProps) => {
   const community = useCommunity(communityId);
 
   const { canReview } = useCommunityPermission({ community });
@@ -77,6 +82,8 @@ const CommunityFeed = ({ communityId, isNewCommunity }: CommunityFeedProps) => {
           readonly={!isJoined}
           showPostCreator={isJoined}
           feedType={'published'}
+          ILA26_communityManagerProps={ILA26_communityManagerProps}
+          ILA26_getInternalData={ILA26_getInternalData}
         />
       )}
 
@@ -99,6 +106,8 @@ const CommunityFeed = ({ communityId, isNewCommunity }: CommunityFeedProps) => {
             readonly={!isJoined}
             showPostCreator={false}
             feedType={'reviewing'}
+            ILA26_communityManagerProps={ILA26_communityManagerProps}
+            ILA26_getInternalData={ILA26_getInternalData}
           />
         </>
       )}
