@@ -39,6 +39,7 @@ const GlobalFeed = ({
   readonly = false,
   isHiddenProfile = false,
   ILA26_getInternalData,
+  ILA26_communityManagerProps,
 }: GlobalFeedProps) => {
   const { currentUserId } = useSDK();
   const { contents, isLoading, loadMore, prependItem, removeItem, hasMore, loadMoreHasBeenCalled } =
@@ -66,6 +67,7 @@ const GlobalFeed = ({
               enablePostTargetPicker={false}
               onCreateSuccess={(newPost) => prependItem(newPost)}
               ILA26_getInternalData={ILA26_getInternalData}
+              ILA26_communityManagerProps={ILA26_communityManagerProps}
             />
           ) : null}
           {isLoading && !loadMoreHasBeenCalled ? renderLoadingSkeleton() : null}
@@ -127,6 +129,7 @@ const MyFeed = ({
   readonly = false,
   isHiddenProfile = false,
   ILA26_getInternalData,
+  ILA26_communityManagerProps,
 }: MyFeedProps) => {
   const { currentUserId } = useSDK();
 
@@ -174,6 +177,7 @@ const MyFeed = ({
             loadMoreCommunities={loadMoreCommunitiesCB}
             onCreateSuccess={onPostCreated}
             ILA26_getInternalData={ILA26_getInternalData}
+            ILA26_communityManagerProps={ILA26_communityManagerProps}
           />
 
           {isLoading && !loadMoreHasBeenCalled ? renderLoadingSkeleton() : null}
@@ -273,6 +277,11 @@ const CommunityFeed = ({
               enablePostTargetPicker={false}
               onCreateSuccess={onPostCreated}
               ILA26_getInternalData={ILA26_getInternalData}
+              ILA26_communityManagerProps={{
+                isCommunityManager: false,
+                communityId: undefined,
+                communityName: undefined,
+              }}
             />
           ) : null}
 
@@ -338,6 +347,7 @@ const BaseFeed = ({
   readonly = false,
   isHiddenProfile = false,
   ILA26_getInternalData,
+  ILA26_communityManagerProps,
 }: BaseFeedProps) => {
   const { posts, hasMore, loadMore, isLoading, loadMoreHasBeenCalled } = usePostsCollection({
     targetType,
@@ -377,6 +387,7 @@ const BaseFeed = ({
               loadMoreCommunities={loadMoreCommunities}
               onCreateSuccess={onPostCreated}
               ILA26_getInternalData={ILA26_getInternalData}
+              ILA26_communityManagerProps={ILA26_communityManagerProps}
             />
           )}
 
@@ -441,17 +452,24 @@ const getActualTargetType = (targetType: string | undefined | null) => {
 };
 
 const Feed = (props: FeedProps) => {
-  const { targetType, ILA26_getInternalData, ...rest } = props;
+  const { targetType, ILA26_getInternalData, ILA26_communityManagerProps, ...rest } = props;
 
   const actualTargetType = getActualTargetType(targetType);
 
   if (actualTargetType === 'feed') {
-    return <GlobalFeed ILA26_getInternalData={ILA26_getInternalData} {...rest} />;
+    return (
+      <GlobalFeed
+        ILA26_getInternalData={ILA26_getInternalData}
+        ILA26_communityManagerProps={ILA26_communityManagerProps}
+        {...rest}
+      />
+    );
   }
   if (actualTargetType === 'myFeed') {
     return (
       <MyFeed
         ILA26_getInternalData={ILA26_getInternalData}
+        ILA26_communityManagerProps={ILA26_communityManagerProps}
         {...rest}
         targetType={actualTargetType}
       />
@@ -462,6 +480,7 @@ const Feed = (props: FeedProps) => {
     return (
       <CommunityFeed
         ILA26_getInternalData={ILA26_getInternalData}
+        ILA26_communityManagerProps={ILA26_communityManagerProps} // redundant, syntactic sugar only
         {...rest}
         targetType={actualTargetType}
       />
@@ -471,6 +490,7 @@ const Feed = (props: FeedProps) => {
   return (
     <BaseFeed
       ILA26_getInternalData={ILA26_getInternalData}
+      ILA26_communityManagerProps={ILA26_communityManagerProps}
       {...rest}
       targetType={actualTargetType}
     />

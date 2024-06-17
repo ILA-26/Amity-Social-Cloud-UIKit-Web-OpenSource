@@ -14,6 +14,17 @@ type ILA26_internalData =
 type ILA26_internalElementsTypes = 'serviceOffer' | 'marketplaceProduct';
 
 type ILA26_internalFeedProps = {
+  ILA26_communityManagerProps:
+    | {
+        isCommunityManager: true;
+        communityId: string;
+        communityName: string;
+      }
+    | {
+        isCommunityManager: false;
+        communityId: undefined;
+        communityName: undefined;
+      };
   ILA26_getInternalData: (
     typeOfRequest: ILA26_internalElementsTypes,
     elementId: string,

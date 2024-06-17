@@ -24,7 +24,12 @@ interface UserFeedProps extends ILA26_internalFeedProps {
   socialSettings: Amity.SocialSettings | null;
 }
 
-const UserFeed = ({ userId, socialSettings, ILA26_getInternalData }: UserFeedProps) => {
+const UserFeed = ({
+  userId,
+  socialSettings,
+  ILA26_getInternalData,
+  ILA26_communityManagerProps,
+}: UserFeedProps) => {
   const { currentUserId } = useSDK();
 
   const [activeTab, setActiveTab] = useState(UserFeedTabs.TIMELINE);
@@ -77,6 +82,7 @@ const UserFeed = ({ userId, socialSettings, ILA26_getInternalData }: UserFeedPro
       {activeTab === UserFeedTabs.TIMELINE && (
         <Feed
           ILA26_getInternalData={ILA26_getInternalData}
+          ILA26_communityManagerProps={ILA26_communityManagerProps}
           targetType={isMe ? 'myFeed' : 'user'}
           targetId={userId}
           showPostCreator={isMe}
