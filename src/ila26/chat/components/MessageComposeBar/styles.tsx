@@ -37,8 +37,23 @@ export const MessageComposeBarContainer = styled.div`
   padding: 12px 16px 16px 16px;
   background: ${({ theme }) => theme.palette.system.background};
   border-top: 1px solid #e3e4e8;
-  display: flex;
   align-items: center;
+`;
+
+export const UploadsContainer = styled.div`
+  padding: 0 12px;
+`;
+
+export const MessageTextComposerContainer = styled.div`
+  display: flex;
+`;
+
+export const AttachementComposerContainer = styled.div`
+  display: flex;
+  margin-top: 10px;
+  & > :not(:last-child) {
+    margin-right: 10px;
+  }
 `;
 
 export const MessageComposeBarInput = styled.input`
