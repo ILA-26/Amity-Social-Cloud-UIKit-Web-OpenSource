@@ -16,9 +16,10 @@ interface MessageItemProps {
   isConsequent: boolean;
   isIncoming: boolean;
   containerRef: React.RefObject<HTMLDivElement>;
+  ila26_variant: 'regular' | 'popup';
 }
 
-const MessageItem = ({ message, isConsequent, isIncoming, containerRef }: MessageItemProps) => {
+const MessageItem = ({ message, isConsequent, isIncoming, containerRef, ila26_variant }: MessageItemProps) => {
   const user = useUser(message.creatorId);
   const avatarFileUrl = useImage({ fileId: user?.avatarFileId, imageSize: 'small' });
 
@@ -35,15 +36,17 @@ const MessageItem = ({ message, isConsequent, isIncoming, containerRef }: Messag
       isConsequent={isConsequent}
       isIncoming={isIncoming}
       containerRef={containerRef}
+      ila26_variant={ila26_variant}
     />
   );
 };
 
 interface MessageListProps {
   channelId: string;
+  ila26_variant: 'regular' | 'popup';
 }
 
-const MessageList = ({ channelId }: MessageListProps) => {
+const MessageList = ({ channelId, ila26_variant }: MessageListProps) => {
   const { client } = useSDK();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const { messages, hasMore, loadMore, isLoading } = useMessagesCollection({
@@ -85,6 +88,7 @@ const MessageList = ({ channelId }: MessageListProps) => {
                   isConsequent={isConsequent}
                   isIncoming={isIncoming}
                   containerRef={containerRef}
+                  ila26_variant={ila26_variant}
                 />
               );
             })}

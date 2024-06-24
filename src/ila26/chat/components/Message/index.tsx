@@ -54,6 +54,7 @@ interface MessageProps {
   isConsequent: boolean;
   userDisplayName: string;
   containerRef: React.RefObject<HTMLDivElement>;
+  ila26_variant: 'regular' | 'popup';
 }
 
 const Message = ({
@@ -67,9 +68,10 @@ const Message = ({
   isConsequent,
   userDisplayName,
   containerRef,
+  ila26_variant,
 }: MessageProps) => {
   const shouldShowUserName = isIncoming && !isConsequent && userDisplayName;
-  const isSupportedMessageType = ['text', 'custom'].includes(type);
+  const isSupportedMessageType = ['text', 'custom', 'image'].includes(type);
 
   const renderAvatar = () => {
     if (avatar) return <Avatar avatar={avatar} />;
@@ -82,7 +84,7 @@ const Message = ({
       <MessageWrapper>
         {isIncoming && <AvatarWrapper>{!isConsequent && renderAvatar()}</AvatarWrapper>}
 
-        <MessageContainer data-qa-anchor="message">
+        <MessageContainer variant={ila26_variant} data-qa-anchor="message">
           {shouldShowUserName && <UserName>{userDisplayName}</UserName>}
           <MessageBody
             type={type}

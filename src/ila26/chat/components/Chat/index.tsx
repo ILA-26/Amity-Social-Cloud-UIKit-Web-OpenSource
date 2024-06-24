@@ -67,7 +67,7 @@ const Chat = (props: ChatProps) => {
   return (
     <ChannelContainer>
       <ChatHeader {...props} />
-      <MessageList channelId={props.channelId} />
+      <MessageList ila26_variant={props.ila26_variant || "regular"} channelId={props.channelId} />
       <MessageComposeBar onSubmit={sendMessage} />
     </ChannelContainer>
   );

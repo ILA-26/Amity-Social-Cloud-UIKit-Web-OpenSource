@@ -57,11 +57,16 @@ export const MessageReservedRow = styled.div<{ isIncoming?: boolean }>`
 
 export const MessageWrapper = styled.div`
   display: flex;
-  max-width: 70%;
+  max-width: 50%;
 `;
 
-export const MessageContainer = styled.div`
-  /* min-width: 265px; */
+export const MessageContainer = styled.div<{ variant: 'regular' | 'popup' }>`
+  max-width: 100%;
+  @media screen and (max-width: 1600px) {
+    & {
+      ${({ variant }) => variant === 'regular' && 'max-width: 300px;'}
+    }
+  }
 `;
 
 export const AvatarWrapper = styled.div`
