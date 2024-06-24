@@ -21,7 +21,7 @@ interface MessageComposeBarProps {
   onSubmit: (message: string) => void;
 }
 
-const MAX_FILES_PER_POST = 1;
+const MAX_FILES_PER_POST = 3;
 
 const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
   const [message, setMessage] = useState('');
@@ -65,7 +65,7 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
           value={message}
           placeholder={formatMessage({ id: 'MessageComposeBar.placeholder' })}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+          onKeyUp={(e) => e.key === 'Enter' && sendMessage()}
         />
         <SendMessageIcon
           data-qa-anchor="message-compose-bar-send-message-button"

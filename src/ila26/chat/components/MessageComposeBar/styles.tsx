@@ -41,7 +41,8 @@ export const MessageComposeBarContainer = styled.div`
 `;
 
 export const UploadsContainer = styled.div`
-  padding: 0 12px;
+  margin: 10px 0px;
+  max-height: 200px;
 `;
 
 export const MessageTextComposerContainer = styled.div`

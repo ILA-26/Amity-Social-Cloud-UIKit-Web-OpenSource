@@ -1,13 +1,19 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import GalleryGrid from '~/core/components/GalleryGrid';
 import Image from '~/core/components/Uploaders/Image';
 import useFileUpload, { isAmityFile } from '~/core/hooks/useFileUpload';
 
-const StyledGalleryGrid = styled(GalleryGrid)<
-  { uploadLoading?: boolean } & React.ComponentProps<typeof GalleryGrid<Amity.File | File>>
->`
+const Gallery = styled('div')<{ uploadLoading?: boolean }>`
+  display: flex;
+  max-height: 200px;
+  &:first-child div {
+    max-width: 300px;
+    max-height: 200px;
+  }
+  &:first-child div:not(:last-child) {
+    margin-right: 5px;
+  }
   ${({ uploadLoading }) =>
     uploadLoading &&
     css`
@@ -33,10 +39,8 @@ const ImagesGallery = ({
   retry,
 }: ImagesGalleryProps) => {
   return (
-    <StyledGalleryGrid
-      items={allFiles}
-      uploadLoading={uploadLoading}
-      renderItem={(file) => {
+    <Gallery uploadLoading={uploadLoading}>
+      {allFiles.map((file) => {
         if (!isAmityFile(file)) {
           return (
             <Image
@@ -57,8 +61,8 @@ const ImagesGallery = ({
             onRemove={() => removeFile(file)}
           />
         );
-      }}
-    />
+      })}
+    </Gallery>
   );
 };
 
