@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import {
@@ -16,9 +16,11 @@ import VideosUploaded from '~/ila26/chat/components/Uploaders/VideosUploaded';
 import FilesUploaded from '~/ila26/chat/components/Uploaders/FilesUploaded';
 import useErrorNotification from '~/core/hooks/useErrorNotification';
 import { notification } from '~/core/components/Notification';
+import { MessageType } from '../Chat';
+import { MessageContentType } from '@amityco/ts-sdk';
 
 interface MessageComposeBarProps {
-  onSubmit: (message: string) => void;
+  onSubmit: (type: MessageType, text?: string, fileId?: string) => void;
 }
 
 const MAX_FILES_PER_POST = 3;
@@ -28,10 +30,19 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
 
   const { formatMessage } = useIntl();
 
-  const sendMessage = () => {
-    if (message === '') return;
-    onSubmit(message);
-    setMessage('');
+  const sendMessage = async () => {
+    if (postImages.length > 0) {
+      await Promise.all(postImages.map(async (image) => {
+        return onSubmit(MessageContentType.IMAGE, undefined, image.fileId);
+      }));
+      
+      setPostImages([]);
+      setIncomingFiles([]);
+    }
+    if (message) {
+      onSubmit(MessageContentType.TEXT, message);
+      setMessage('');
+    }
   };
 
   const [postImages, setPostImages] = useState<Amity.File[]>([]);

@@ -80,3 +80,5 @@ export {
   ILA26_PostTextUrlRemoval,
   ILA26_PostTextUrlExtractor,
 };
+
+export type ILA26_Values<T> = T[keyof T];
