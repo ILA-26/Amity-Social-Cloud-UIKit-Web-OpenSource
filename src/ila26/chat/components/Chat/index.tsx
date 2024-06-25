@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { createContext, useEffect } from 'react';
 import {
   MessageRepository,
   ChannelRepository,
@@ -24,6 +24,10 @@ export interface ChatProps {
 }
 
 export type MessageType = ILA26_Values<typeof MessageContentType>;
+
+export const PropsContext = createContext<{ variant: 'regular' | 'popup'; auth_displayName?: string }>({
+  variant: 'regular',
+});
 
 const Chat = (props: ChatProps) => {
   const channel = useChannel(props.channelId);
@@ -65,11 +69,13 @@ const Chat = (props: ChatProps) => {
   };
 
   return (
-    <ChannelContainer>
-      <ChatHeader {...props} />
-      <MessageList ila26_variant={props.ila26_variant || "regular"} channelId={props.channelId} />
-      <MessageComposeBar onSubmit={sendMessage} />
-    </ChannelContainer>
+    <PropsContext.Provider value={{ variant: props.ila26_variant || "regular" }}>
+      <ChannelContainer>
+        <ChatHeader {...props} />
+        <MessageList channelId={props.channelId} />
+        <MessageComposeBar onSubmit={sendMessage} />
+      </ChannelContainer>
+    </PropsContext.Provider>
   );
 };
 
