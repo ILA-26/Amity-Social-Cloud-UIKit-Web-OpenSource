@@ -9,6 +9,10 @@ export const UserHeaderContainer = styled.div<{ noSubtitle?: boolean }>`
   grid-template-rows: min-content min-content;
   grid-gap: 0 0.5em;
   padding: 1em;
+  &:hover {
+    background-color: #ebecee;
+  }
+  cursor: pointer;
   ${({ noSubtitle }) =>
     !noSubtitle &&
     css`

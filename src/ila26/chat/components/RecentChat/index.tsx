@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import ChatItem from '~/ila26/chat/components/ChatItem';
 
@@ -10,9 +10,16 @@ import {
   RecentHeader,
   RecentHeaderLabel,
   InfiniteScrollContainer,
+  SearchInput,
+  SearchContainer,
+  SearchIcon,
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannelsCollection from '~/ila26/chat/hooks/collections/useChannelsCollection';
+import { useUserQueryByDisplayName } from '~/core/hooks/useUserQuery';
+import useSDK from '~/core/hooks/useSDK';
+import UserHeader from '~/social/components/UserHeader';
+import useCreateChannel from '~/ila26/chat/hooks/useCreateChannel';
 
 interface RecentChatProps {
   onChannelSelect?: (data: { channelId: string; type: string }) => void;
@@ -35,6 +42,32 @@ const RecentChat = ({
     limit: 20,
   });
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const { formatMessage } = useIntl();
+  const { currentUserId } = useSDK();
+
+  const [searchUserQuery, setSearchUserQuery] = useState('');
+  const { createChannel } = useCreateChannel();
+  const { users: queriedUsers = [] } = useUserQueryByDisplayName(searchUserQuery);
+
+  const options = useMemo(
+    () =>
+      queriedUsers.filter(
+        ({ displayName, userId }) =>
+          displayName?.toLowerCase().includes(searchUserQuery.toLowerCase()) &&
+          userId !== currentUserId,
+      ),
+    [queriedUsers],
+  );
+
+  const handleSelectUser = async (option: Amity.User) => {
+    if (option.displayName && onChannelSelect) {
+      const channel = await createChannel([option.userId], option.displayName);
+      setSearchUserQuery('');
+      if (channel && channel._id) {
+        onChannelSelect({ channelId: channel._id, type: channel.type });
+      }
+    }
+  };
 
   return (
     <RecentContainer>
@@ -50,6 +83,15 @@ const RecentChat = ({
           onClick={onAddNewChannelClick}
         />
       </RecentHeader>
+      <SearchContainer>
+        <SearchIcon />
+        <SearchInput
+          type="text"
+          placeholder={formatMessage({ id: 'chat.searchUser' })}
+          onChange={(e) => setSearchUserQuery(e.target.value)}
+          value={searchUserQuery}
+        />
+      </SearchContainer>
       <InfiniteScrollContainer ref={containerRef} data-qa-anchor="chat-list">
         {containerRef.current ? (
           <InfiniteScroll
@@ -61,18 +103,22 @@ const RecentChat = ({
             dataLength={channels.length}
             height={containerRef.current.clientHeight}
           >
-            {Array.isArray(channels) &&
-              channels.map((channel) => (
-                <ChatItem
-                  key={channel.channelId}
-                  channelId={channel.channelId}
-                  ila26_displayName={ila26_displayName}
-                  isSelected={selectedChannelId === channel.channelId}
-                  onSelect={(data) => {
-                    onChannelSelect?.(data);
-                  }}
-                />
-              ))}
+            {options.length > 0 && searchUserQuery !== ''
+              ? options.map((option) => (
+                  <UserHeader userId={option.userId} onClick={() => handleSelectUser(option)} />
+                ))
+              : Array.isArray(channels) &&
+                channels.map((channel) => (
+                  <ChatItem
+                    key={channel.channelId}
+                    channelId={channel.channelId}
+                    ila26_displayName={ila26_displayName}
+                    isSelected={selectedChannelId === channel.channelId}
+                    onSelect={(data) => {
+                      onChannelSelect?.(data);
+                    }}
+                  />
+                ))}
           </InfiniteScroll>
         ) : null}
       </InfiniteScrollContainer>

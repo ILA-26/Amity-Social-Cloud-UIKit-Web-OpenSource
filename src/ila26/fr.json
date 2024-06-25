@@ -222,6 +222,7 @@
   "chat.message.deleted": "Le message a été supprimé",
   "chat.message.unsupported": "Type de message non pris en charge",
   "chat.chats": "Chats",
+  "chat.searchUser": "Rechercher un utilisateur par nom",
   "chat.details.header": "Détails du chat",
   "chat.details.chatName": "Nom du chat",
   "chat.leaveChat": "Quitter le chat",
