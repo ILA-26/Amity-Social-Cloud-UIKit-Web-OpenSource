@@ -15,7 +15,6 @@ export const ChatHeaderContainer = styled.div<{ $variant: 'regular' | 'popup' }>
   height: 76px;
   padding: 0 20px;
   background: ${({ theme }) => theme.palette.system.background};
-  border-top: 1px solid #e3e4e8;
   border-bottom: 1px solid #e3e4e8;
   border-top-right-radius: ${(props) => (props.$variant === 'popup' ? '10px' : '0px')};
   border-top-left-radius: ${(props) => (props.$variant === 'popup' ? '10px' : '0px')};

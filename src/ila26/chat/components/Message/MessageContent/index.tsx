@@ -4,6 +4,8 @@ import Deleted from './Deleted';
 import Text from './Text';
 import Custom from './Custom';
 import Unsupported from './Unsupported';
+import Image from './Image';
+import { MessageContentType } from '@amityco/ts-sdk';
 
 type MessageContentProps = {
   isDeleted?: boolean;
@@ -17,6 +19,12 @@ function isTextProps(
   props: MessageContentProps,
 ): props is { data: { text: string }; type: 'text' } {
   return props.type === 'text';
+}
+
+function isImageProps(
+  props: MessageContentProps,
+): props is { data: { text: string, fileId: string }; type: 'text' } {
+  return props.type === MessageContentType.IMAGE;
 }
 
 function isCustomProps(props: MessageContentProps): props is { data: unknown; type: 'custom' } {
@@ -34,6 +42,10 @@ const MessageContent = (props: MessageContentProps) => {
   }
   if (isCustomProps(props)) {
     return <Custom data={props.data} />;
+  }
+
+  if(isImageProps(props)) {
+    return <Image data={props.data} />
   }
 
   return <Unsupported />;

@@ -8,7 +8,7 @@ export const SendMessageIcon = styled(SendMessage).attrs<{ icon?: ReactNode }>({
 })`
   cursor: pointer;
   margin-left: 12px;
-  margin-right: 8px;
+  margin-right: 0px;
   fill: #0f86fe;
 `;
 
@@ -37,8 +37,25 @@ export const MessageComposeBarContainer = styled.div`
   padding: 12px 16px 16px 16px;
   background: ${({ theme }) => theme.palette.system.background};
   border-top: 1px solid #e3e4e8;
+  align-items: center;
+`;
+
+export const UploadsContainer = styled.div`
+  margin: 10px 0px;
+  max-height: 200px;
+`;
+
+export const MessageTextComposerContainer = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const AttachementComposerContainer = styled.div`
+  display: flex;
+  margin-top: 10px;
+  & > :not(:last-child) {
+    margin-right: 10px;
+  }
 `;
 
 export const MessageComposeBarInput = styled.input`
