@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { debounce } from 'lodash';
 
 import ChatItem from '~/ila26/chat/components/ChatItem';
 
@@ -42,6 +43,7 @@ const RecentChat = ({
     limit: 20,
   });
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { formatMessage } = useIntl();
   const { currentUserId } = useSDK();
 
@@ -49,6 +51,9 @@ const RecentChat = ({
   const { createChannel } = useCreateChannel();
   const { users: queriedUsers = [] } = useUserQueryByDisplayName(searchUserQuery);
 
+  const debouncedSetSearchUserQuery = useMemo(() => debounce(setSearchUserQuery, 300), []);
+
+  // Remove current user from list of optionss
   const options = useMemo(
     () =>
       queriedUsers.filter(
@@ -62,7 +67,11 @@ const RecentChat = ({
   const handleSelectUser = async (option: Amity.User) => {
     if (option.displayName && onChannelSelect) {
       const channel = await createChannel([option.userId], option.displayName);
+      if (inputRef.current) {
+        inputRef.current.value = '';
+      }
       setSearchUserQuery('');
+
       if (channel && channel._id) {
         onChannelSelect({ channelId: channel._id, type: channel.type });
       }
@@ -86,10 +95,10 @@ const RecentChat = ({
       <SearchContainer>
         <SearchIcon />
         <SearchInput
+          ref={inputRef}
           type="text"
           placeholder={formatMessage({ id: 'chat.searchUser' })}
-          onChange={(e) => setSearchUserQuery(e.target.value)}
-          value={searchUserQuery}
+          onChange={(e) => debouncedSetSearchUserQuery(e.target.value)}
         />
       </SearchContainer>
       <InfiniteScrollContainer ref={containerRef} data-qa-anchor="chat-list">

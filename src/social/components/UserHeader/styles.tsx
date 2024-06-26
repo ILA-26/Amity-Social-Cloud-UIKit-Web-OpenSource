@@ -12,6 +12,10 @@ export const UserHeaderContainer = styled.div<{ noSubtitle?: boolean }>`
   &:hover {
     background-color: #ebecee;
   }
+  &:active {
+    background-color: #eff4fe;
+  }
+  
   cursor: pointer;
   ${({ noSubtitle }) =>
     !noSubtitle &&
