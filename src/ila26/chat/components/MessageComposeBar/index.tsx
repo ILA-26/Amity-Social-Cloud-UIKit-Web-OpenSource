@@ -57,7 +57,7 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
 
   const onMaxFilesLimit = () => {
     notification.info({
-      content: <FormattedMessage id="upload.attachmentLimit" values={{ MAX_FILES_PER_POST }} />,
+      content: <FormattedMessage id="upload.attachmentLimit" values={{ maxFiles: MAX_FILES_PER_POST }} />,
     });
   };
 
