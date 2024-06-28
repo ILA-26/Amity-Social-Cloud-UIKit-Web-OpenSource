@@ -102,7 +102,7 @@ const RecentChat = ({
   const renderContent = () => {
     if (searchUserQuery != '') {
       if (options.length === 0 && !isLoadingUsers && searchUserQuery.length > 2) {
-        return <Center>No Results</Center>;
+        return <Center><FormattedMessage id='chat.noResults' /></Center>;
       }
       return options.map((option) => (
         <UserHeader userId={option.userId} onClick={() => handleSelectUser(option)} />
@@ -153,7 +153,7 @@ const RecentChat = ({
             scrollThreshold={0.7}
             hasMore={hasMore}
             next={loadMore}
-            loader={(isLoadingChannels || isLoadingUsers) && <Center key={0}>Loading...</Center>}
+            loader={(isLoadingChannels || isLoadingUsers) && <Center key={0}><FormattedMessage id='chat.loading' />...</Center>}
             dataLength={channels.length}
             height={containerRef.current.clientHeight}
           >
