@@ -69,3 +69,7 @@ export const SearchIcon = styled(Search).attrs<{ icon?: ReactNode }>({
   text-align: center;
   fill: gray;
 `;
+
+export const Center = styled.p`
+  text-align: center;
+`;
