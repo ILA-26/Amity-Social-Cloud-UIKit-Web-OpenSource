@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { debounce } from 'lodash';
+import { debounce, union } from 'lodash';
 
 import ChatItem from '~/ila26/chat/components/ChatItem';
 
@@ -14,6 +14,7 @@ import {
   SearchInput,
   SearchContainer,
   SearchIcon,
+  Center,
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannelsCollection from '~/ila26/chat/hooks/collections/useChannelsCollection';
@@ -21,6 +22,8 @@ import { useUserQueryByDisplayName } from '~/core/hooks/useUserQuery';
 import useSDK from '~/core/hooks/useSDK';
 import UserHeader from '~/social/components/UserHeader';
 import useCreateChannel from '~/ila26/chat/hooks/useCreateChannel';
+import useFollowersCollection from '~/core/hooks/collections/useFollowersCollection';
+import useFollowingsCollection from '~/core/hooks/collections/useFollowingsCollection';
 
 interface RecentChatProps {
   onChannelSelect?: (data: { channelId: string; type: string }) => void;
@@ -37,7 +40,12 @@ const RecentChat = ({
   membershipFilter,
   ila26_displayName,
 }: RecentChatProps) => {
-  const { channels, hasMore, loadMore } = useChannelsCollection({
+  const {
+    channels,
+    hasMore,
+    loadMore,
+    isLoading: isLoadingChannels,
+  } = useChannelsCollection({
     membership: membershipFilter,
     sortBy: 'lastActivity',
     limit: 20,
@@ -46,12 +54,24 @@ const RecentChat = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const { formatMessage } = useIntl();
   const { currentUserId } = useSDK();
+  const { followers } = useFollowersCollection({ userId: currentUserId, status: 'accepted' });
+  const { followings } = useFollowingsCollection({ userId: currentUserId, status: 'accepted' });
 
   const [searchUserQuery, setSearchUserQuery] = useState('');
   const { createChannel } = useCreateChannel();
-  const { users: queriedUsers = [] } = useUserQueryByDisplayName(searchUserQuery);
+  const { users: queriedUsers = [], isLoading: isLoadingUsers } =
+    useUserQueryByDisplayName(searchUserQuery);
 
   const debouncedSetSearchUserQuery = useMemo(() => debounce(setSearchUserQuery, 300), []);
+
+  const connections = useMemo(
+    () =>
+      union(
+        followers?.map((follower) => follower.from),
+        followings?.map((following) => following.to),
+      ),
+    [followers, followings],
+  );
 
   // Remove current user from list of optionss
   const options = useMemo(
@@ -59,7 +79,8 @@ const RecentChat = ({
       queriedUsers.filter(
         ({ displayName, userId }) =>
           displayName?.toLowerCase().includes(searchUserQuery.toLowerCase()) &&
-          userId !== currentUserId,
+          userId !== currentUserId &&
+          connections.includes(userId),
       ),
     [queriedUsers],
   );
@@ -75,6 +96,30 @@ const RecentChat = ({
       if (channel && channel._id) {
         onChannelSelect({ channelId: channel._id, type: channel.type });
       }
+    }
+  };
+
+  const renderContent = () => {
+    if (searchUserQuery != '') {
+      if (options.length === 0 && !isLoadingUsers && searchUserQuery.length > 2) {
+        return <Center><FormattedMessage id='chat.noResults' /></Center>;
+      }
+      return options.map((option) => (
+        <UserHeader userId={option.userId} onClick={() => handleSelectUser(option)} />
+      ));
+    }
+    if (Array.isArray(channels)) {
+      return channels.map((channel) => (
+        <ChatItem
+          key={channel.channelId}
+          channelId={channel.channelId}
+          ila26_displayName={ila26_displayName}
+          isSelected={selectedChannelId === channel.channelId}
+          onSelect={(data) => {
+            onChannelSelect?.(data);
+          }}
+        />
+      ));
     }
   };
 
@@ -108,26 +153,11 @@ const RecentChat = ({
             scrollThreshold={0.7}
             hasMore={hasMore}
             next={loadMore}
-            loader={hasMore && <span key={0}>Loading...</span>}
+            loader={(isLoadingChannels || isLoadingUsers) && <Center key={0}><FormattedMessage id='chat.loading' />...</Center>}
             dataLength={channels.length}
             height={containerRef.current.clientHeight}
           >
-            {options.length > 0 && searchUserQuery !== ''
-              ? options.map((option) => (
-                  <UserHeader userId={option.userId} onClick={() => handleSelectUser(option)} />
-                ))
-              : Array.isArray(channels) &&
-                channels.map((channel) => (
-                  <ChatItem
-                    key={channel.channelId}
-                    channelId={channel.channelId}
-                    ila26_displayName={ila26_displayName}
-                    isSelected={selectedChannelId === channel.channelId}
-                    onSelect={(data) => {
-                      onChannelSelect?.(data);
-                    }}
-                  />
-                ))}
+            {renderContent()}
           </InfiniteScroll>
         ) : null}
       </InfiniteScrollContainer>
