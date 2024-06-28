@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from 'react';
+import React, { memo, useMemo, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import { useUserQueryByDisplayName } from '~/core/hooks/useUserQuery';
@@ -9,6 +9,9 @@ import UserChip from '~/core/components/UserChip';
 import { Selector, UserSelectorInput } from './styles';
 import useSDK from '~/core/hooks/useSDK';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
+import useFollowersCollection from '~/core/hooks/collections/useFollowersCollection';
+import useFollowingsCollection from '~/core/hooks/collections/useFollowingsCollection';
+import { union } from 'lodash';
 
 interface UserSelectorProps {
   value?: string[];
@@ -24,11 +27,24 @@ const UserSelector = ({ value, onChange, parentContainer = null }: UserSelectorP
   const [query, setQuery] = useState('');
   const { users: queriedUsers = [] } = useUserQueryByDisplayName(query);
   const { formatMessage } = useIntl();
+  const { followers } = useFollowersCollection({ userId: currentUserId, status: 'accepted' });
+  const { followings } = useFollowingsCollection({ userId: currentUserId, status: 'accepted' });
+
+  const connections = useMemo(
+    () =>
+      union(
+        followers?.map((follower) => follower.from),
+        followings?.map((following) => following.to),
+      ),
+    [followers, followings],
+  );
 
   const options = queriedUsers
     .filter(
       ({ displayName, userId }) =>
-        displayName?.toLowerCase().includes(query.toLowerCase()) && userId !== currentUserId,
+        displayName?.toLowerCase().includes(query.toLowerCase()) &&
+        userId !== currentUserId &&
+        connections.includes(userId),
     )
     .map(({ displayName, userId }) => ({
       name: displayName,

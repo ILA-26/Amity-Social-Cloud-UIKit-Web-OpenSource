@@ -6,7 +6,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import ChatTypeSelector from '~/ila26/chat/components/Chat/ChatTypeSelector';
 import AvatarUploader from '~/social/components/CommunityForm/AvatarUploader';
 import Button from '~/core/components/Button';
-import UserSelector from '~/social/components/UserSelector';
+import UserSelector from '~/ila26/social/components/UserSelector';
 
 import {
   FormBlockBody,
