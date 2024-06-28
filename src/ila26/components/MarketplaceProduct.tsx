@@ -13,6 +13,35 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
 
   return (
     <>
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '180px',
+          marginBottom: '1rem',
+          borderRadius: '8px',
+          overflow: 'hidden',
+        }}
+      >
+        <img
+          src={
+            metadata?.productPicture?.azureBlobUri ??
+            'https://stilan26prdfront.blob.core.windows.net/b2c/logo.c116c8b3.jpg'
+          }
+          style={{ width: '100%', maxHeight: '180px', objectFit: 'cover' }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            background:
+              ' linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.163) 5%, rgba(255,255,255,0) 100%)',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+          }}
+        ></div>
+      </div>
       <span
         style={{
           background: '#5C2DD3',
