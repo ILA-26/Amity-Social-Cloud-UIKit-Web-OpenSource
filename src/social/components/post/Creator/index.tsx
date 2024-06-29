@@ -314,7 +314,7 @@ const PostCreatorBar = ({
           targetType={creatorTargetType}
           onCreatePoll={async (pollId, text, pollMentionees, metadata) => {
             if (!creatorTargetId) return;
-            await PostRepository.createPost({
+            const { data: post } = await PostRepository.createPost({
               targetId: creatorTargetId,
               targetType: creatorTargetType,
               data: { pollId, text },
@@ -322,6 +322,7 @@ const PostCreatorBar = ({
               mentionees: pollMentionees,
               metadata,
             });
+            onCreateSuccess?.(post);
           }}
           onClose={() => setPollModalOpened(false)}
         />
