@@ -100,6 +100,7 @@ const ChatApplication = ({
       />
       {currentChannelData ? (
         <Chat
+          key={currentChannelData.channelId}
           channelId={currentChannelData.channelId}
           onChatActionClick={showChatDetails}
           ila26_variant="regular"
