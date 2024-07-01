@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { debounce, union } from 'lodash';
@@ -61,6 +61,12 @@ const RecentChat = ({
     useUserQueryByDisplayName(searchUserQuery);
 
   const debouncedSetSearchUserQuery = useMemo(() => debounce(setSearchUserQuery, 300), []);
+
+  useEffect(() => {
+    if (channels.length > 0 && onChannelSelect) {
+      onChannelSelect({ channelId: channels[0]._id, type: 'standard' });
+    }
+  }, [channels]);
 
   const connections = useMemo(
     () =>
