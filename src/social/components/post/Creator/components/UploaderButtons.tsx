@@ -24,8 +24,6 @@ interface UploaderButtonsProps {
   onChangeVideos?: (files: File[]) => void;
   onChangeFiles?: (files: File[]) => void;
   uploadLoading?: boolean;
-  onMaxFilesLimit?: () => void;
-  onFileSizeLimit?: () => void;
   fileLimitRemaining?: number | null;
 }
 
@@ -37,8 +35,6 @@ const PostCreatorUploaders = ({
   onChangeVideos,
   onChangeFiles,
   uploadLoading,
-  onMaxFilesLimit,
-  onFileSizeLimit,
   fileLimitRemaining,
 }: UploaderButtonsProps): JSX.Element => (
   <>
@@ -50,8 +46,6 @@ const PostCreatorUploaders = ({
       mimeType="image/jpeg, image/png"
       multiple
       onChange={onChangeImages}
-      onMaxFilesLimit={onMaxFilesLimit}
-      onFileSizeLimit={onFileSizeLimit}
     >
       <ImageAttachmentIcon />
     </StyledLoader>
@@ -69,8 +63,6 @@ const PostCreatorUploaders = ({
         });
         onChangeVideos?.(files);
       }}
-      onMaxFilesLimit={onMaxFilesLimit}
-      onFileSizeLimit={onFileSizeLimit}
     >
       <VideoAttachmentIcon />
     </StyledLoader>
@@ -82,8 +74,6 @@ const PostCreatorUploaders = ({
       fileLimitRemaining={fileLimitRemaining}
       multiple
       onChange={onChangeFiles}
-      onMaxFilesLimit={onMaxFilesLimit}
-      onFileSizeLimit={onFileSizeLimit}
     >
       <FileAttachmentIcon />
     </StyledLoader>

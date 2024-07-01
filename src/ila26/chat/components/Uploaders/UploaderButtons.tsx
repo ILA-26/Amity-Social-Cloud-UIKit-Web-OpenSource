@@ -22,9 +22,6 @@ interface UploaderButtonsProps {
   onChangeVideos?: (files: File[]) => void;
   onChangeFiles?: (files: File[]) => void;
   uploadLoading?: boolean;
-  onMaxFilesLimit?: () => void;
-  onFileSizeLimit?: () => void;
-  onInvalidFileType?: () => void;
   fileLimitRemaining?: number | null;
 }
 
@@ -36,9 +33,6 @@ const ChatUploaders = ({
   onChangeVideos,
   onChangeFiles,
   uploadLoading,
-  onMaxFilesLimit,
-  onFileSizeLimit,
-  onInvalidFileType,
   fileLimitRemaining,
 }: UploaderButtonsProps): JSX.Element => (
   <>
@@ -50,9 +44,6 @@ const ChatUploaders = ({
       mimeType="image/jpeg,image/png"
       multiple
       onChange={onChangeImages}
-      onMaxFilesLimit={onMaxFilesLimit}
-      onFileSizeLimit={onFileSizeLimit}
-      onInvalidFileType={onInvalidFileType}
     >
       <ImageAttachmentIcon />
     </StyledLoader>
@@ -70,8 +61,6 @@ const ChatUploaders = ({
         });
         onChangeVideos?.(files);
       }}
-      onMaxFilesLimit={onMaxFilesLimit}
-      onFileSizeLimit={onFileSizeLimit}
     >
       <VideoAttachmentIcon />
     </StyledLoader>
@@ -83,8 +72,6 @@ const ChatUploaders = ({
       fileLimitRemaining={fileLimitRemaining}
       multiple
       onChange={onChangeFiles}
-      onMaxFilesLimit={onMaxFilesLimit}
-      onFileSizeLimit={onFileSizeLimit}
     >
       <FileAttachmentIcon />
     </StyledLoader>

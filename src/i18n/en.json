@@ -114,7 +114,7 @@
 
   "post": "Post",
   "postAs": "Post as",
-  "upload.attachmentLimit": "You reached the maximum attachment of {maxFiles}",
+  "upload.attachmentLimit": "You have reached the maximum number of attachments.",
   "upload.fileSizeLimit": "One of the selected file is larger than 1GB. Please select a new file.",
   "upload.invalidFileType": "One or more of the selected files are in the wrong format.",
   "user.editProfile": "Edit profile",

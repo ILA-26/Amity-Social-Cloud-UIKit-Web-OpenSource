@@ -258,18 +258,6 @@ const PostCreatorBar = ({
     }
   }
 
-  const onMaxFilesLimit = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.attachmentLimit" values={{ maxFiles }} />,
-    });
-  };
-
-  const onFileSizeLimit = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.fileSizeLimit" />,
-    });
-  };
-
   const backgroundImage = target.targetType === 'community' ? CommunityImage : UserImage;
 
   const CurrentTargetAvatar = (
@@ -414,8 +402,6 @@ const PostCreatorBar = ({
             onChangeImages={(newImageFiles) => setIncomingImages(newImageFiles)}
             onChangeVideos={setIncomingVideos}
             onChangeFiles={setIncomingFiles}
-            onMaxFilesLimit={onMaxFilesLimit}
-            onFileSizeLimit={onFileSizeLimit}
           />
           <PollButton data-qa-anchor="post-creator-poll-button" onClick={openPollModal}>
             <FileLoaderContainer>

@@ -1,6 +1,8 @@
 import React, { useState, useCallback, ReactNode } from 'react';
 import styled from 'styled-components';
 import cx from 'clsx';
+import { notification } from '~/core/components/Notification';
+import { FormattedMessage } from 'react-intl';
 
 // equals to 1 GB
 const MAX_FILE_SIZE = 1073741824;
@@ -48,9 +50,6 @@ interface FileLoaderProps {
   disabled?: boolean;
   fileLimitRemaining?: number | null;
   children?: ReactNode;
-  onMaxFilesLimit?: () => void;
-  onFileSizeLimit?: () => void;
-  onInvalidFileType?: () => void;
   onChange?: (files: File[]) => void;
 }
 
@@ -61,14 +60,29 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   multiple,
   disabled,
   onChange,
-  onMaxFilesLimit,
-  onFileSizeLimit,
-  onInvalidFileType,
   fileLimitRemaining = 0,
   children,
 }) => {
   const [uniqId] = useState(`_${(Date.now() * Math.random()).toString(36)}`);
   const [hover, setHover] = useState(false);
+
+  const onMaxFilesLimit = () => {
+    notification.info({
+      content: <FormattedMessage id="upload.attachmentLimit" />,
+    });
+  };
+
+  const onFileSizeLimit = () => {
+    notification.info({
+      content: <FormattedMessage id="upload.fileSizeLimit" />,
+    });
+  };
+
+  const onInvalidFileType = () => {
+    notification.info({
+      content: <FormattedMessage id="upload.invalidFileType" />,
+    });
+  };
 
   const getLimitFiles = useCallback(
     (targetFiles) => targetFiles.slice(0, multiple ? fileLimitRemaining : MIN_FILES_LIMIT),
