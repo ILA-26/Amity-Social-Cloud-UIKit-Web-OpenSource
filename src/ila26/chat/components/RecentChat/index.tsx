@@ -30,7 +30,6 @@ interface RecentChatProps {
   onAddNewChannelClick: () => void;
   selectedChannelId?: string;
   membershipFilter?: 'all' | 'member' | 'notMember';
-  ila26_displayName?: string;
 }
 
 const RecentChat = ({
@@ -38,7 +37,6 @@ const RecentChat = ({
   onAddNewChannelClick,
   selectedChannelId,
   membershipFilter,
-  ila26_displayName,
 }: RecentChatProps) => {
   const {
     channels,
@@ -113,7 +111,6 @@ const RecentChat = ({
         <ChatItem
           key={channel.channelId}
           channelId={channel.channelId}
-          ila26_displayName={ila26_displayName}
           isSelected={selectedChannelId === channel.channelId}
           onSelect={(data) => {
             onChannelSelect?.(data);
