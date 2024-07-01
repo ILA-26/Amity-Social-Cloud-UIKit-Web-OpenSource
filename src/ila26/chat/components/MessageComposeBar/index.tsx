@@ -67,6 +67,12 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
     });
   };
 
+  const onInvalidFileType = () => {
+    notification.info({
+      content: <FormattedMessage id="upload.invalidFileType" />,
+    });
+  };
+
   return (
     <MessageComposeBarContainer>
       <MessageTextComposerContainer>
@@ -136,6 +142,7 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
           onChangeFiles={setIncomingFiles}
           onMaxFilesLimit={onMaxFilesLimit}
           onFileSizeLimit={onFileSizeLimit}
+          onInvalidFileType={onInvalidFileType}
         />
       </AttachementComposerContainer>
     </MessageComposeBarContainer>

@@ -6,8 +6,6 @@ import ImageAttachmentIcon from '~/icons/ImageAttachment';
 import FileAttachmentIcon from '~/icons/FileAttachment';
 import { VideoAttachmentIcon } from './styles';
 
-const ALLOWED_VIDEO_MIME_TYPES = 'video/*,.flv,.3gp';
-
 const StyledLoader = styled(Loader)<{
   uploadLoading?: boolean;
   disabled?: boolean;
@@ -26,10 +24,11 @@ interface UploaderButtonsProps {
   uploadLoading?: boolean;
   onMaxFilesLimit?: () => void;
   onFileSizeLimit?: () => void;
+  onInvalidFileType?: () => void;
   fileLimitRemaining?: number | null;
 }
 
-const PostCreatorUploaders = ({
+const ChatUploaders = ({
   fileUploadDisabled,
   imageUploadDisabled,
   videoUploadDisabled,
@@ -39,29 +38,31 @@ const PostCreatorUploaders = ({
   uploadLoading,
   onMaxFilesLimit,
   onFileSizeLimit,
+  onInvalidFileType,
   fileLimitRemaining,
 }: UploaderButtonsProps): JSX.Element => (
   <>
     <StyledLoader
-      data-qa-anchor="post-creator-image-attachment-button"
+      data-qa-anchor="chat-image-attachment-button"
       disabled={imageUploadDisabled}
       uploadLoading={uploadLoading}
       fileLimitRemaining={fileLimitRemaining}
-      mimeType="image/*"
+      mimeType="image/jpeg,image/png"
       multiple
       onChange={onChangeImages}
       onMaxFilesLimit={onMaxFilesLimit}
       onFileSizeLimit={onFileSizeLimit}
+      onInvalidFileType={onInvalidFileType}
     >
       <ImageAttachmentIcon />
     </StyledLoader>
 
     <StyledLoader
-      data-qa-anchor="post-creator-video-attachment-button"
+      data-qa-anchor="chat-video-attachment-button"
       disabled={videoUploadDisabled}
       uploadLoading={uploadLoading}
       fileLimitRemaining={fileLimitRemaining}
-      mimeType={ALLOWED_VIDEO_MIME_TYPES}
+      mimeType="video/*,.flv,.3gp"
       multiple
       onChange={(files: File[]) => {
         files.forEach((file: any) => {
@@ -76,7 +77,7 @@ const PostCreatorUploaders = ({
     </StyledLoader>
 
     <StyledLoader
-      data-qa-anchor="post-creator-file-attachment-button"
+      data-qa-anchor="chat-file-attachment-button"
       disabled={fileUploadDisabled}
       uploadLoading={uploadLoading}
       fileLimitRemaining={fileLimitRemaining}
@@ -90,4 +91,4 @@ const PostCreatorUploaders = ({
   </>
 );
 
-export default PostCreatorUploaders;
+export default ChatUploaders;

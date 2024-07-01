@@ -50,6 +50,7 @@ interface FileLoaderProps {
   children?: ReactNode;
   onMaxFilesLimit?: () => void;
   onFileSizeLimit?: () => void;
+  onInvalidFileType?: () => void;
   onChange?: (files: File[]) => void;
 }
 
@@ -62,6 +63,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   onChange,
   onMaxFilesLimit,
   onFileSizeLimit,
+  onInvalidFileType,
   fileLimitRemaining = 0,
   children,
 }) => {
@@ -79,6 +81,11 @@ const FileLoader: React.FC<FileLoaderProps> = ({
     (targetFiles) => (fileLimitRemaining || 0) < targetFiles.length,
     [fileLimitRemaining],
   );
+
+  const checkFilesTypes = (targetFiles: File[]) => {
+    const allowedTypes = new Set(mimeType?.replace(/\s+/g, '').split(','));
+    return targetFiles.filter((file) => allowedTypes.has(file.type));
+  };
 
   const onDragEnter = useCallback(
     (e) => {
@@ -110,15 +117,21 @@ const FileLoader: React.FC<FileLoaderProps> = ({
       e.stopPropagation();
       if (disabled) return;
       const targetFiles = e.target.files ? [...e.target.files] : [];
+
       const isFileSizeLimitReached = checkFileSizeLimit(targetFiles);
       const isFilesLimitReached = checkFilesLimit(targetFiles);
       const limitFiles = getLimitFiles(targetFiles);
+      const filteredByTypeFiles = checkFilesTypes(limitFiles);
+
+      if (filteredByTypeFiles.length < limitFiles.length) {
+        onInvalidFileType?.();
+      }
 
       if (isFileSizeLimitReached) {
         // e.target.value = null;
         onFileSizeLimit?.();
-      } else if (limitFiles.length) {
-        onChange?.(limitFiles);
+      } else if (filteredByTypeFiles.length) {
+        onChange?.(filteredByTypeFiles);
       }
 
       // Attempted to upload more files than allowed meaning some have been removed.

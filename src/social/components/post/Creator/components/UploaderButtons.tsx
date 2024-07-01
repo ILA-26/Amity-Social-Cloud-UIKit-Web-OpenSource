@@ -47,7 +47,7 @@ const PostCreatorUploaders = ({
       disabled={imageUploadDisabled}
       uploadLoading={uploadLoading}
       fileLimitRemaining={fileLimitRemaining}
-      mimeType="image/*"
+      mimeType="image/jpeg, image/png"
       multiple
       onChange={onChangeImages}
       onMaxFilesLimit={onMaxFilesLimit}
@@ -72,7 +72,7 @@ const PostCreatorUploaders = ({
       onMaxFilesLimit={onMaxFilesLimit}
       onFileSizeLimit={onFileSizeLimit}
     >
-      <VideoAttachmentIcon icon="video" />
+      <VideoAttachmentIcon />
     </StyledLoader>
 
     <StyledLoader
