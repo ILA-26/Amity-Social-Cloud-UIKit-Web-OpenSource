@@ -158,7 +158,6 @@ const RecentChat = ({
             next={loadMore}
             loader={(isLoadingChannels || isLoadingUsers) && <Center key={0}><FormattedMessage id='chat.loading' />...</Center>}
             dataLength={channels.length}
-            height={containerRef.current.clientHeight}
           >
             {renderContent()}
           </InfiniteScroll>
