@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import React, { useState } from 'react';
+import { useIntl } from 'react-intl';
 
 import {
   AttachementComposerContainer,
@@ -15,7 +15,6 @@ import ImagesUploaded from '~/ila26/chat/components/Uploaders/ImagesUploaded';
 import VideosUploaded from '~/ila26/chat/components/Uploaders/VideosUploaded';
 import FilesUploaded from '~/ila26/chat/components/Uploaders/FilesUploaded';
 import useErrorNotification from '~/core/hooks/useErrorNotification';
-import { notification } from '~/core/components/Notification';
 import { MessageType } from '../Chat';
 import { MessageContentType } from '@amityco/ts-sdk';
 
@@ -54,18 +53,6 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
   const [incomingFiles, setIncomingFiles] = useState<File[]>([]);
   const [uploadLoading, setUploadLoading] = useState(false);
   const [setError] = useErrorNotification();
-
-  const onMaxFilesLimit = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.attachmentLimit" values={{ maxFiles: MAX_FILES_PER_POST }} />,
-    });
-  };
-
-  const onFileSizeLimit = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.fileSizeLimit" />,
-    });
-  };
 
   return (
     <MessageComposeBarContainer>
@@ -134,8 +121,6 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
           }}
           onChangeVideos={setIncomingVideos}
           onChangeFiles={setIncomingFiles}
-          onMaxFilesLimit={onMaxFilesLimit}
-          onFileSizeLimit={onFileSizeLimit}
         />
       </AttachementComposerContainer>
     </MessageComposeBarContainer>

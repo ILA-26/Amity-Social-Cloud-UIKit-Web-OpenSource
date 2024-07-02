@@ -18,15 +18,16 @@ import {
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannel from '~/ila26/chat/hooks/useChannel';
 import { ChatProps } from '../Chat';
+import useSDK from '~/core/hooks/useSDK';
 
 const ChatHeader = ({
   channelId,
-  ila26_displayName,
   ila26_variant = 'regular',
   onChatActionClick,
 }: ChatProps) => {
   const channel = useChannel(channelId);
   const { chatName, chatAvatar } = useChatInfo({ channel });
+  const { ila26_displayName } = useSDK();
 
   return (
     <ChatHeaderContainer $variant={ila26_variant} data-qa-anchor="chat-header">

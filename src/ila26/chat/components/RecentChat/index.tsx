@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { debounce, union } from 'lodash';
@@ -30,7 +30,6 @@ interface RecentChatProps {
   onAddNewChannelClick: () => void;
   selectedChannelId?: string;
   membershipFilter?: 'all' | 'member' | 'notMember';
-  ila26_displayName?: string;
 }
 
 const RecentChat = ({
@@ -38,7 +37,6 @@ const RecentChat = ({
   onAddNewChannelClick,
   selectedChannelId,
   membershipFilter,
-  ila26_displayName,
 }: RecentChatProps) => {
   const {
     channels,
@@ -63,6 +61,12 @@ const RecentChat = ({
     useUserQueryByDisplayName(searchUserQuery);
 
   const debouncedSetSearchUserQuery = useMemo(() => debounce(setSearchUserQuery, 300), []);
+
+  useEffect(() => {
+    if (channels.length > 0 && onChannelSelect) {
+      onChannelSelect({ channelId: channels[0]._id, type: 'standard' });
+    }
+  }, [channels]);
 
   const connections = useMemo(
     () =>
@@ -113,7 +117,6 @@ const RecentChat = ({
         <ChatItem
           key={channel.channelId}
           channelId={channel.channelId}
-          ila26_displayName={ila26_displayName}
           isSelected={selectedChannelId === channel.channelId}
           onSelect={(data) => {
             onChannelSelect?.(data);
@@ -155,7 +158,6 @@ const RecentChat = ({
             next={loadMore}
             loader={(isLoadingChannels || isLoadingUsers) && <Center key={0}><FormattedMessage id='chat.loading' />...</Center>}
             dataLength={channels.length}
-            height={containerRef.current.clientHeight}
           >
             {renderContent()}
           </InfiniteScroll>

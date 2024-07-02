@@ -1,6 +1,8 @@
 import React, { useState, useCallback, ReactNode } from 'react';
 import styled from 'styled-components';
 import cx from 'clsx';
+import { notification } from '~/core/components/Notification';
+import { FormattedMessage } from 'react-intl';
 
 // equals to 1 GB
 const MAX_FILE_SIZE = 1073741824;
@@ -48,8 +50,6 @@ interface FileLoaderProps {
   disabled?: boolean;
   fileLimitRemaining?: number | null;
   children?: ReactNode;
-  onMaxFilesLimit?: () => void;
-  onFileSizeLimit?: () => void;
   onChange?: (files: File[]) => void;
 }
 
@@ -60,13 +60,29 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   multiple,
   disabled,
   onChange,
-  onMaxFilesLimit,
-  onFileSizeLimit,
   fileLimitRemaining = 0,
   children,
 }) => {
   const [uniqId] = useState(`_${(Date.now() * Math.random()).toString(36)}`);
   const [hover, setHover] = useState(false);
+
+  const onMaxFilesLimit = () => {
+    notification.info({
+      content: <FormattedMessage id="upload.attachmentLimit" />,
+    });
+  };
+
+  const onFileSizeLimit = () => {
+    notification.info({
+      content: <FormattedMessage id="upload.fileSizeLimit" />,
+    });
+  };
+
+  const onInvalidFileType = () => {
+    notification.info({
+      content: <FormattedMessage id="upload.invalidFileType" />,
+    });
+  };
 
   const getLimitFiles = useCallback(
     (targetFiles) => targetFiles.slice(0, multiple ? fileLimitRemaining : MIN_FILES_LIMIT),
@@ -79,6 +95,11 @@ const FileLoader: React.FC<FileLoaderProps> = ({
     (targetFiles) => (fileLimitRemaining || 0) < targetFiles.length,
     [fileLimitRemaining],
   );
+
+  const ila26_checkFilesTypes = (targetFiles: File[]) => {
+    const allowedTypes = new Set(mimeType?.replace(/\s+/g, '').split(','));
+    return targetFiles.filter((file) => allowedTypes.has(file.type));
+  };
 
   const onDragEnter = useCallback(
     (e) => {
@@ -110,15 +131,21 @@ const FileLoader: React.FC<FileLoaderProps> = ({
       e.stopPropagation();
       if (disabled) return;
       const targetFiles = e.target.files ? [...e.target.files] : [];
+
       const isFileSizeLimitReached = checkFileSizeLimit(targetFiles);
       const isFilesLimitReached = checkFilesLimit(targetFiles);
       const limitFiles = getLimitFiles(targetFiles);
+      const filteredByTypeFiles = ila26_checkFilesTypes(limitFiles);
+
+      if (filteredByTypeFiles.length < limitFiles.length) {
+        onInvalidFileType?.();
+      }
 
       if (isFileSizeLimitReached) {
         // e.target.value = null;
         onFileSizeLimit?.();
-      } else if (limitFiles.length) {
-        onChange?.(limitFiles);
+      } else if (filteredByTypeFiles.length) {
+        onChange?.(filteredByTypeFiles);
       }
 
       // Attempted to upload more files than allowed meaning some have been removed.

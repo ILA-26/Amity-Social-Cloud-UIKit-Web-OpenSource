@@ -8,6 +8,7 @@ import { ChatItemLeft, Title, Avatar, ChatItemContainer, UnreadCount } from './s
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannelSubscription from '~/social/hooks/useChannelSubscription';
 import useChannel from '~/ila26/chat/hooks/useChannel';
+import useSDK from '~/core/hooks/useSDK';
 
 function getNormalizedUnreadCount(channelUnreadCount: number) {
   // Within this range the unread counter will show an actuall number
@@ -29,12 +30,12 @@ interface ChatItemProps {
   channelId: string;
   isSelected: boolean;
   onSelect: ({ channelId, type }: { channelId: string; type: string }) => void;
-  ila26_displayName?: string;
 }
 
-const ChatItem = ({ channelId, isSelected, onSelect, ila26_displayName }: ChatItemProps) => {
+const ChatItem = ({ channelId, isSelected, onSelect }: ChatItemProps) => {
   const channel = useChannel(channelId);
   const { chatName, chatAvatar } = useChatInfo({ channel });
+  const { ila26_displayName } = useSDK();
 
   const normalizedUnreadCount = getNormalizedUnreadCount(channel?.unreadCount || 0);
 
