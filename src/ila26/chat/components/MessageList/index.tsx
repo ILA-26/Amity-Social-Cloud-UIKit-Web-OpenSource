@@ -68,7 +68,6 @@ const MessageList = ({ channelId }: MessageListProps) => {
           inverse={true}
           dataLength={messages.length}
           style={{ display: 'flex', flexDirection: 'column-reverse' }}
-          height={containerRef.current.clientHeight}
         >
           <MessageListContainer ref={containerRef} data-qa-anchor="message-list">
             {messages.map((message, i) => {

@@ -96,7 +96,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
     [fileLimitRemaining],
   );
 
-  const checkFilesTypes = (targetFiles: File[]) => {
+  const ila26_checkFilesTypes = (targetFiles: File[]) => {
     const allowedTypes = new Set(mimeType?.replace(/\s+/g, '').split(','));
     return targetFiles.filter((file) => allowedTypes.has(file.type));
   };
@@ -135,7 +135,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
       const isFileSizeLimitReached = checkFileSizeLimit(targetFiles);
       const isFilesLimitReached = checkFilesLimit(targetFiles);
       const limitFiles = getLimitFiles(targetFiles);
-      const filteredByTypeFiles = checkFilesTypes(limitFiles);
+      const filteredByTypeFiles = ila26_checkFilesTypes(limitFiles);
 
       if (filteredByTypeFiles.length < limitFiles.length) {
         onInvalidFileType?.();
