@@ -5,6 +5,7 @@ import { CommunityFeedTabs } from './constants';
 
 export function getTabs(
   postSetting?: ValueOf<typeof CommunityPostSettings>,
+  needApprovalOnPostCreation?: boolean,
   isJoined?: boolean,
   canReview?: boolean,
   pendingPostCount = 0,
@@ -15,7 +16,10 @@ export function getTabs(
     { value: CommunityFeedTabs.MEMBERS, label: <FormattedMessage id="tabs.members" /> },
   ];
 
-  if (isJoined && postSetting === CommunityPostSettings.ADMIN_REVIEW_POST_REQUIRED) {
+  if (
+    isJoined &&
+    (postSetting === CommunityPostSettings.ADMIN_REVIEW_POST_REQUIRED || needApprovalOnPostCreation)
+  ) {
     const amount = canReview ? pendingPostCount : 0;
 
     tabs.push({
