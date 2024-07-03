@@ -91,8 +91,8 @@ importers:
         version: 3.22.4
     devDependencies:
       '@amityco/ts-sdk':
-        specifier: ~6.17.3
-        version: 6.17.3
+        specifier: ~6.27.0
+        version: 6.27.0
       '@storybook/addon-a11y':
         specifier: ^7.6.7
         version: 7.6.17
@@ -250,8 +250,8 @@ packages:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
 
-  '@amityco/ts-sdk@6.17.3':
-    resolution: {integrity: sha512-htACVQHYyGNEsybNeXXMxq07PVtIHFpP36b9OulWyaAJMDzDtHyC8g/kXeDkxqNBWZI0bYZHWt1lAOSkpp3r/A==}
+  '@amityco/ts-sdk@6.27.0':
+    resolution: {integrity: sha512-6I55XYqhet6MDlB/qw9YunFO1BD2TwZSr2BBZ3+dWsBjBVp8BTDr7rPy74gpoVmPWRVbD4XTRM1c8dPeWeLEPQ==}
     engines: {node: '>=12', npm: '>=6'}
 
   '@ampproject/remapping@2.2.1':
@@ -6386,7 +6386,7 @@ snapshots:
 
   '@aashutoshrathi/word-wrap@1.2.6': {}
 
-  '@amityco/ts-sdk@6.17.3':
+  '@amityco/ts-sdk@6.27.0':
     dependencies:
       agentkeepalive: 4.5.0
       axios: 1.6.7(debug@4.3.4)
