@@ -66,23 +66,29 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   const [uniqId] = useState(`_${(Date.now() * Math.random()).toString(36)}`);
   const [hover, setHover] = useState(false);
 
-  const onMaxFilesLimit = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.attachmentLimit" />,
-    });
-  };
+  const onMaxFilesLimit = useCallback(
+    () =>
+      notification.info({
+        content: <FormattedMessage id="upload.attachmentLimit" />,
+      }),
+    [],
+  );
 
-  const onFileSizeLimit = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.fileSizeLimit" />,
-    });
-  };
+  const onFileSizeLimit = useCallback(
+    () =>
+      notification.info({
+        content: <FormattedMessage id="upload.fileSizeLimit" />,
+      }),
+    [],
+  );
 
-  const onInvalidFileType = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.invalidFileType" />,
-    });
-  };
+  const onInvalidFileType = useCallback(
+    () =>
+      notification.info({
+        content: <FormattedMessage id="upload.invalidFileType" />,
+      }),
+    [],
+  );
 
   const getLimitFiles = useCallback(
     (targetFiles) => targetFiles.slice(0, multiple ? fileLimitRemaining : MIN_FILES_LIMIT),
@@ -97,7 +103,8 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   );
 
   const ila26_checkFilesTypes = (targetFiles: File[]) => {
-    const allowedTypes = new Set(mimeType?.replace(/\s+/g, '').split(','));
+    if (!mimeType) return targetFiles;
+    const allowedTypes = new Set(mimeType.replace(/\s+/g, '').split(','));
     return targetFiles.filter((file) => allowedTypes.has(file.type));
   };
 
