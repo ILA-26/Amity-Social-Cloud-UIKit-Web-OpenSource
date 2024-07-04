@@ -17,19 +17,40 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
         style={{
           position: 'relative',
           width: '100%',
-          height: '180px',
+          height: metadata?.productPicture?.azureBlobUri ? '180px' : 'unset',
           marginBottom: '1rem',
           borderRadius: '8px',
           overflow: 'hidden',
         }}
       >
-        <img
-          src={
-            metadata?.productPicture?.azureBlobUri ??
-            'https://stilan26prdfront.blob.core.windows.net/b2c/logo.c116c8b3.jpg'
-          }
-          style={{ width: '100%', maxHeight: '180px', objectFit: 'cover' }}
-        />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <img
+            src={
+              metadata?.productPicture?.azureBlobUri ??
+              'https://stilan26prdfront.blob.core.windows.net/public/no-image-product.svg'
+            }
+            style={{
+              width: '100%',
+              maxHeight: '180px',
+              objectFit: metadata?.productPicture?.azureBlobUri ? 'cover' : 'contain',
+            }}
+          />
+          {!metadata?.productPicture?.azureBlobUri && (
+            <span style={{ margin: '12px 0' }}>
+              {' '}
+              {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US'
+                ? 'Image not available'
+                : 'Image non disponible'}
+            </span>
+          )}
+        </div>
         <div
           style={{
             position: 'absolute',
