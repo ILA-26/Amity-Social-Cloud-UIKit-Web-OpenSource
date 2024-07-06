@@ -6,7 +6,7 @@ import Custom from './Custom';
 import Unsupported from './Unsupported';
 import Image from './Image';
 import { MessageContentType } from '@amityco/ts-sdk';
-import File from '~/core/components/Uploaders/File';
+import File from './File';
 
 type MessageContentProps = {
   isDeleted?: boolean;

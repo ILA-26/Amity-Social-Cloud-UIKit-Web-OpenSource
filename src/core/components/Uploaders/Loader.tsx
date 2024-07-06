@@ -4,7 +4,7 @@ import cx from 'clsx';
 import { notification } from '~/core/components/Notification';
 import { FormattedMessage } from 'react-intl';
 
-// equals to 100 MB
+// equals to 50 MB
 const MAX_FILE_SIZE = 52428800;
 const MIN_FILES_LIMIT = 1;
 
