@@ -19,7 +19,7 @@ import { MessageType } from '../Chat';
 import { MessageContentType } from '@amityco/ts-sdk';
 
 interface MessageComposeBarProps {
-  onSubmit: (type: MessageType, text?: string, fileId?: string) => void;
+  onSubmit: (type: MessageType, payload: string) => void;
 }
 
 const MAX_FILES_PER_POST = 3;
@@ -33,17 +33,18 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
     if (postFiles.length > 0) {
       await Promise.all(
         postFiles.map(async (file) => {
-          return onSubmit(MessageContentType.FILE, undefined, file.fileId);
+          return onSubmit(MessageContentType.FILE, file.fileId);
         }),
       );
       setPostFiles([]);
       setIncomingFiles([]);
     }
     if (postImages.length > 0) {
-      await Promise.all(postImages.map(async (image) => {
-        return onSubmit(MessageContentType.IMAGE, undefined, image.fileId);
-      }));
-      
+      await Promise.all(
+        postImages.map(async (image) => {
+          return onSubmit(MessageContentType.IMAGE, image.fileId);
+        }),
+      );
       setPostImages([]);
       setIncomingImages([]);
     }

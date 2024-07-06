@@ -8,36 +8,38 @@ import Image from './Image';
 import { MessageContentType } from '@amityco/ts-sdk';
 import File from '~/core/components/Uploaders/File';
 
-// TODO: refactor all this file
-
 type MessageContentProps = {
   isDeleted?: boolean;
 } & (
-  | { data: { text: string }; type: 'text' }
+  | { data: { text: string }; type: typeof MessageContentType.TEXT }
+  | { data: { fileId: string }; type: typeof MessageContentType.IMAGE }
+  | { data: { fileId: string }; type: typeof MessageContentType.FILE }
   | { data: unknown; type: 'custom' }
   | { data: unknown; type: string }
 );
 
 function isTextProps(
   props: MessageContentProps,
-): props is { data: { text: string }; type: 'text' } {
-  return props.type === 'text';
+): props is { data: { text: string }; type: typeof MessageContentType.TEXT } {
+  return props.type === MessageContentType.TEXT;
 }
 
 function isImageProps(
   props: MessageContentProps,
-): props is { data: { text: string; fileId: string }; type: 'image' } {
+): props is { data: { fileId: string }; type: typeof MessageContentType.IMAGE } {
   return props.type === MessageContentType.IMAGE;
 }
 
 function isFileProps(
   props: MessageContentProps,
-): props is { data: { text: string; fileId: string }; type: 'file' } {
-  return props.type === 'file';
+): props is { data: { fileId: string }; type: typeof MessageContentType.FILE } {
+  return props.type === MessageContentType.FILE;
 }
 
-function isCustomProps(props: MessageContentProps): props is { data: unknown; type: 'custom' } {
-  return props.type === 'custom';
+function isCustomProps(
+  props: MessageContentProps,
+): props is { data: unknown; type: typeof MessageContentType.CUSTOM } {
+  return props.type === MessageContentType.CUSTOM;
 }
 
 const MessageContent = (props: MessageContentProps) => {
@@ -56,12 +58,7 @@ const MessageContent = (props: MessageContentProps) => {
     return <Image data={props.data} />;
   }
   if (isFileProps(props)) {
-    return (
-      <File
-        key={props.data.fileId}
-        fileId={props.data.fileId}
-      />
-    );
+    return <File fileId={props.data.fileId} />;
   }
 
   return <Unsupported />;

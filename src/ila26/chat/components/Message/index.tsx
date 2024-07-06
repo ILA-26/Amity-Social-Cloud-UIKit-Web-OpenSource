@@ -20,7 +20,8 @@ import {
   MessageDate,
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
-import { PropsContext } from '../Chat';
+import { MessageType, PropsContext } from '../Chat';
+import { MessageContentType } from '@amityco/ts-sdk';
 
 const MessageBody = ({
   isDeleted,
@@ -47,7 +48,7 @@ const MessageBody = ({
 interface MessageProps {
   messageId: string;
   avatar: string;
-  type: string;
+  type: MessageType;
   data: { text: string } | string;
   createdAt: Date;
   isDeleted?: boolean;
@@ -70,7 +71,9 @@ const Message = ({
   containerRef,
 }: MessageProps) => {
   const shouldShowUserName = isIncoming && !isConsequent && userDisplayName;
-  const isSupportedMessageType = ['text', 'custom', 'image', 'file'].includes(type);
+  const isSupportedMessageType = (
+    [MessageContentType.TEXT, MessageContentType.IMAGE, MessageContentType.FILE] as MessageType[]
+  ).includes(type);
 
   const { variant } = useContext(PropsContext);
 
