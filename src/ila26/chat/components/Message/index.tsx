@@ -70,7 +70,7 @@ const Message = ({
   containerRef,
 }: MessageProps) => {
   const shouldShowUserName = isIncoming && !isConsequent && userDisplayName;
-  const isSupportedMessageType = ['text', 'custom', 'image'].includes(type);
+  const isSupportedMessageType = ['text', 'custom', 'image', 'file'].includes(type);
 
   const { variant } = useContext(PropsContext);
 

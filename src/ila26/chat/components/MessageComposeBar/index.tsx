@@ -30,13 +30,22 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
   const { formatMessage } = useIntl();
 
   const sendMessage = async () => {
+    if (postFiles.length > 0) {
+      await Promise.all(
+        postFiles.map(async (file) => {
+          return onSubmit(MessageContentType.FILE, undefined, file.fileId);
+        }),
+      );
+      setPostFiles([]);
+      setIncomingFiles([]);
+    }
     if (postImages.length > 0) {
       await Promise.all(postImages.map(async (image) => {
         return onSubmit(MessageContentType.IMAGE, undefined, image.fileId);
       }));
       
       setPostImages([]);
-      setIncomingFiles([]);
+      setIncomingImages([]);
     }
     if (message) {
       onSubmit(MessageContentType.TEXT, message);
@@ -111,7 +120,7 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
         <UploaderButtons
           imageUploadDisabled={postFiles.length > 0 || postVideos.length > 0 || uploadLoading}
           videoUploadDisabled={true}
-          fileUploadDisabled={true}
+          fileUploadDisabled={postImages.length > 0 || postVideos.length > 0 || uploadLoading}
           fileLimitRemaining={
             MAX_FILES_PER_POST - postFiles.length - postImages.length - postVideos.length
           }

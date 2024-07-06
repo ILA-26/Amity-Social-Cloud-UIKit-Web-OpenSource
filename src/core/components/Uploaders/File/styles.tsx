@@ -17,6 +17,7 @@ export const FileContainer = styled.a`
   border-radius: 4px;
   overflow: hidden;
   text-decoration: none;
+  background-color: #ffffffce;
 `;
 
 export const Content = styled.div`

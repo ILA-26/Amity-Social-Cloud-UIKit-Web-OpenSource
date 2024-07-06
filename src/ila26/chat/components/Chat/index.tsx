@@ -53,7 +53,7 @@ const Chat = (props: ChatProps) => {
     text?: string,
     fileId?: string,
   ): Promise<Amity.Cached<Amity.Message>> => {
-    if (type === MessageContentType.IMAGE) {
+    if (type === MessageContentType.IMAGE || type === MessageContentType.FILE) {
       return MessageRepository.createMessage({
         subChannelId: props.channelId,
         dataType: type,
