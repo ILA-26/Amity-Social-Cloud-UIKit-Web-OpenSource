@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { CommunityRepository } from '@amityco/ts-sdk';
 import useCommunity from '~/social/hooks/useCommunity';
 import { useNavigation } from '~/social/providers/NavigationProvider';
@@ -6,17 +6,14 @@ import useImage from '~/core/hooks/useImage';
 import useCategoriesByIds from '~/social/hooks/useCategoriesByIds';
 import useCommunityPermission from '~/social/hooks/useCommunityPermission';
 import usePostsCollection from '~/social/hooks/collections/usePostsCollection';
+import usePendingPosts from '~/social/hooks/collections/usePendingPosts';
 
 export const useCommunityInfo = (communityId?: string) => {
   const { onEditCommunity } = useNavigation();
   const community = useCommunity(communityId);
   const avatarFileUrl = useImage({ fileId: community?.avatarFileId, imageSize: 'medium' });
 
-  const { posts: reviewingPosts } = usePostsCollection({
-    targetType: 'community',
-    targetId: communityId,
-    feedType: 'reviewing',
-  });
+  const { posts: reviewingPosts } = usePendingPosts(communityId);
 
   const categories = useCategoriesByIds(community?.categoryIds);
 
