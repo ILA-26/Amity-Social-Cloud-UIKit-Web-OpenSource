@@ -12,6 +12,7 @@ import useMessageFlaggedByMe from '~/ila26/chat/hooks/useMessageFlaggedByMe';
 import useMessageSubscription from '~/social/hooks/useMessageSubscription';
 
 const StyledPopover = styled(Popover)<{ align?: string; className?: string }>`
+  padding: 0px;
   ${({ align, theme }) => align === 'end' && `color: ${theme.palette.neutral.main};`}
 `;
 
