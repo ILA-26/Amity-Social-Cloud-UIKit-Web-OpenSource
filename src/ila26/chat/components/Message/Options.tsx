@@ -138,7 +138,7 @@ const Options = ({
         onClick={open}
         onKeyDown={open}
       >
-        <MessageOptionsIcon />
+        <MessageOptionsIcon isIncoming={isIncoming} />
       </div>
     </StyledPopover>
   );
