@@ -1,7 +1,14 @@
 import { FileRepository } from '@amityco/ts-sdk';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { PropsContext } from '../../Chat';
+
+const StyledImage = styled.img<{ variant: 'regular' | 'popup' }>`
+  ${({ variant }) => (variant === 'regular' ? 'max-width: 350px' : 'max-width: 150px')};
+`;
 
 const Image = ({ data }: { data: { fileId: string } }) => {
+  const { variant } = useContext(PropsContext);
   const [imageUrl, setImageUrl] = useState<string>();
 
   useEffect(() => {
@@ -13,7 +20,11 @@ const Image = ({ data }: { data: { fileId: string } }) => {
     fn();
   }, []);
 
-  return imageUrl ? <img src={imageUrl} alt="image in message" loading="eager" /> : <p>⏳</p>;
+  return imageUrl ? (
+    <StyledImage variant={variant} src={imageUrl} alt="image in message" loading="eager" />
+  ) : (
+    <p>⏳</p>
+  );
 };
 
 export default Image;
