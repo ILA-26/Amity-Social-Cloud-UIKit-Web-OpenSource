@@ -104,7 +104,7 @@
   "post": "Publier",
   "postAs": "Publier en tant que",
   "upload.attachmentLimit": "Vous avez atteint le nombre maximum de pièces jointes.",
-  "upload.fileSizeLimit": "L'un des fichiers sélectionnés dépasse 1GB. Veuillez sélectionner un nouveau fichier.",
+  "upload.fileSizeLimit": "L'un des fichiers sélectionnés dépasse 50MB. Veuillez sélectionner un nouveau fichier.",
   "upload.invalidFileType": "Un ou plusieurs des fichiers sélectionnés sont du mauvais format.",
   "user.editProfile": "Modifier le profil",
   "user.message": "Message",

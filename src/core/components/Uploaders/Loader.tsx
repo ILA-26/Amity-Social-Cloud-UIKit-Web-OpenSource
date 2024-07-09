@@ -4,8 +4,8 @@ import cx from 'clsx';
 import { notification } from '~/core/components/Notification';
 import { FormattedMessage } from 'react-intl';
 
-// equals to 1 GB
-const MAX_FILE_SIZE = 1073741824;
+// equals to 50 MB
+const MAX_FILE_SIZE = 52428800;
 const MIN_FILES_LIMIT = 1;
 
 export const FileLoaderContainer = styled.label`
@@ -66,23 +66,29 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   const [uniqId] = useState(`_${(Date.now() * Math.random()).toString(36)}`);
   const [hover, setHover] = useState(false);
 
-  const onMaxFilesLimit = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.attachmentLimit" />,
-    });
-  };
+  const onMaxFilesLimit = useCallback(
+    () =>
+      notification.info({
+        content: <FormattedMessage id="upload.attachmentLimit" />,
+      }),
+    [],
+  );
 
-  const onFileSizeLimit = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.fileSizeLimit" />,
-    });
-  };
+  const onFileSizeLimit = useCallback(
+    () =>
+      notification.info({
+        content: <FormattedMessage id="upload.fileSizeLimit" />,
+      }),
+    [],
+  );
 
-  const onInvalidFileType = () => {
-    notification.info({
-      content: <FormattedMessage id="upload.invalidFileType" />,
-    });
-  };
+  const onInvalidFileType = useCallback(
+    () =>
+      notification.info({
+        content: <FormattedMessage id="upload.invalidFileType" />,
+      }),
+    [],
+  );
 
   const getLimitFiles = useCallback(
     (targetFiles) => targetFiles.slice(0, multiple ? fileLimitRemaining : MIN_FILES_LIMIT),
@@ -97,7 +103,8 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   );
 
   const ila26_checkFilesTypes = (targetFiles: File[]) => {
-    const allowedTypes = new Set(mimeType?.replace(/\s+/g, '').split(','));
+    if (!mimeType) return targetFiles;
+    const allowedTypes = new Set(mimeType.replace(/\s+/g, '').split(','));
     return targetFiles.filter((file) => allowedTypes.has(file.type));
   };
 

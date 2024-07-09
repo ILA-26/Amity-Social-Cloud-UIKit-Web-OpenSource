@@ -50,20 +50,19 @@ const Chat = (props: ChatProps) => {
 
   const sendMessage = async (
     type: MessageType,
-    text?: string,
-    fileId?: string,
-  ): Promise<Amity.Cached<Amity.Message>> => {
-    if (type === MessageContentType.IMAGE) {
+    payload: string,
+  ): Promise<Amity.Cached<Amity.Message> | undefined> => {
+    if (type === MessageContentType.TEXT) {
       return MessageRepository.createMessage({
         subChannelId: props.channelId,
+        data: { text: payload },
         dataType: type,
-        fileId,
       });
     } else {
       return MessageRepository.createMessage({
         subChannelId: props.channelId,
-        data: { text },
         dataType: type,
+        fileId: payload,
       });
     }
   };

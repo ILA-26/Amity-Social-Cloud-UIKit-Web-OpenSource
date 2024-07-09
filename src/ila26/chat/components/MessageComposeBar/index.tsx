@@ -19,7 +19,7 @@ import { MessageType } from '../Chat';
 import { MessageContentType } from '@amityco/ts-sdk';
 
 interface MessageComposeBarProps {
-  onSubmit: (type: MessageType, text?: string, fileId?: string) => void;
+  onSubmit: (type: MessageType, payload: string) => void;
 }
 
 const MAX_FILES_PER_POST = 3;
@@ -30,13 +30,23 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
   const { formatMessage } = useIntl();
 
   const sendMessage = async () => {
-    if (postImages.length > 0) {
-      await Promise.all(postImages.map(async (image) => {
-        return onSubmit(MessageContentType.IMAGE, undefined, image.fileId);
-      }));
-      
-      setPostImages([]);
+    if (postFiles.length > 0) {
+      await Promise.all(
+        postFiles.map(async (file) => {
+          return onSubmit(MessageContentType.FILE, file.fileId);
+        }),
+      );
+      setPostFiles([]);
       setIncomingFiles([]);
+    }
+    if (postImages.length > 0) {
+      await Promise.all(
+        postImages.map(async (image) => {
+          return onSubmit(MessageContentType.IMAGE, image.fileId);
+        }),
+      );
+      setPostImages([]);
+      setIncomingImages([]);
     }
     if (message) {
       onSubmit(MessageContentType.TEXT, message);
@@ -111,7 +121,7 @@ const MessageComposeBar = ({ onSubmit }: MessageComposeBarProps) => {
         <UploaderButtons
           imageUploadDisabled={postFiles.length > 0 || postVideos.length > 0 || uploadLoading}
           videoUploadDisabled={true}
-          fileUploadDisabled={true}
+          fileUploadDisabled={postImages.length > 0 || postVideos.length > 0 || uploadLoading}
           fileLimitRemaining={
             MAX_FILES_PER_POST - postFiles.length - postImages.length - postVideos.length
           }

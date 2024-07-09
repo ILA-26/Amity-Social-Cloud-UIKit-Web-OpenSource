@@ -53,7 +53,7 @@ const ChatUploaders = ({
       disabled={videoUploadDisabled}
       uploadLoading={uploadLoading}
       fileLimitRemaining={fileLimitRemaining}
-      mimeType="video/*,.flv,.3gp"
+      mimeType="video/mp4,video/webm,video/ogg"
       multiple
       onChange={(files: File[]) => {
         files.forEach((file: any) => {
