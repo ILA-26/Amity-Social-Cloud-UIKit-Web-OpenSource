@@ -6,10 +6,10 @@ import useFileUpload, { isAmityFile } from '~/core/hooks/useFileUpload';
 
 const Gallery = styled('div')<{ uploadLoading?: boolean }>`
   display: flex;
-  max-height: 200px;
+  max-height: 100px;
   &:first-child div {
-    max-width: 300px;
-    max-height: 200px;
+    max-width: 150px;
+    max-height: 100px;
   }
   &:first-child div:not(:last-child) {
     margin-right: 5px;

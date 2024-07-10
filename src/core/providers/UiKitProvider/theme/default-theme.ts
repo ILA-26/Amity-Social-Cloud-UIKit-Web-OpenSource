@@ -2,7 +2,7 @@ const defaultTheme = {
   palette: {
     alert: '#FA4D30',
     base: '#292B32',
-    primary: '#1054DE',
+    primary: '#5C2DD3',
     secondary: '#FFD400',
     tertiary: '#FF305A',
     neutral: '#17181C',

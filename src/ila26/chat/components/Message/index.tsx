@@ -99,7 +99,7 @@ const Message = ({
             <MessageContent data={data} type={type} isDeleted={isDeleted} />
             {!isDeleted && (
               <BottomLine>
-                <MessageDate>
+                <MessageDate title={createdAt.toLocaleString()}>
                   <FormattedTime value={createdAt} />
                 </MessageDate>
                 <Options

@@ -39,10 +39,14 @@ export const CloseIcon = styled(Close)<{ icon?: ReactNode }>`
   cursor: pointer;
 `;
 
-export const MessageOptionsIcon = styled(EllipsisV).attrs<{ icon?: ReactNode }>({ width: 11, height: 11 })`
+export const MessageOptionsIcon = styled(EllipsisV).attrs<{
+  isIncoming?: boolean;
+  icon?: ReactNode;
+}>({ width: 11, height: 11 })`
   opacity: 0.5;
   margin: 0 5px;
   cursor: pointer;
+  ${({ isIncoming }) => !isIncoming && 'fill: white'}
 `;
 
 export const Avatar = styled(UiKitAvatar)`
@@ -57,16 +61,11 @@ export const MessageReservedRow = styled.div<{ isIncoming?: boolean }>`
 
 export const MessageWrapper = styled.div`
   display: flex;
-  max-width: 50%;
+  max-width: 70%;
 `;
 
 export const MessageContainer = styled.div<{ variant: 'regular' | 'popup' }>`
   max-width: 100%;
-  @media screen and (max-width: 1600px) {
-    & {
-      ${({ variant }) => variant === 'regular' && 'max-width: 300px;'}
-    }
-  }
 `;
 
 export const AvatarWrapper = styled.div`

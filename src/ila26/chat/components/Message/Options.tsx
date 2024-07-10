@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MessageRepository } from '@amityco/ts-sdk';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -12,6 +12,7 @@ import useMessageFlaggedByMe from '~/ila26/chat/hooks/useMessageFlaggedByMe';
 import useMessageSubscription from '~/social/hooks/useMessageSubscription';
 
 const StyledPopover = styled(Popover)<{ align?: string; className?: string }>`
+  padding: 0px;
   ${({ align, theme }) => align === 'end' && `color: ${theme.palette.neutral.main};`}
 `;
 
@@ -138,7 +139,7 @@ const Options = ({
         onClick={open}
         onKeyDown={open}
       >
-        <MessageOptionsIcon />
+        <MessageOptionsIcon isIncoming={isIncoming} />
       </div>
     </StyledPopover>
   );
