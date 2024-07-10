@@ -48,6 +48,7 @@ const RecentChat = ({
     sortBy: 'lastActivity',
     limit: 20,
   });
+
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { formatMessage } = useIntl();
@@ -106,23 +107,29 @@ const RecentChat = ({
   const renderContent = () => {
     if (searchUserQuery != '') {
       if (options.length === 0 && !isLoadingUsers && searchUserQuery.length > 2) {
-        return <Center><FormattedMessage id='chat.noResults' /></Center>;
+        return (
+          <Center>
+            <FormattedMessage id="chat.noResults" />
+          </Center>
+        );
       }
       return options.map((option) => (
         <UserHeader userId={option.userId} onClick={() => handleSelectUser(option)} />
       ));
     }
     if (Array.isArray(channels)) {
-      return channels.map((channel) => (
-        <ChatItem
-          key={channel.channelId}
-          channelId={channel.channelId}
-          isSelected={selectedChannelId === channel.channelId}
-          onSelect={(data) => {
-            onChannelSelect?.(data);
-          }}
-        />
-      ));
+      return channels
+        .filter((channel) => channel?.messageCount >= 1 || channel?.type !== 'conversation')
+        .map((channel) => (
+          <ChatItem
+            key={channel.channelId}
+            channelId={channel.channelId}
+            isSelected={selectedChannelId === channel.channelId}
+            onSelect={(data) => {
+              onChannelSelect?.(data);
+            }}
+          />
+        ));
     }
   };
 
@@ -149,6 +156,7 @@ const RecentChat = ({
           onChange={(e) => debouncedSetSearchUserQuery(e.target.value)}
         />
       </SearchContainer>
+
       <InfiniteScrollContainer ref={containerRef} data-qa-anchor="chat-list">
         {containerRef.current ? (
           <InfiniteScroll
@@ -156,7 +164,14 @@ const RecentChat = ({
             scrollThreshold={0.7}
             hasMore={hasMore}
             next={loadMore}
-            loader={(isLoadingChannels || isLoadingUsers) && <Center key={0}><FormattedMessage id='chat.loading' />...</Center>}
+            loader={
+              (isLoadingChannels || isLoadingUsers) && (
+                <Center key={0}>
+                  <FormattedMessage id="chat.loading" />
+                  ...
+                </Center>
+              )
+            }
             dataLength={channels.length}
           >
             {renderContent()}

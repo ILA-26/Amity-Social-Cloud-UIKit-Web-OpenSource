@@ -15,7 +15,7 @@ interface ChatTypeSelectorProps {
 const ChatTypeSelector = ({ onChange, parentContainer }: ChatTypeSelectorProps) => {
   const { formatMessage } = useIntl();
 
-  const options = ['live', 'community', 'conversation', 'broadcast'].map((answerType) => ({
+  const options = ['live', 'community', 'broadcast'].map((answerType) => ({
     name: formatMessage({ id: 'select.chatType.item' }, { answerType }),
     value: answerType,
   }));
