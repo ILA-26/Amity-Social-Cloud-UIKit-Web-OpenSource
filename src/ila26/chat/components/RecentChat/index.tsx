@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { debounce, union } from 'lodash';
-
 import ChatItem from '~/ila26/chat/components/ChatItem';
 
 import {
@@ -30,6 +29,7 @@ interface RecentChatProps {
   onAddNewChannelClick: () => void;
   selectedChannelId?: string;
   membershipFilter?: 'all' | 'member' | 'notMember';
+  channelsLeave?: string[];
 }
 
 const RecentChat = ({
@@ -37,6 +37,7 @@ const RecentChat = ({
   onAddNewChannelClick,
   selectedChannelId,
   membershipFilter,
+  channelsLeave = [],
 }: RecentChatProps) => {
   const {
     channels,
@@ -48,13 +49,13 @@ const RecentChat = ({
     sortBy: 'lastActivity',
     limit: 20,
   });
+
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { formatMessage } = useIntl();
   const { currentUserId } = useSDK();
   const { followers } = useFollowersCollection({ userId: currentUserId, status: 'accepted' });
   const { followings } = useFollowingsCollection({ userId: currentUserId, status: 'accepted' });
-
   const [searchUserQuery, setSearchUserQuery] = useState('');
   const { createChannel } = useCreateChannel();
   const { users: queriedUsers = [], isLoading: isLoadingUsers } =
@@ -63,7 +64,7 @@ const RecentChat = ({
   const debouncedSetSearchUserQuery = useMemo(() => debounce(setSearchUserQuery, 300), []);
 
   useEffect(() => {
-    if (channels.length > 0 && onChannelSelect) {
+    if (channels.length > 0 && onChannelSelect && channelsLeave?.length < 1) {
       onChannelSelect({ channelId: channels[0]._id, type: 'standard' });
     }
   }, [channels]);
@@ -106,23 +107,29 @@ const RecentChat = ({
   const renderContent = () => {
     if (searchUserQuery != '') {
       if (options.length === 0 && !isLoadingUsers && searchUserQuery.length > 2) {
-        return <Center><FormattedMessage id='chat.noResults' /></Center>;
+        return (
+          <Center>
+            <FormattedMessage id="chat.noResults" />
+          </Center>
+        );
       }
       return options.map((option) => (
         <UserHeader userId={option.userId} onClick={() => handleSelectUser(option)} />
       ));
     }
     if (Array.isArray(channels)) {
-      return channels.map((channel) => (
-        <ChatItem
-          key={channel.channelId}
-          channelId={channel.channelId}
-          isSelected={selectedChannelId === channel.channelId}
-          onSelect={(data) => {
-            onChannelSelect?.(data);
-          }}
-        />
-      ));
+      return channels
+        .filter((channel) => channelsLeave && !channelsLeave.includes(channel.channelId))
+        .map((channel) => (
+          <ChatItem
+            key={channel.channelId}
+            channelId={channel.channelId}
+            isSelected={selectedChannelId === channel.channelId}
+            onSelect={(data) => {
+              onChannelSelect?.(data);
+            }}
+          />
+        ));
     }
   };
 
@@ -156,7 +163,14 @@ const RecentChat = ({
             scrollThreshold={0.7}
             hasMore={hasMore}
             next={loadMore}
-            loader={(isLoadingChannels || isLoadingUsers) && <Center key={0}><FormattedMessage id='chat.loading' />...</Center>}
+            loader={
+              (isLoadingChannels || isLoadingUsers) && (
+                <Center key={0}>
+                  <FormattedMessage id="chat.loading" />
+                  ...
+                </Center>
+              )
+            }
             dataLength={channels.length}
           >
             {renderContent()}

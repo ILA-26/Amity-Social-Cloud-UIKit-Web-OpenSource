@@ -14,7 +14,7 @@ import EditChatMemberModal from '~/ila26/chat/components/ChatDetails/EditChatMem
 type PartialChannel = Pick<Amity.Channel, 'channelId' | 'type'>;
 
 const ChatApplication = ({
-  membershipFilter = 'all',
+  membershipFilter = 'member',
   defaultChannelId,
   onMemberSelect,
   onChannelSelect,
@@ -45,6 +45,8 @@ const ChatApplication = ({
   const [isEditChatMemberModalOpened, setIsEditChatMemberModalOpened] = useState(false);
   const openChatModal = () => setChatModalOpened(true);
 
+  const [channelsLeave, setChannelsLeave] = useState<string[]>([]);
+
   const handleChannelSelect = (newChannelData: PartialChannel) => {
     if (currentChannelData?.channelId === newChannelData?.channelId) {
       return;
@@ -57,12 +59,15 @@ const ChatApplication = ({
   const leaveChat = async () => {
     if (!currentChannelData?.channelId) return;
     try {
-      await ChannelRepository.leaveChannel(currentChannelData.channelId);
+      let res = await ChannelRepository.leaveChannel(currentChannelData.channelId);
 
-      notification.success({
-        content: formatMessage({ id: 'chat.leaveChat.success' }),
-      });
-      setCurrentChannelData(null);
+      if (res) {
+        setCurrentChannelData(null);
+        notification.success({
+          content: formatMessage({ id: 'chat.leaveChat.success' }),
+        });
+        setChannelsLeave((prev) => [...prev, currentChannelData?.channelId]);
+      }
     } catch {
       notification.error({
         content: formatMessage({ id: 'chat.leaveChat.error' }),
@@ -97,6 +102,7 @@ const ChatApplication = ({
           openChatModal();
           onAddNewChannel?.();
         }}
+        channelsLeave={channelsLeave}
       />
       {currentChannelData ? (
         <Chat
