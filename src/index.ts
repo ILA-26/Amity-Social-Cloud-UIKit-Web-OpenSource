@@ -1,13 +1,28 @@
-export { default as AmityUiKitProvider } from '~/v4/core/providers/AmityUIKitProvider';
+export { default as AmityUiKitProvider_v4 } from '~/v4/core/providers/AmityUIKitProvider';
+import { ILA26_internalElementsTypes, ILA26_internalData } from '~/ila26/types/customPosts';
+export { default as AmityUiKitProvider } from '~/core/providers/UiKitProvider';
 export { default as AmityUiKitFeed } from '~/social/components/Feed';
 export { default as AmityUiKitSocial } from '~/social/pages/Application';
 export { default as AmityUiKitChat } from '~/chat/pages/Application';
+
+import ILA26_AmityUiKitChat_unwrapped from '~/ila26/chat/pages/Application';
+import ILA26_AmityUiKitChatPopup_unwrapped from '~/ila26/chat/components/ChatPopup';
+
+export const ILA26_AmityUiKitChat = withUIStyles(ILA26_AmityUiKitChat_unwrapped);
+export const ILA26_AmityUiKitChatPopup = withUIStyles(ILA26_AmityUiKitChatPopup_unwrapped);
+
+// HOC that wrappes the passed component inside UIStyles
+import withUIStyles from './ila26/exportsWrapper';
+
+import fr from '~/ila26/fr.json';
+import en from '~/i18n/en.json';
+export const ILA26_IntlMessages = { fr, en };
 
 // Export helper
 export {
   addChatMembers as amityAddChatMembers,
   removeChatMembers as amityRemoveChatMembers,
-} from '~/chat/helpers';
+} from '~/ila26/chat/helpers';
 
 export { default as useAmityUser } from '~/core/hooks/useUser';
 export { useNavigation as useAmityNavigation } from '~/social/providers/NavigationProvider';
@@ -24,6 +39,11 @@ export {
   CommentTray as AmityCommentTrayComponent,
   StoryTab as AmityStoryTabComponent,
 } from '~/v4/social/components';
+export {
+  ILA26_internalElementsTypes as ILA26_Amity_types,
+  ILA26_internalData as ILA26_Amity_DataTypes,
+};
+
 
 // Chat v4
 
