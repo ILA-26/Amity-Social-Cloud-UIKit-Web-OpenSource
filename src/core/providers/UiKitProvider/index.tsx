@@ -162,7 +162,7 @@ const UiKitProvider = ({
     <QueryClientProvider client={queryClient}>
       <Localization locale={locale}>
         <ThemeProvider theme={buildGlobalTheme(theme)}>
-          <UIStyles>
+          {/* <UIStyles> */}
             <SDKContext.Provider value={sdkContextValue}>
               <SDKContextV4.Provider value={sdkContextValue}>
                 <SDKConnectorProvider>
@@ -203,7 +203,7 @@ const UiKitProvider = ({
                 </SDKConnectorProvider>
               </SDKContextV4.Provider>
             </SDKContext.Provider>
-          </UIStyles>
+          {/* </UIStyles> */}
         </ThemeProvider>
       </Localization>
     </QueryClientProvider>
