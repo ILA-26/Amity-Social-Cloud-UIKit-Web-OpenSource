@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { confirm } from '~/core/components/Confirm';
+import { useConfirmContext } from '~/core/providers/ConfirmProvider';
 import MenuGroupSetting from './MenuGroupSetting';
 import {
   MembersIcon,
@@ -31,6 +31,7 @@ const ChatDetailsControls = ({
   memberCount = 0,
 }: ChatDetailsControlsProps) => {
   const { formatMessage } = useIntl();
+  const { confirm } = useConfirmContext();
 
   const isDirectChat = memberCount <= 2;
 

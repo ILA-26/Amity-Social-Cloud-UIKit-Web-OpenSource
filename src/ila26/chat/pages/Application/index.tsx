@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChannelRepository, Client as ASCClient } from '@amityco/ts-sdk';
 import { useIntl } from 'react-intl';
 
-import { notification } from '~/core/components/Notification';
+import { useNotifications } from '~/core/providers/NotificationProvider';
 import RecentChat from '~/ila26/chat/components/RecentChat';
 import Chat from '~/ila26/chat/components/Chat';
 import ChatDetails from '~/ila26/chat/components/ChatDetails';
@@ -35,6 +35,7 @@ const ChatApplication = ({
   }) => void;
 }) => {
   const { formatMessage } = useIntl();
+  const notification = useNotifications();
   const [currentChannelData, setCurrentChannelData] = useState<PartialChannel | null>(null);
   const [shouldShowChatDetails, setShouldShowChatDetails] = useState(false);
 
