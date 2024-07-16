@@ -5,10 +5,12 @@ export const SDKContext = createContext<{
   client?: Amity.Client | null;
   currentUserId?: string | null;
   userRoles: string[];
+  ila26_displayName?: string;
 }>({
   client: null,
   currentUserId: undefined,
   userRoles: [],
+  ila26_displayName: undefined,
 });
 
 // export const SDKProvider = ({

@@ -88,6 +88,7 @@ const UiKitProvider = ({
       client: client || null,
       currentUserId: userId || undefined,
       userRoles: currentUser?.roles ?? [],
+      ila26_displayName: displayName,
     }),
     [client, userId, currentUser?.roles],
   );
