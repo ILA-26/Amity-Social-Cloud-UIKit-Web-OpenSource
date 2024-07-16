@@ -1,15 +1,17 @@
 export { default as AmityUiKitProvider_v4 } from '~/v4/core/providers/AmityUIKitProvider';
 import { ILA26_internalElementsTypes, ILA26_internalData } from '~/ila26/types/customPosts';
 export { default as AmityUiKitProvider } from '~/core/providers/UiKitProvider';
-export { default as AmityUiKitFeed } from '~/social/components/Feed';
+// export { default as AmityUiKitFeed } from '~/social/components/Feed';
 export { default as AmityUiKitSocial } from '~/social/pages/Application';
 export { default as AmityUiKitChat } from '~/chat/pages/Application';
 
 import ILA26_AmityUiKitChat_unwrapped from '~/ila26/chat/pages/Application';
 import ILA26_AmityUiKitChatPopup_unwrapped from '~/ila26/chat/components/ChatPopup';
+import ILA26_AmityUiKitFeed_unwrapped from '~/ila26/social/components/Feed';
 
 export const ILA26_AmityUiKitChat = withUIStyles(ILA26_AmityUiKitChat_unwrapped);
 export const ILA26_AmityUiKitChatPopup = withUIStyles(ILA26_AmityUiKitChatPopup_unwrapped);
+export const AmityUiKitFeed = withUIStyles(ILA26_AmityUiKitFeed_unwrapped); // TODO: rename to ILA26_AmityUiKitFeed later
 
 // HOC that wrappes the passed component inside UIStyles
 import withUIStyles from './ila26/exportsWrapper';
