@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { PageTypes } from '~/social/constants';
-import Feed from '~/social/components/Feed';
+import Feed from '~/ila26/social/components/Feed';
 
 import { useNavigation } from '~/social/providers/NavigationProvider';
 

@@ -6,7 +6,7 @@ import CommunityCreatedModal from '~/social/components/CommunityCreatedModal';
 
 import useCommunity from '~/social/hooks/useCommunity';
 
-import Feed from '~/social/components/Feed';
+import Feed from '~/ila26/social/components/Feed';
 import MediaGallery from '~/social/components/MediaGallery';
 import CommunityInfo from '~/social/components/CommunityInfo';
 import CommunityMembers from '~/social/components/CommunityMembers';
@@ -66,7 +66,7 @@ const CommunityFeed = ({
 
   return (
     <Wrapper>
-      <CommunityInfo communityId={communityId} />
+      <CommunityInfo communityId={communityId} stories={[]} />
 
       <FeedHeaderTabs
         data-qa-anchor="community-feed-header"

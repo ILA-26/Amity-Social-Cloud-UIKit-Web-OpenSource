@@ -3,7 +3,7 @@ import MediaGallery from '~/social/components/MediaGallery';
 
 import FeedHeaderTabs from '~/social/components/FeedHeaderTabs';
 
-import Feed from '~/social/components/Feed';
+import Feed from '~/ila26/social/components/Feed';
 import Followers from '~/social/pages/UserFeed/Followers';
 
 import { tabs, UserFeedTabs } from './constants';
