@@ -28,6 +28,7 @@ import { NotificationProvider as NotificationProviderV4 } from '~/v4/core/provid
 import { ConfirmProvider } from '~/core/providers/ConfirmProvider';
 import { NotificationProvider } from '~/core/providers/NotificationProvider';
 import { CustomizationProvider } from '~/v4/core/providers/CustomizationProvider';
+import { ILA26_UiKitProviderProps } from '~/ila26/types/kitProviderProps';
 
 interface UiKitProviderProps {
   apiKey: string;
@@ -76,7 +77,8 @@ const UiKitProvider = ({
   onConnectionStatusChange,
   onDisconnected,
   getAuthToken,
-}: UiKitProviderProps) => {
+  locale,
+}: UiKitProviderProps & ILA26_UiKitProviderProps) => {
   const queryClient = new QueryClient();
   const [isConnected, setIsConnected] = useState(false);
   const [client, setClient] = useState<Amity.Client | null>(null);
@@ -158,7 +160,7 @@ const UiKitProvider = ({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Localization locale="en">
+      <Localization locale={locale}>
         <ThemeProvider theme={buildGlobalTheme(theme)}>
           <UIStyles>
             <SDKContext.Provider value={sdkContextValue}>
