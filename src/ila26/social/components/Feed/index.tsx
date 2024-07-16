@@ -1,9 +1,9 @@
 import React, { memo, useCallback } from 'react';
-import DefaultPostRenderer from '~/social/components/post/Post/DefaultPostRenderer';
+import DefaultPostRenderer from '~/ila26/social/components/post/Post/DefaultPostRenderer';
 
 import useCommunitiesList from '~/social/hooks/useCommunitiesList';
 import PostCreator from '~/ila26/social/components/post/Creator';
-import Post from '~/social/components/post/Post';
+import Post from '~/ila26/social/components/post/Post';
 
 import EmptyFeed from '~/social/components/EmptyFeed';
 import { FeedScrollContainer } from './styles';
