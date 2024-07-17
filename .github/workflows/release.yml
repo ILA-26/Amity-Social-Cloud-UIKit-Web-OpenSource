@@ -1,0 +1,82 @@
+name: Package release pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_as:
+        description: 'release as patch, minor, major or custom'
+        required: true
+      custom_version:
+        description: 'custom version'
+        required: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v4
+
+      - name: configure committer
+        run: |
+          git config user.name "bmo-amity-bot"
+          git config user.email "developers@amity.co"
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Clean dist directory
+        run: pnpm run clean
+
+      - name: increase version (patch)
+        run: pnpm standard-version --yes --release-as patch
+        if: github.event.inputs.release_as == 'patch'
+
+      - name: increase version (minor)
+        run: pnpm standard-version --yes --release-as minor
+        if: github.event.inputs.release_as == 'minor'
+
+      - name: increase version (major)
+        run: pnpm standard-version --yes --release-as major
+        if: github.event.inputs.release_as == 'major'
+
+      - name: increase version (custom)
+        run: pnpm standard-version --yes --release-as ${{ github.event.inputs.custom_version }}
+        if: github.event.inputs.release_as == 'custom'
+
+      - name: build
+        run: pnpm run build
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@ila-26'
+
+      - name: Publish
+        run: npm publish --tag ${{ env.TAG }} --registry=https://npm.pkg.github.com/
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref == 'refs/heads/main' && 'release' || github.ref == 'refs/heads/ila26-develop' && 'dev' || startsWith(github.ref, 'refs/heads/release/') && 'pre-release' || 'custom' }}
