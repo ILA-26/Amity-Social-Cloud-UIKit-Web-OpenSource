@@ -35,16 +35,16 @@ const Chat = (props: ChatProps) => {
     async function run() {
       if (channel == null) return;
 
-      if (channel.type !== 'conversation') {
-        await ChannelRepository.joinChannel(channel?.channelId);
-      }
+      // if (channel.type !== 'conversation') {
+      //   await ChannelRepository.joinChannel(channel?.channelId);
+      // }
 
-      await SubChannelRepository.startReading(channel?.channelId);
+      await SubChannelRepository.startMessageReceiptSync(channel?.channelId);
     }
     run();
     return () => {
       if (channel == null) return;
-      SubChannelRepository.stopReading(channel?.channelId);
+      SubChannelRepository.stopMessageReceiptSync(channel?.channelId);
     };
   }, [channel]);
 
