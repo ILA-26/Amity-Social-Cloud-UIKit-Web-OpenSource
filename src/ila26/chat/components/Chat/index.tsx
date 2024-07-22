@@ -34,6 +34,9 @@ const Chat = (props: ChatProps) => {
       if (channel == null) return;
 
       await SubChannelRepository.startMessageReceiptSync(channel?.channelId);
+      if (channel.subChannelsUnreadCount > 0) {
+        channel.markAsRead();
+      }
     }
     run();
     return () => {
