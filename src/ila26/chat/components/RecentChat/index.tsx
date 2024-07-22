@@ -64,7 +64,7 @@ const RecentChat = ({
   const debouncedSetSearchUserQuery = useMemo(() => debounce(setSearchUserQuery, 300), []);
 
   useEffect(() => {
-    if (channels.length > 0 && onChannelSelect) {
+    if (!selectedChannelId && channels.length > 0 && onChannelSelect) {
       onChannelSelect({ channelId: channels[0]._id, type: 'standard' });
     }
   }, [channels]);

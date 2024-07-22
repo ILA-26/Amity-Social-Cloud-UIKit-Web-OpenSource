@@ -30,7 +30,8 @@ const CommunityFeed = ({
   ILA26_communityManagerProps,
   ILA26_getInternalData,
 }: CommunityFeedProps) => {
-  const community = useCommunity(communityId);
+  const community: (Amity.Community & { needApprovalOnPostCreation?: boolean }) | null =
+    useCommunity(communityId);
 
   const { canReview } = useCommunityPermission({ community });
 
@@ -43,7 +44,14 @@ const CommunityFeed = ({
   const pendingPostCount = posts.reduce((acc, post) => acc + post.flagCount, 0);
 
   const tabs = useMemo(
-    () => getTabs(community?.postSetting, community?.isJoined, canReview, pendingPostCount),
+    () =>
+      getTabs(
+        community?.postSetting,
+        community?.needApprovalOnPostCreation,
+        community?.isJoined,
+        canReview,
+        pendingPostCount,
+      ),
     [community?.postSetting, community?.isJoined, canReview, pendingPostCount],
   );
 
