@@ -1,10 +1,5 @@
 import React, { createContext, useEffect } from 'react';
-import {
-  MessageRepository,
-  ChannelRepository,
-  SubChannelRepository,
-  MessageContentType,
-} from '@amityco/ts-sdk';
+import { MessageRepository, SubChannelRepository, MessageContentType } from '@amityco/ts-sdk';
 
 import MessageList from '~/ila26/chat/components/MessageList';
 import MessageComposeBar from '~/ila26/chat/components/MessageComposeBar';
@@ -25,7 +20,10 @@ export interface ChatProps {
 
 export type MessageType = ILA26_Values<typeof MessageContentType>;
 
-export const PropsContext = createContext<{ variant: 'regular' | 'popup'; auth_displayName?: string }>({
+export const PropsContext = createContext<{
+  variant: 'regular' | 'popup';
+  auth_displayName?: string;
+}>({
   variant: 'regular',
 });
 
@@ -34,10 +32,6 @@ const Chat = (props: ChatProps) => {
   useEffect(() => {
     async function run() {
       if (channel == null) return;
-
-      // if (channel.type !== 'conversation') {
-      //   await ChannelRepository.joinChannel(channel?.channelId);
-      // }
 
       await SubChannelRepository.startMessageReceiptSync(channel?.channelId);
     }
@@ -68,7 +62,7 @@ const Chat = (props: ChatProps) => {
   };
 
   return (
-    <PropsContext.Provider value={{ variant: props.ila26_variant || "regular" }}>
+    <PropsContext.Provider value={{ variant: props.ila26_variant || 'regular' }}>
       <ChannelContainer>
         <ChatHeader {...props} />
         <MessageList channelId={props.channelId} />

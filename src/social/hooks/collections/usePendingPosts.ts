@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 
 export default function usePendingPosts(communityId: string | undefined) {
   if (!communityId) {
-    console.log('Pleaded the fifth!');
     return { posts: [] };
   }
 
@@ -17,7 +16,6 @@ export default function usePendingPosts(communityId: string | undefined) {
         feedType: 'reviewing',
       },
       ({ data: posts }) => {
-        console.log('posts', posts);
         if (posts) {
           setPosts(posts);
         }
