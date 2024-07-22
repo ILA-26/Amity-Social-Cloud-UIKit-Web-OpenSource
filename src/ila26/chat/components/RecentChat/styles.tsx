@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
 import { CreateChat, Search } from '~/icons';
 
 export const CreateNewChatIcon = styled(CreateChat).attrs<{ icon?: ReactNode }>({
@@ -45,7 +45,6 @@ export const InfiniteScrollContainer = styled.div`
   overflow-x: hidden;
 `;
 
-
 export const SearchContainer = styled.div`
   display: flex;
   align-items: center;
@@ -72,4 +71,37 @@ export const SearchIcon = styled(Search).attrs<{ icon?: ReactNode }>({
 
 export const Center = styled.p`
   text-align: center;
+`;
+
+export const CategoriesContainer = styled.div`
+  display: flex;
+  background-color: #fff;
+`;
+
+export const CategoryItem = styled.div.attrs<{ selected?: boolean }>({})`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: gray;
+  fill: gray;
+  span {
+    font-size: 10px;
+    margin: 2px;
+  }
+  font-weight: 600;
+  &:hover {
+    background-color: #EBECEE;
+  }
+  border-left: 2px solid transparent;
+  ${({ selected, theme }) =>
+    selected &&
+    `
+    border-left: 2px solid ${theme.palette.primary.main};
+    background-color: #f7f7f8;
+    color: ${theme.palette.primary.main};
+    fill: ${theme.palette.primary.main};
+    `}
 `;

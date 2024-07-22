@@ -15,6 +15,8 @@ import {
   SearchContainer,
   SearchIcon,
   Center,
+  CategoryItem,
+  CategoriesContainer,
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannelsCollection from '~/ila26/chat/hooks/collections/useChannelsCollection';
@@ -24,6 +26,7 @@ import UserHeader from '~/social/components/UserHeader';
 import useCreateChannel from '~/ila26/chat/hooks/useCreateChannel';
 import useFollowersCollection from '~/core/hooks/collections/useFollowersCollection';
 import useFollowingsCollection from '~/core/hooks/collections/useFollowingsCollection';
+import { CommunityAlt, ChatIcon } from '~/icons';
 
 interface RecentChatProps {
   onChannelSelect?: (data: { channelId: string; type: string }) => void;
@@ -38,6 +41,7 @@ const RecentChat = ({
   selectedChannelId,
   membershipFilter,
 }: RecentChatProps) => {
+  const [channelsCategory, setChannelsCategory] = useState<Amity.ChannelType>('community');
   const {
     channels,
     hasMore,
@@ -47,6 +51,7 @@ const RecentChat = ({
     membership: membershipFilter,
     sortBy: 'lastActivity',
     limit: 20,
+    types: [channelsCategory],
   });
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -104,6 +109,12 @@ const RecentChat = ({
     }
   };
 
+  const handleSelectChannelCategory = (newCategory: 'community' | 'conversation') => {
+    if (newCategory !== channelsCategory) {
+      setChannelsCategory(newCategory);
+    }
+  };
+
   const renderContent = () => {
     if (searchUserQuery != '') {
       if (options.length === 0 && !isLoadingUsers && searchUserQuery.length > 2) {
@@ -134,51 +145,70 @@ const RecentChat = ({
   };
 
   return (
-    <RecentContainer>
-      <RecentHeader>
-        <RecentHeaderLabel>
-          <FormattedMessage id="chat.chats" />
-        </RecentHeaderLabel>
-        {/* this component work only with Callback and User selector on Eko Side, during Personal Mode
+    <CategoriesContainer>
+      <div>
+        <CategoryItem
+          onClick={() => handleSelectChannelCategory('community')}
+          selected={channelsCategory === 'community'}
+        >
+          <CommunityAlt />
+          <span>Community</span>
+        </CategoryItem>
+
+        <CategoryItem
+          onClick={() => handleSelectChannelCategory('conversation')}
+          selected={channelsCategory === 'conversation'}
+        >
+          <ChatIcon />
+          <span>Chat</span>
+        </CategoryItem>
+      </div>
+      <RecentContainer>
+        <RecentHeader>
+          <RecentHeaderLabel>
+            <FormattedMessage id="chat.chats" />
+          </RecentHeaderLabel>
+          {/* this component work only with Callback and User selector on Eko Side, during Personal Mode
         development selector was not add as there is not specific suitable design for UI Kit.
         Need to be done internaly by ASC when needed. */}
-        <CreateNewChatIcon
-          data-qa-anchor="chat-create-chat-button"
-          onClick={onAddNewChannelClick}
-        />
-      </RecentHeader>
-      <SearchContainer>
-        <SearchIcon />
-        <SearchInput
-          ref={inputRef}
-          type="text"
-          placeholder={formatMessage({ id: 'chat.searchUser' })}
-          onChange={(e) => debouncedSetSearchUserQuery(e.target.value)}
-        />
-      </SearchContainer>
+          <CreateNewChatIcon
+            data-qa-anchor="chat-create-chat-button"
+            onClick={onAddNewChannelClick}
+          />
+        </RecentHeader>
+        <SearchContainer>
+          <SearchIcon />
+          <SearchInput
+            ref={inputRef}
+            type="text"
+            placeholder={formatMessage({ id: 'chat.searchUser' })}
+            onChange={(e) => debouncedSetSearchUserQuery(e.target.value)}
+          />
+        </SearchContainer>
 
-      <InfiniteScrollContainer ref={containerRef} data-qa-anchor="chat-list">
-        {containerRef.current ? (
-          <InfiniteScroll
-            scrollableTarget={containerRef.current}
-            scrollThreshold={0.7}
-            hasMore={hasMore}
-            next={loadMore}
-            loader={
-              (isLoadingChannels || isLoadingUsers) && (
-                <Center key={0}>
-                  <FormattedMessage id="chat.loading" />
-                  ...
-                </Center>
-              )
-            }
-            dataLength={channels.length}
-          >
-            {renderContent()}
-          </InfiniteScroll>
-        ) : null}
-      </InfiniteScrollContainer>
-    </RecentContainer>
+        <InfiniteScrollContainer ref={containerRef} data-qa-anchor="chat-list">
+          {containerRef.current ? (
+            <InfiniteScroll
+              scrollableTarget={containerRef.current}
+              scrollThreshold={0.7}
+              hasMore={hasMore}
+              next={loadMore}
+              loader={
+                (isLoadingChannels || isLoadingUsers) && (
+                  <Center key={0}>
+                    <FormattedMessage id="chat.loading" />
+                    ...
+                  </Center>
+                )
+              }
+              dataLength={channels.length}
+            >
+              {renderContent()}
+            </InfiniteScroll>
+          ) : null}
+        </InfiniteScrollContainer>
+      </RecentContainer>
+    </CategoriesContainer>
   );
 };
 
