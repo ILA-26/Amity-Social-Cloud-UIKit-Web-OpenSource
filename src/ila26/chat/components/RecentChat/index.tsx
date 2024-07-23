@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { debounce, union } from 'lodash';
+import { debounce, intersection } from 'lodash';
 
 import ChatItem, { getNormalizedUnreadCount } from '~/ila26/chat/components/ChatItem';
 
@@ -42,27 +42,56 @@ const RecentChat = ({
   selectedChannelId,
   membershipFilter,
 }: RecentChatProps) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { formatMessage } = useIntl();
+  const { currentUserId } = useSDK();
+
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedChannelsType, setSelectedChannelsType] = useState<Amity.ChannelType>('community');
+
+  const { followers } = useFollowersCollection({ userId: currentUserId, status: 'accepted' });
+  const { followings } = useFollowingsCollection({ userId: currentUserId, status: 'accepted' });
+
+  const { createChannel } = useCreateChannel();
+  const { users: queriedUsers = [], isLoading: isLoadingUsers } = useUserQueryByDisplayName(
+    selectedChannelsType === 'conversation' ? searchQuery : '',
+  );
+
+  const isCommunity = selectedChannelsType === 'community';
+  const membership = searchQuery && isCommunity ? 'all' : membershipFilter;
+  const types: Amity.ChannelType[] = isCommunity ? ['community'] : ['conversation'];
+
   const {
     channels,
     hasMore,
     loadMore,
     isLoading: isLoadingChannels,
   } = useChannelsCollection({
-    membership: membershipFilter,
+    membership,
     sortBy: 'lastActivity',
+    types,
     limit: 20,
   });
 
-  const filteredChannels = useMemo(
-    () =>
-      channels.filter(
-        (channel) =>
-          (channel.messageCount > 0 || channel.type !== 'conversation') &&
-          channel.type === selectedChannelsType,
-      ),
-    [channels, selectedChannelsType],
-  );
+  const filteredChannels = useMemo(() => {
+    const lowerCaseSearchQuery = searchQuery?.toLowerCase();
+
+    return channels.filter((channel) => {
+      if (selectedChannelsType !== channel.type) return false;
+
+      if (selectedChannelsType === 'conversation') {
+        return channel.messageCount > 0;
+      }
+
+      if (selectedChannelsType === 'community') {
+        if (!searchQuery) return true;
+        return channel.displayName?.toLowerCase().includes(lowerCaseSearchQuery);
+      }
+
+      return false;
+    });
+  }, [channels, selectedChannelsType, searchQuery]);
 
   const communuityUnreadCount = useMemo(
     () =>
@@ -84,19 +113,7 @@ const RecentChat = ({
     [channels],
   );
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const { formatMessage } = useIntl();
-  const { currentUserId } = useSDK();
-  const { followers } = useFollowersCollection({ userId: currentUserId, status: 'accepted' });
-  const { followings } = useFollowingsCollection({ userId: currentUserId, status: 'accepted' });
-
-  const [searchUserQuery, setSearchUserQuery] = useState('');
-  const { createChannel } = useCreateChannel();
-  const { users: queriedUsers = [], isLoading: isLoadingUsers } =
-    useUserQueryByDisplayName(searchUserQuery);
-
-  const debouncedSetSearchUserQuery = useMemo(() => debounce(setSearchUserQuery, 300), []);
+  const debouncedSetSearchQuery = useMemo(() => debounce(setSearchQuery, 300), []);
 
   useEffect(() => {
     if (!selectedChannelId && filteredChannels.length > 0 && onChannelSelect) {
@@ -106,7 +123,7 @@ const RecentChat = ({
 
   const connections = useMemo(
     () =>
-      union(
+      intersection(
         followers?.map((follower) => follower.from),
         followings?.map((following) => following.to),
       ),
@@ -118,7 +135,7 @@ const RecentChat = ({
     () =>
       queriedUsers.filter(
         ({ displayName, userId }) =>
-          displayName?.toLowerCase().includes(searchUserQuery.toLowerCase()) &&
+          displayName?.toLowerCase().includes(searchQuery.toLowerCase()) &&
           userId !== currentUserId &&
           connections.includes(userId),
       ),
@@ -131,7 +148,7 @@ const RecentChat = ({
       if (inputRef.current) {
         inputRef.current.value = '';
       }
-      setSearchUserQuery('');
+      setSearchQuery('');
 
       if (channel && channel._id) {
         onChannelSelect({ channelId: channel._id, type: channel.type });
@@ -146,8 +163,8 @@ const RecentChat = ({
   };
 
   const renderContent = () => {
-    if (searchUserQuery != '') {
-      if (options.length === 0 && !isLoadingUsers && searchUserQuery.length > 2) {
+    if (searchQuery != '' && selectedChannelsType === 'conversation') {
+      if (options.length === 0 && !isLoadingUsers && searchQuery.length > 2) {
         return (
           <Center>
             <FormattedMessage id="chat.noResults" />
@@ -158,7 +175,7 @@ const RecentChat = ({
         <UserHeader userId={option.userId} onClick={() => handleSelectUser(option)} />
       ));
     }
-    if (Array.isArray(channels)) {
+    if (Array.isArray(filteredChannels)) {
       return filteredChannels.map((channel) => (
         <ChatItem
           key={channel.channelId}
@@ -211,8 +228,13 @@ const RecentChat = ({
           <SearchInput
             ref={inputRef}
             type="text"
-            placeholder={formatMessage({ id: 'chat.searchUser' })}
-            onChange={(e) => debouncedSetSearchUserQuery(e.target.value)}
+            placeholder={formatMessage({
+              id:
+                selectedChannelsType === 'conversation'
+                  ? 'chat.searchUser'
+                  : 'chat.searchCommunity',
+            })}
+            onChange={(e) => debouncedSetSearchQuery(e.target.value)}
           />
         </SearchContainer>
 
@@ -231,7 +253,7 @@ const RecentChat = ({
                   </Center>
                 )
               }
-              dataLength={channels.length}
+              dataLength={filteredChannels.length}
             >
               {renderContent()}
             </InfiniteScroll>

@@ -224,6 +224,7 @@
   "chat.message.unsupported": "Type de message non pris en charge",
   "chat.chats": "Chats",
   "chat.searchUser": "Rechercher un utilisateur par nom",
+  "chat.searchCommunity": "Rechercher une communauté par nom",
   "chat.details.header": "Détails du chat",
   "chat.details.chatName": "Nom du chat",
   "chat.loading": "Chargement",

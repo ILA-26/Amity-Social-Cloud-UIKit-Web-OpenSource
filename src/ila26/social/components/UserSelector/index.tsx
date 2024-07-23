@@ -11,7 +11,7 @@ import useSDK from '~/core/hooks/useSDK';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useFollowersCollection from '~/core/hooks/collections/useFollowersCollection';
 import useFollowingsCollection from '~/core/hooks/collections/useFollowingsCollection';
-import { union } from 'lodash';
+import { intersection } from 'lodash';
 
 interface UserSelectorProps {
   value?: string[];
@@ -32,7 +32,7 @@ const UserSelector = ({ value, onChange, parentContainer = null }: UserSelectorP
 
   const connections = useMemo(
     () =>
-      union(
+      intersection(
         followers?.map((follower) => follower.from),
         followings?.map((following) => following.to),
       ),

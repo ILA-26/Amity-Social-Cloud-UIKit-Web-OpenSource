@@ -265,6 +265,7 @@
   "chat.message.unsupported": "Unsupported message type",
   "chat.chats": "Chats",
   "chat.searchUser": "Search user by name",
+  "chat.searchCommunity": "Search community by name",
   "chat.details.header": "Chat Details",
   "chat.details.chatName": "Chat Name",
   "chat.loading": "Loading",
