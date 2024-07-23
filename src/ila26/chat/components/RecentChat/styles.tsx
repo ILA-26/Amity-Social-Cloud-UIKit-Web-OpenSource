@@ -18,6 +18,7 @@ export const RecentContainer = styled.div`
   padding: 24px 0 5px 0;
   background-color: white;
   border-right: 1px solid #e3e4e8;
+  border-left: 1px solid #e3e4e8;
   max-height: 100dvh;
 `;
 
@@ -79,6 +80,7 @@ export const CategoriesContainer = styled.div`
 `;
 
 export const CategoryItem = styled.div.attrs<{ selected?: boolean }>({})`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -104,4 +106,16 @@ export const CategoryItem = styled.div.attrs<{ selected?: boolean }>({})`
     color: ${theme.palette.primary.main};
     fill: ${theme.palette.primary.main};
     `}
+`;
+
+export const CountBadge = styled.span`
+  position: absolute;
+  z-index: 1;
+  right:20px;
+  top: 0px;
+  color: white;
+  background-color: red;
+  padding: 2px 6px;
+  border-radius: 25px;
+  border: 2px solid white;
 `;

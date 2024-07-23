@@ -236,6 +236,8 @@
   "chat.members.return": "Retour aux contrôles",
   "chat.noResults": "Aucun résultat",
   "chat.create.modalTitle": "Créer un nouveau chat",
+  "chat.community": "Communauté",
+  "chat.chat": "Chat",
   "userSelector.placeholder": "Entrez un nom ou des adresses email",
   "userSelector.emptyState.title": "C'est vide ici...",
   "userSelector.emptyState.description": "Aucun contact trouvé ici",

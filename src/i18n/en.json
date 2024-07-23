@@ -278,6 +278,8 @@
   "chat.members.count": "{count} members",
   "chat.noResults": "No results",
   "chat.create.modalTitle": "Create new chat",
+  "chat.community": "Community",
+  "chat.chat": "Chat",
   "userSelector.placeholder": "Enter name or email addresses",
   "userSelector.emptyState.title": "It's empty here...",
   "userSelector.emptyState.description": "No contact found here",

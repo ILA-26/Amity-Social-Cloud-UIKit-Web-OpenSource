@@ -10,7 +10,7 @@ import useChannelSubscription from '~/social/hooks/useChannelSubscription';
 import useChannel from '~/ila26/chat/hooks/useChannel';
 import useSDK from '~/core/hooks/useSDK';
 
-function getNormalizedUnreadCount(channelUnreadCount: number) {
+export const getNormalizedUnreadCount = (channelUnreadCount: number) => {
   // Within this range the unread counter will show an actuall number
   const ACTUAL_NUMBER_AS_COUNTER_EDGES = {
     BOTTOM: 1,
@@ -24,7 +24,7 @@ function getNormalizedUnreadCount(channelUnreadCount: number) {
   if (channelUnreadCount <= ACTUAL_NUMBER_AS_COUNTER_EDGES.TOP) return channelUnreadCount;
 
   return `${ACTUAL_NUMBER_AS_COUNTER_EDGES.TOP}+`;
-}
+};
 
 interface ChatItemProps {
   channelId: string;

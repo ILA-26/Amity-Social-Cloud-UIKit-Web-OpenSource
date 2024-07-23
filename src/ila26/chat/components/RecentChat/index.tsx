@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { debounce, union } from 'lodash';
 
-import ChatItem from '~/ila26/chat/components/ChatItem';
+import ChatItem, { getNormalizedUnreadCount } from '~/ila26/chat/components/ChatItem';
 
 import {
   CreateNewChatIcon,
@@ -17,6 +17,7 @@ import {
   Center,
   CategoryItem,
   CategoriesContainer,
+  CountBadge,
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannelsCollection from '~/ila26/chat/hooks/collections/useChannelsCollection';
@@ -41,7 +42,7 @@ const RecentChat = ({
   selectedChannelId,
   membershipFilter,
 }: RecentChatProps) => {
-  const [channelsCategory, setChannelsCategory] = useState<Amity.ChannelType>('community');
+  const [selectedChannelsType, setSelectedChannelsType] = useState<Amity.ChannelType>('community');
   const {
     channels,
     hasMore,
@@ -51,8 +52,37 @@ const RecentChat = ({
     membership: membershipFilter,
     sortBy: 'lastActivity',
     limit: 20,
-    types: [channelsCategory],
   });
+
+  const filteredChannels = useMemo(
+    () =>
+      channels.filter(
+        (channel) =>
+          (channel.messageCount > 0 || channel.type !== 'conversation') &&
+          channel.type === selectedChannelsType,
+      ),
+    [channels, selectedChannelsType],
+  );
+
+  const communuityUnreadCount = useMemo(
+    () =>
+      getNormalizedUnreadCount(
+        channels
+          .filter((channel) => channel.type === 'community')
+          .reduce((acc, channel) => acc + channel.subChannelsUnreadCount, 0),
+      ),
+    [channels],
+  );
+
+  const conversationUnreadCount = useMemo(
+    () =>
+      getNormalizedUnreadCount(
+        channels
+          .filter((channel) => channel.type === 'conversation')
+          .reduce((acc, channel) => acc + channel.subChannelsUnreadCount, 0),
+      ),
+    [channels],
+  );
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -69,10 +99,10 @@ const RecentChat = ({
   const debouncedSetSearchUserQuery = useMemo(() => debounce(setSearchUserQuery, 300), []);
 
   useEffect(() => {
-    if (!selectedChannelId && channels.length > 0 && onChannelSelect) {
-      onChannelSelect({ channelId: channels[0]._id, type: 'standard' });
+    if (!selectedChannelId && filteredChannels.length > 0 && onChannelSelect) {
+      onChannelSelect({ channelId: filteredChannels[0]._id, type: 'standard' });
     }
-  }, [channels]);
+  }, [filteredChannels]);
 
   const connections = useMemo(
     () =>
@@ -110,8 +140,8 @@ const RecentChat = ({
   };
 
   const handleSelectChannelCategory = (newCategory: 'community' | 'conversation') => {
-    if (newCategory !== channelsCategory) {
-      setChannelsCategory(newCategory);
+    if (newCategory !== selectedChannelsType) {
+      setSelectedChannelsType(newCategory);
     }
   };
 
@@ -129,18 +159,16 @@ const RecentChat = ({
       ));
     }
     if (Array.isArray(channels)) {
-      return channels
-        .filter((channel) => channel?.messageCount >= 1 || channel?.type !== 'conversation')
-        .map((channel) => (
-          <ChatItem
-            key={channel.channelId}
-            channelId={channel.channelId}
-            isSelected={selectedChannelId === channel.channelId}
-            onSelect={(data) => {
-              onChannelSelect?.(data);
-            }}
-          />
-        ));
+      return filteredChannels.map((channel) => (
+        <ChatItem
+          key={channel.channelId}
+          channelId={channel.channelId}
+          isSelected={selectedChannelId === channel.channelId}
+          onSelect={(data) => {
+            onChannelSelect?.(data);
+          }}
+        />
+      ));
     }
   };
 
@@ -149,18 +177,20 @@ const RecentChat = ({
       <div>
         <CategoryItem
           onClick={() => handleSelectChannelCategory('community')}
-          selected={channelsCategory === 'community'}
+          selected={selectedChannelsType === 'community'}
         >
+          {communuityUnreadCount && <CountBadge>{communuityUnreadCount}</CountBadge>}
           <CommunityAlt />
-          <span>Community</span>
+          <FormattedMessage id="chat.community" tagName="span" />
         </CategoryItem>
 
         <CategoryItem
           onClick={() => handleSelectChannelCategory('conversation')}
-          selected={channelsCategory === 'conversation'}
+          selected={selectedChannelsType === 'conversation'}
         >
+          {conversationUnreadCount && <CountBadge>{conversationUnreadCount}</CountBadge>}
           <ChatIcon />
-          <span>Chat</span>
+          <FormattedMessage id="chat.chat" tagName="span" />
         </CategoryItem>
       </div>
       <RecentContainer>
