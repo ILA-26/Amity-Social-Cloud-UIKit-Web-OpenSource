@@ -275,6 +275,8 @@
   "chat.leaveChat.confirm.okButton": "Leave",
   "chat.leaveChat.success": "You successfully left chat",
   "chat.leaveChat.error": "Attempt to leave a chat has failed",
+  "chat.joinChat.success": "You successfully joined chat",
+  "chat.joinChat.error": "Attempt to join a chat has failed",
   "chat.members.return": "Return to controls",
   "chat.members.count": "{count} members",
   "chat.noResults": "No results",

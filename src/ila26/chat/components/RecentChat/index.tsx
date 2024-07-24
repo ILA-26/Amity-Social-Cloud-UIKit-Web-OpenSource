@@ -28,6 +28,8 @@ import useCreateChannel from '~/ila26/chat/hooks/useCreateChannel';
 import useFollowersCollection from '~/core/hooks/collections/useFollowersCollection';
 import useFollowingsCollection from '~/core/hooks/collections/useFollowingsCollection';
 import { CommunityAlt, ChatIcon } from '~/icons';
+import { ChannelRepository } from '@amityco/ts-sdk';
+import { notification } from '~/core/components/Notification';
 
 interface RecentChatProps {
   onChannelSelect?: (data: { channelId: string; type: string }) => void;
@@ -91,7 +93,12 @@ const RecentChat = ({
 
       return false;
     });
-  }, [channels, selectedChannelsType, searchQuery]);
+  }, [
+    channels,
+    selectedChannelsType,
+    ChannelRepository.onChannelLeft,
+    ChannelRepository.onChannelJoined,
+  ]);
 
   const communuityUnreadCount = useMemo(
     () =>
@@ -162,6 +169,18 @@ const RecentChat = ({
     }
   };
 
+  const notifyUserMembership = (status: boolean) => {
+    if (status) {
+      notification.success({
+        content: formatMessage({ id: 'chat.joinChat.success' }),
+      });
+    } else {
+      notification.error({
+        content: formatMessage({ id: 'chat.joinChat.error' }),
+      });
+    }
+  };
+
   const renderContent = () => {
     if (searchQuery != '' && selectedChannelsType === 'conversation') {
       if (options.length === 0 && !isLoadingUsers && searchQuery.length > 2) {
@@ -181,7 +200,11 @@ const RecentChat = ({
           key={channel.channelId}
           channelId={channel.channelId}
           isSelected={selectedChannelId === channel.channelId}
-          onSelect={(data) => {
+          onSelect={async (data) => {
+            if (searchQuery && selectedChannelsType === 'community') {
+              const status = await ChannelRepository.joinChannel(channel._id);
+              notifyUserMembership(status);
+            }
             onChannelSelect?.(data);
           }}
         />
