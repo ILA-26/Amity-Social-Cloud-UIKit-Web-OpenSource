@@ -42,6 +42,7 @@ export { default as ArrowLeftCircle } from './ArrowLeftCircle';
 export { default as ArrowLeftCircle2 } from './ArrowLeftCircle2';
 export { default as ArrowRightCircle } from './ArrowRightCircle';
 export { default as EyeIcon } from './Eye';
+export { default as ChatIcon } from './Chat';
 
 
 // files

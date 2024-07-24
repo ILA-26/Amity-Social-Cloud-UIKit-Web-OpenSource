@@ -69,7 +69,7 @@ const ChatComposer = ({ className, onCancel, onSubmit }: ChatComposerProps) => {
     try {
       const payload = {
         displayName: data.displayName,
-        type: (data?.type || 'community') as Amity.ChannelType,
+        type: 'community' as Amity.ChannelType,
         avatarFileId: data?.avatarFileId || undefined,
         userIds: data?.userIds,
         tags: data?.tags,
@@ -90,27 +90,6 @@ const ChatComposer = ({ className, onCancel, onSubmit }: ChatComposerProps) => {
       <Form className={className} onSubmit={handleSubmit(validateAndSubmit)}>
         <FormBody ref={formBodyRef}>
           <FormBlock>
-            <Field>
-              <LabelWrapper>
-                <LabelContainer>
-                  <Label>
-                    <FormattedMessage id="chatComposer.label.type" />
-                  </Label>
-                </LabelContainer>
-              </LabelWrapper>
-              <ControllerContainer>
-                <Controller
-                  name="type"
-                  rules={{ required: 'Channel type is required' }}
-                  render={({ field: { ref, ...rest } }) => (
-                    <ChatTypeSelector parentContainer={formBodyRef.current} {...rest} />
-                  )}
-                  control={control}
-                  defaultValue=""
-                />
-              </ControllerContainer>
-            </Field>
-
             <Field>
               <LabelWrapper>
                 <LabelContainer>
