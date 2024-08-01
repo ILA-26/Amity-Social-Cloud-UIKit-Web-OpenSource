@@ -62,7 +62,6 @@ const RecentChat = ({
 
   const isCommunity = selectedChannelsType === 'community';
   const membership = searchQuery && isCommunity ? 'all' : membershipFilter;
-  const types: Amity.ChannelType[] = isCommunity ? ['community'] : ['conversation'];
 
   const {
     channels,
@@ -72,7 +71,7 @@ const RecentChat = ({
   } = useChannelsCollection({
     membership,
     sortBy: 'lastActivity',
-    types,
+    types: ['community', 'conversation'],
     limit: 20,
   });
 
@@ -236,7 +235,9 @@ const RecentChat = ({
       <RecentContainer>
         <RecentHeader>
           <RecentHeaderLabel>
-            <FormattedMessage id="chat.chats" />
+            <FormattedMessage
+              id={selectedChannelsType === 'community' ? 'chat.communities' : 'chat.chats'}
+            />
           </RecentHeaderLabel>
           {/* this component work only with Callback and User selector on Eko Side, during Personal Mode
         development selector was not add as there is not specific suitable design for UI Kit.
