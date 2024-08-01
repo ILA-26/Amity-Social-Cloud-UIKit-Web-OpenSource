@@ -240,6 +240,7 @@
   "chat.noResults": "Aucun résultat",
   "chat.create.modalTitle": "Créer un nouveau chat",
   "chat.community": "Communauté",
+  "chat.communities": "Communautés",
   "chat.chat": "Chat",
   "userSelector.placeholder": "Entrez un nom ou des adresses email",
   "userSelector.emptyState.title": "C'est vide ici...",

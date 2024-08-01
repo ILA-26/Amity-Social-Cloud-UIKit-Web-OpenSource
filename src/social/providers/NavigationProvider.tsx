@@ -205,9 +205,8 @@ export default function NavigationProvider({
       };
 
       if (onChangePage) return onChangePage(next);
-      if (onClickCommunity) return onClickCommunity(communityId);
-
-      console.log('handleClickCommunity', { communityId });
+      if (onClickCommunity) onClickCommunity(communityId);
+      
       pushPage(next);
     },
     [onChangePage, onClickCommunity, pushPage],

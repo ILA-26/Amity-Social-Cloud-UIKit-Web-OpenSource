@@ -282,6 +282,7 @@
   "chat.noResults": "No results",
   "chat.create.modalTitle": "Create new chat",
   "chat.community": "Community",
+  "chat.communities": "Communities",
   "chat.chat": "Chat",
   "userSelector.placeholder": "Enter name or email addresses",
   "userSelector.emptyState.title": "It's empty here...",
