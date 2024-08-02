@@ -1,5 +1,6 @@
 import React, { MouseEventHandler } from 'react';
 import { DefaultButton, PrimaryButton, SecondaryButton } from './styles';
+import { CSSProperties } from 'styled-components';
 
 // legacy
 export { PrimaryButton, SecondaryButton };
@@ -13,6 +14,7 @@ export interface ButtonProps {
   className?: string;
   'data-qa-anchor'?: string;
   type?: 'button' | 'submit' | 'reset';
+  style?: CSSProperties;
 }
 
 const Button = ({ variant, fullWidth = false, ...props }: ButtonProps) => {
