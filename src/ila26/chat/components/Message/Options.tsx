@@ -6,6 +6,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Popover from '~/core/components/Popover';
 import Menu, { MenuItem } from '~/core/components/Menu';
 import { notification } from '~/core/components/Notification';
+import { confirm } from '~/core/components/Confirm';
 
 import { MessageOptionsIcon, SaveIcon, CloseIcon, EditingInput, EditingContainer } from './styles';
 import useMessageFlaggedByMe from '~/ila26/chat/hooks/useMessageFlaggedByMe';
@@ -87,7 +88,14 @@ const Options = ({
   };
 
   const deleteMessage = () => {
-    MessageRepository.deleteMessage(messageId).then(close);
+    setIsOpen(false);
+    confirm({
+      title: formatMessage({ id: 'chat.deleteChat.title' }),
+      content: formatMessage({ id: 'chat.deleteChat.content' }),
+      cancelText: formatMessage({ id: 'chat.deleteChat.cancelText' }),
+      okText: formatMessage({ id: 'chat.deleteChat.okText' }),
+      onOk: () => MessageRepository.deleteMessage(messageId).then(close),
+    });
   };
 
   const menu = (
