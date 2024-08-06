@@ -78,10 +78,12 @@ export const FileSize = styled.div`
 export const RemoveIcon = styled(Remove)`
   grid-area: remove;
   z-index: 2;
+  height: 15px;
+  width: 15px;
 `;
 
 export const RemoveButton = (props: ButtonProps) => (
-  <Button {...props} variant="secondary">
+  <Button {...props} style={{ padding: "5px" }} variant="secondary">
     <RemoveIcon />
   </Button>
 );
