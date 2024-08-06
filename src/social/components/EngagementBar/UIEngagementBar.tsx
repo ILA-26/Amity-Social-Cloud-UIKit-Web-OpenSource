@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import millify from 'millify';
 import { FormattedMessage } from 'react-intl';
 
@@ -11,6 +11,7 @@ import {
   InteractionBar,
   CommentIcon,
   NoInteractionMessage,
+  CommentsLabel,
 } from './styles';
 import CommentList from '~/social/components/CommentList';
 import { LIKE_REACTION_KEY } from '~/constants';
@@ -36,12 +37,17 @@ const UIEngagementBar = ({
   isComposeBarDisplayed,
   handleAddComment,
 }: UIEngagementBarProps) => {
+  const [showComments, setShowComments] = useState<boolean>(false);
   const { postId, targetType, targetId, reactions = {}, commentsCount } = post;
 
   usePostSubscription({
     postId,
     level: SubscriptionLevels.POST,
   });
+
+  const toggleShowComments = useCallback(() => {
+    setShowComments((prev) => !prev);
+  }, []);
 
   const totalLikes = reactions[LIKE_REACTION_KEY] || 0;
 
@@ -56,10 +62,10 @@ const UIEngagementBar = ({
         )}
 
         {commentsCount > 0 && (
-          <span data-qa-anchor="engagement-bar-comment-counter">
+          <CommentsLabel data-qa-anchor="engagement-bar-comment-counter" onClick={toggleShowComments}>
             {millify(commentsCount || 0)}{' '}
             <FormattedMessage id="plural.comment" values={{ amount: commentsCount }} />
-          </span>
+          </CommentsLabel>
         )}
       </Counters>
       {!readonly ? (
@@ -73,7 +79,9 @@ const UIEngagementBar = ({
               <CommentIcon /> <FormattedMessage id="comment" />
             </SecondaryButton>
           </InteractionBar>
-          <CommentList referenceId={postId} referenceType={'post'} limit={COMMENTS_PER_PAGE} />
+          {showComments && (
+            <CommentList referenceId={postId} referenceType={'post'} limit={COMMENTS_PER_PAGE} />
+          )}
 
           {isComposeBarDisplayed && (
             <CommentComposeBar
@@ -89,12 +97,14 @@ const UIEngagementBar = ({
           <NoInteractionMessage>
             <FormattedMessage id="community.cannotInteract" />
           </NoInteractionMessage>
-          <CommentList
-            referenceId={postId}
-            referenceType={'post'}
-            limit={COMMENTS_PER_PAGE}
-            readonly
-          />
+          {showComments && (
+            <CommentList
+              referenceId={postId}
+              referenceType={'post'}
+              limit={COMMENTS_PER_PAGE}
+              readonly
+            />
+          )}
         </>
       )}
     </EngagementBarContainer>

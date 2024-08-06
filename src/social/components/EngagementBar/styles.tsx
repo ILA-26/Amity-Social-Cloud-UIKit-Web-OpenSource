@@ -29,3 +29,10 @@ export const NoInteractionMessage = styled.div`
   color: ${({ theme }) => theme.palette.base.shade2};
   margin-top: 8px;
 `;
+
+export const CommentsLabel = styled.span`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
