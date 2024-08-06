@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ReactNode } from 'react';
+import React, { useState, useCallback, ReactNode, useRef } from 'react';
 import styled from 'styled-components';
 import cx from 'clsx';
 import { notification } from '~/core/components/Notification';
@@ -65,6 +65,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
 }) => {
   const [uniqId] = useState(`_${(Date.now() * Math.random()).toString(36)}`);
   const [hover, setHover] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const onMaxFilesLimit = useCallback(
     () =>
@@ -153,6 +154,9 @@ const FileLoader: React.FC<FileLoaderProps> = ({
         onFileSizeLimit?.();
       } else if (filteredByTypeFiles.length) {
         onChange?.(filteredByTypeFiles);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
       }
 
       // Attempted to upload more files than allowed meaning some have been removed.
@@ -201,6 +205,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
       onDrop={onDrop}
     >
       <FileInput
+        ref={fileInputRef}
         accept={mimeType}
         multiple={multiple}
         disabled={disabled}
