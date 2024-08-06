@@ -8,7 +8,7 @@ interface ProgressBarProps {
 }
 
 const ProgressBar = ({ progress, lightMode }: ProgressBarProps) => {
-  return <LoadingIndicator progress={progress} lightMode={lightMode} />;
+  return <LoadingIndicator $progress={progress} lightMode={lightMode} />;
 };
 
 export default ProgressBar;

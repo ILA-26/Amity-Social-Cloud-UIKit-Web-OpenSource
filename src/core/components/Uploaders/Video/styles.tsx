@@ -8,14 +8,14 @@ import LiveBadge from '~/social/components/LiveBadge';
 
 import { ExclamationCircle, Play, Remove } from '~/icons';
 
-export const VideoContainer = styled.div<{ border?: boolean }>`
+export const VideoContainer = styled.div<{ $border?: boolean }>`
   position: relative;
   display: inline-block;
   min-width: 2em;
   min-height: 2em;
   width: 100%;
   height: 100%;
-  border: ${({ theme, border }) => border && `1px solid ${theme.palette.base.shade4}`};
+  border: ${({ theme, $border }) => $border && `1px solid ${theme.palette.base.shade4}`};
   border-radius: 4px;
   overflow: hidden;
 

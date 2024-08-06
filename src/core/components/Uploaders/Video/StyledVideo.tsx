@@ -89,7 +89,7 @@ const StyledVideo = ({
   }, [videoEl, isLive, url]);
 
   return (
-    <VideoContainer border={!noBorder}>
+    <VideoContainer $border={!noBorder}>
       <Content>
         {url ? (
           <VideoPreview

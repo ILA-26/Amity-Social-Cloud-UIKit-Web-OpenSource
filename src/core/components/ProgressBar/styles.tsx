@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const LoadingIndicator = styled.div.attrs<{ progress?: number; lightMode?: boolean }>(
-  ({ progress }) => ({
-    style: { width: `${progress || 0}%` },
+export const LoadingIndicator = styled.div.attrs<{ $progress?: number; lightMode?: boolean }>(
+  ({ $progress }) => ({
+    style: { width: `${$progress || 0}%` },
   }),
 )`
   background: ${({ lightMode, theme }) =>

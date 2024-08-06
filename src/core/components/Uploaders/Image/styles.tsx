@@ -8,14 +8,14 @@ import Skeleton from '~/core/components/Skeleton';
 import RemoveIcon from '~/icons/Remove';
 import ExclamationCircle from '~/icons/ExclamationCircle';
 
-export const ImageContainer = styled.div<{ border?: boolean }>`
+export const ImageContainer = styled.div<{ $border?: boolean }>`
   position: relative;
   display: inline-block;
   min-width: 2em;
   min-height: 2em;
   width: 100%;
   height: 100%;
-  border: ${({ theme, border }) => border && `1px solid ${theme.palette.base.shade4}`};
+  border: ${({ theme, $border }) => $border && `1px solid ${theme.palette.base.shade4}`};
   border-radius: 4px;
   overflow: hidden;
 

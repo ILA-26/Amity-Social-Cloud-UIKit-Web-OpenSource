@@ -57,7 +57,7 @@ const StyledImage = ({
   );
 
   return (
-    <ImageContainer className={className} border={!noBorder} data-qa-anchor={dataQaAnchor}>
+    <ImageContainer className={className} $border={!noBorder} data-qa-anchor={dataQaAnchor}>
       <Content>
         {url ? (
           <ImgPreview
