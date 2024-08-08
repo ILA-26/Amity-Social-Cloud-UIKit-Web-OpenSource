@@ -71,7 +71,7 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
           borderRadius: '3px',
         }}
       >
-        {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US' ? 'Product' : 'Produit'}
+        {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US' ? 'Listing' : 'Annonce'}
       </span>
 
       <h1>{metadata?.title}</h1>
