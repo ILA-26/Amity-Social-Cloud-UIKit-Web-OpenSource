@@ -26,23 +26,33 @@ export const Avatar = styled(UserAvatar)`
   flex-shrink: 0;
 `;
 
+export const TitleContainer = styled.div`
+  margin-left: 8px;
+  text-align: start;
+  width: 180px;
+`;
+
 export const Title = styled.div`
-  width: 135px;
   ${({ theme }) => theme.typography.bodyBold};
   line-height: 20px;
-  text-align: left;
   color: #000;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-left: 8px;
+  overflow: hidden;
+`;
+
+export const SubTitle = styled.div`
+  font-size: 12px !important;
+  font-weight: normal;
+  color: grey;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const UnreadCount = styled.div`
-  flex-shrink: 0;
-  height: 20px;
-  padding: 1px 6px;
-  font-size: 13px;
+  padding: 0px 5px;
+  font-size: 12px !important;
   color: #fff;
   background: #f9563a;
   border-radius: 20px;
