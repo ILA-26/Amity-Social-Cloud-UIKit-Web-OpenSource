@@ -113,7 +113,9 @@ function useChatInfo({ channel }: { channel: Amity.Channel | null }) {
   const messagePreview = useMemo(() => {
     if (!channel) return '';
   
-    const { messagePreview: preview } = channel;
+    const { messagePreview: preview }: { messagePreview?: MessagePreview } = channel;
+    if (!preview) return '';
+
     const isCurrentUser = preview.creatorId === currentUserId;
   
     if (preview.dataType === 'text') {
@@ -128,5 +130,23 @@ function useChatInfo({ channel }: { channel: Amity.Channel | null }) {
 
   return { chatName, chatAvatar, type: channel?.type, messagePreview };
 }
+
+// Amity.Channel doesn't define messagePreview
+type MessagePreview = {
+  channelId: string;
+  createdAt: string;
+  creatorId: string;
+  data: {
+    text: string;
+  };
+  dataType: string;
+  isDeleted: boolean;
+  messagePreviewId: string;
+  segment: number;
+  subChannelId: string;
+  subChannelName: string;
+  subChannelUpdatedAt: string;
+  updatedAt: string;
+};
 
 export default useChatInfo;
