@@ -55,7 +55,7 @@ const CommunityFeed = ({
     [community?.postSetting, community?.isJoined, canReview, pendingPostCount],
   );
 
-  const [activeTab, setActiveTab] = useState(CommunityFeedTabs.TIMELINE);
+  const [activeTab, setActiveTab] = useState(CommunityFeedTabs.GALLERY);
 
   useCommunitySubscription({
     communityId,
@@ -82,18 +82,6 @@ const CommunityFeed = ({
         activeTab={activeTab}
         onChange={setActiveTab}
       />
-
-      {activeTab === CommunityFeedTabs.TIMELINE && (
-        <Feed
-          targetType={'community'}
-          targetId={communityId}
-          readonly={!isJoined}
-          showPostCreator={isJoined}
-          feedType={'published'}
-          ILA26_communityManagerProps={ILA26_communityManagerProps}
-          ILA26_getInternalData={ILA26_getInternalData}
-        />
-      )}
 
       {activeTab === CommunityFeedTabs.GALLERY && (
         <MediaGallery targetType={'community'} targetId={communityId} />
