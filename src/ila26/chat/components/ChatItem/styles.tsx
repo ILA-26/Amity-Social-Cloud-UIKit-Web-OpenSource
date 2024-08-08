@@ -51,10 +51,8 @@ export const SubTitle = styled.div`
 `;
 
 export const UnreadCount = styled.div`
-  flex-shrink: 0;
-  height: 20px;
-  padding: 1px 6px;
-  font-size: 13px;
+  padding: 0px 5px;
+  font-size: 12px !important;
   color: #fff;
   background: #f9563a;
   border-radius: 20px;
