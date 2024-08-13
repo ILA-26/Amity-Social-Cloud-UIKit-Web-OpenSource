@@ -55,7 +55,7 @@ const CommunityFeed = ({
     [community?.postSetting, community?.isJoined, canReview, pendingPostCount],
   );
 
-  const [activeTab, setActiveTab] = useState(CommunityFeedTabs.GALLERY);
+  const [activeTab, setActiveTab] = useState(CommunityFeedTabs.TIMELINE);
 
   useCommunitySubscription({
     communityId,
