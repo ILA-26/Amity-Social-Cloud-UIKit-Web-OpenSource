@@ -26,7 +26,7 @@ const SideSectionCommunity = ({ shouldHideExplore, children }: SideSectionCommun
         <SideMenuActionItem
           data-qa-anchor="side-section-community-side-menu-action-item-explore-button"
           icon={<SearchIcon />}
-          active={page.type === PageTypes.Explore}
+          active={page.type === PageTypes.Explore || page.type === PageTypes.NewsFeed} // hide community news feed and fallback to explore
           onClick={() => onChangePage(PageTypes.Explore)}
         >
           <FormattedMessage id="sidesectioncommunity.explore" />

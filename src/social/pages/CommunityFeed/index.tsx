@@ -73,7 +73,7 @@ const CommunityFeed = ({
   const [isCreatedModalOpened, setCreatedModalOpened] = useState(isNewCommunity);
 
   return (
-    <Wrapper>
+    <Wrapper style={{ maxWidth: 'unset !important' }}>
       <CommunityInfo communityId={communityId} />
 
       <FeedHeaderTabs
@@ -82,6 +82,18 @@ const CommunityFeed = ({
         activeTab={activeTab}
         onChange={setActiveTab}
       />
+
+      {activeTab === CommunityFeedTabs.TIMELINE && (
+        <Feed
+          targetType={'community'}
+          targetId={communityId}
+          readonly={!isJoined}
+          showPostCreator={isJoined}
+          feedType={'published'}
+          ILA26_communityManagerProps={ILA26_communityManagerProps}
+          ILA26_getInternalData={ILA26_getInternalData}
+        />
+      )}
 
       {activeTab === CommunityFeedTabs.GALLERY && (
         <MediaGallery targetType={'community'} targetId={communityId} />

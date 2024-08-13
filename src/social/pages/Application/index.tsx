@@ -52,14 +52,9 @@ const Community = ({
   return (
     <ApplicationContainer>
       <MainLayout aside={<StyledCommunitySideMenu activeCommunity={page.communityId} />}>
-        {page.type === PageTypes.Explore && <ExplorePage />}
-
-        {page.type === PageTypes.NewsFeed && (
-          <NewsFeedPage
-            ILA26_communityManagerProps={ILA26_communityManagerProps}
-            ILA26_getInternalData={ILA26_getInternalData}
-          />
-        )}
+        {
+          (page.type === PageTypes.Explore || page.type === PageTypes.NewsFeed) && <ExplorePage /> // hide community news feed and fallback to explore
+        }
 
         {page.type === PageTypes.CommunityFeed && (
           <CommunityFeedPage
