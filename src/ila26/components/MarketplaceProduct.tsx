@@ -31,17 +31,24 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
             alignItems: 'center',
           }}
         >
-          <img
-            src={
-              metadata?.productPicture?.azureBlobUri ??
-              'https://stilan26prdfront.blob.core.windows.net/public/no-image-product.svg'
-            }
+          <object
+            data={metadata?.productPicture?.azureBlobUri}
             style={{
               width: '100%',
               maxHeight: '180px',
-              objectFit: metadata?.productPicture?.azureBlobUri ? 'cover' : 'contain',
+              objectFit: 'cover',
             }}
-          />
+            aria-label={metadata?.title ?? 'Product image'}
+          >
+            <img
+              src={'https://stilan26prdfront.blob.core.windows.net/public/no-image-product.svg'}
+              style={{
+                width: '100%',
+                maxHeight: '180px',
+                objectFit: 'contain',
+              }}
+            />
+          </object>
           {!metadata?.productPicture?.azureBlobUri && (
             <span style={{ margin: '12px 0' }}>
               {' '}
