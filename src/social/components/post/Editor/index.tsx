@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import Content from './Content';
 import { PostEditorContainer, Footer, ContentContainer, PostButton } from './styles';
@@ -14,7 +14,7 @@ interface PostEditorProps {
 
 const PostEditor = ({
   postId,
-  placeholder = "What's going on...",
+  placeholder,
   className,
   onSave,
 }: PostEditorProps) => {
@@ -33,8 +33,11 @@ const PostEditor = ({
     postId,
     onSave,
   });
-
+  
   if (post == null) return null;
+  
+  const { formatMessage } = useIntl();
+  const _placeholder = placeholder || formatMessage({ id: 'post.placehoder' });
 
   return (
     <PostEditorContainer className={className}>
@@ -43,7 +46,7 @@ const PostEditor = ({
           data-qa-anchor="post-editor-textarea"
           data={markup}
           dataType={'text'}
-          placeholder={placeholder}
+          placeholder={_placeholder}
           queryMentionees={queryMentionees}
           onChangeText={onChange}
         />

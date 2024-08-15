@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect, useRef } from 'react';
 import cx from 'clsx';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import {
   UserRepository,
   CommunityRepository,
@@ -117,7 +117,7 @@ const PostCreatorBar = ({
   targetId,
   enablePostTargetPicker,
   communities = [],
-  placeholder = "What's going on...",
+  placeholder,
   hasMoreCommunities,
   loadMoreCommunities,
   onCreateSuccess,
@@ -125,9 +125,12 @@ const PostCreatorBar = ({
   ILA26_communityManagerProps,
   maxFiles = MAX_FILES_PER_POST,
 }: PostCreatorBarProps) => {
+  const { formatMessage } = useIntl();
   const { currentUserId } = useSDK();
   const { setNavigationBlocker } = useNavigation();
   const user = useUser(currentUserId);
+
+  const _placeholder = placeholder || formatMessage({ id: 'post.placehoder' });
 
   // default to me
   if (targetType === 'global' || targetType === 'myFeed') {
@@ -336,7 +339,7 @@ const PostCreatorBar = ({
           data-qa-anchor="post-creator-textarea"
           multiline
           value={markup}
-          placeholder={placeholder}
+          placeholder={_placeholder}
           mentionAllowed
           queryMentionees={queryMentionees}
           loadMoreMentionees={(query) => queryMentionees(query)}
