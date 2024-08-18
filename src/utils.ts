@@ -1,5 +1,23 @@
 import { Client as ASCClient, SubscriptionLevels } from '@amityco/ts-sdk';
 
+export const checkStoryPermission = (
+  client: Amity.Client | null | undefined,
+  communityId?: string,
+): boolean => {
+  if (!client) {
+    return false;
+  }
+
+  if (communityId) {
+    const communityPermission = client
+      .hasPermission(Permissions.ManageStoryPermission)
+      .community(communityId);
+    return communityPermission;
+  }
+
+  return false;
+};
+
 export function isLoadingItem<T>(item: T | { skeleton?: boolean }): item is { skeleton?: boolean } {
   return !!(item as { skeleton?: boolean }).skeleton;
 }
