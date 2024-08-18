@@ -1,0 +1,7 @@
+.icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-right: var(--asc-spacing-s1);
+  margin-left: var(--asc-spacing-s1);
+  fill: var(--asc-color-white);
+}

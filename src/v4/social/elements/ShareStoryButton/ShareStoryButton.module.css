@@ -1,0 +1,21 @@
+.shareStoryButton {
+  display: inline-flex;
+  height: 2.5rem;
+  padding: 0.375rem 0.5rem 0.375rem 0.25rem;
+  align-items: center;
+  gap: var(--asc-spacing-s1);
+  flex-shrink: 0;
+  border-radius: var(--asc-border-radius-full);
+  border: none;
+  cursor: pointer;
+  background-color: var(--asc-color-white);
+  color: var(--asc-color-black);
+}
+
+.shareStoryButton[data-hideAvatar='true'] {
+  display: none;
+}
+
+.shareStoryIcon {
+  margin-left: var(--asc-spacing-s1);
+}
