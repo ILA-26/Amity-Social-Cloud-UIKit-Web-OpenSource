@@ -14,6 +14,11 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
+declare module '*.module.css' {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+
 declare module 'colorthief' {
   export type RGBColor = [number, number, number];
   export default class ColorThief {
