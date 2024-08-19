@@ -6,6 +6,7 @@ import useUser from '~/core/hooks/useUser';
 import { useSDK } from '~/core/hooks/useSDK';
 import { useEffect, useMemo, useState } from 'react';
 import useImage from '~/core/hooks/useImage';
+import { useIntl } from 'react-intl';
 
 const MEMBER_COUNT_PER_CASE = {
   DIRECT_CHAT: 2,
@@ -74,6 +75,7 @@ async function getChatAvatar(
 }
 
 function useChatInfo({ channel }: { channel: Amity.Channel | null }) {
+  const { formatMessage } = useIntl();
   const { currentUserId } = useSDK();
   const [chatAvatar, setChatAvatar] = useState<string | null>(null);
 
@@ -108,7 +110,43 @@ function useChatInfo({ channel }: { channel: Amity.Channel | null }) {
     return receiveChatName;
   }, [channel, otherUser]);
 
-  return { chatName, chatAvatar, type: channel?.type };
+  const messagePreview = useMemo(() => {
+    if (!channel) return '';
+
+    const { messagePreview: preview }: { messagePreview?: MessagePreview } = channel;
+    if (!preview) return '';
+
+    const isCurrentUser = preview.creatorId === currentUserId;
+
+    if (preview.dataType === 'text') {
+      return isCurrentUser
+        ? `${formatMessage({ id: 'chat.preview.you' })}: ${preview.data.text}`
+        : preview.data.text;
+    }
+
+    const messageKey = isCurrentUser ? 'youSent' : 'youReceived';
+    return `${formatMessage({ id: `chat.preview.${messageKey}` })} ${formatMessage({ id: `chat.preview.${preview.dataType}` })}`;
+  }, [channel, formatMessage]);
+
+  return { chatName, chatAvatar, type: channel?.type, messagePreview };
 }
+
+// Amity.Channel doesn't define messagePreview
+type MessagePreview = {
+  channelId: string;
+  createdAt: string;
+  creatorId: string;
+  data: {
+    text: string;
+  };
+  dataType: string;
+  isDeleted: boolean;
+  messagePreviewId: string;
+  segment: number;
+  subChannelId: string;
+  subChannelName: string;
+  subChannelUpdatedAt: string;
+  updatedAt: string;
+};
 
 export default useChatInfo;

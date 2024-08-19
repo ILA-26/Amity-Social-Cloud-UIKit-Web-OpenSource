@@ -6,6 +6,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Popover from '~/core/components/Popover';
 import Menu, { MenuItem } from '~/core/components/Menu';
 import { useNotifications } from '~/core/providers/NotificationProvider';
+import { useConfirmContext } from '~/core/providers/ConfirmProvider';
 
 import { MessageOptionsIcon, SaveIcon, CloseIcon, EditingInput, EditingContainer } from './styles';
 import useMessageFlaggedByMe from '~/ila26/chat/hooks/useMessageFlaggedByMe';
@@ -56,6 +57,7 @@ const Options = ({
   // const popupContainerRef = useRef();
   const [text, setText] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const { confirm } = useConfirmContext();
   const notification = useNotifications();
 
   const edit: React.MouseEventHandler<HTMLDivElement> = (e) => {
@@ -88,7 +90,14 @@ const Options = ({
   };
 
   const deleteMessage = () => {
-    MessageRepository.deleteMessage(messageId).then(close);
+    setIsOpen(false);
+    confirm({
+      title: formatMessage({ id: 'chat.deleteChat.title' }),
+      content: formatMessage({ id: 'chat.deleteChat.content' }),
+      cancelText: formatMessage({ id: 'chat.deleteChat.cancelText' }),
+      okText: formatMessage({ id: 'chat.deleteChat.okText' }),
+      onOk: () => MessageRepository.deleteMessage(messageId).then(close),
+    });
   };
 
   const menu = (

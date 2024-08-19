@@ -14,7 +14,7 @@ import EditChatMemberModal from '~/ila26/chat/components/ChatDetails/EditChatMem
 type PartialChannel = Pick<Amity.Channel, 'channelId' | 'type'>;
 
 const ChatApplication = ({
-  membershipFilter = 'all',
+  membershipFilter = 'member',
   defaultChannelId,
   onMemberSelect,
   onChannelSelect,
@@ -35,9 +35,9 @@ const ChatApplication = ({
   }) => void;
 }) => {
   const { formatMessage } = useIntl();
-  const notification = useNotifications();
   const [currentChannelData, setCurrentChannelData] = useState<PartialChannel | null>(null);
   const [shouldShowChatDetails, setShouldShowChatDetails] = useState(false);
+  const notification = useNotifications();
 
   const showChatDetails = () => setShouldShowChatDetails(true);
   const hideChatDetails = () => setShouldShowChatDetails(false);

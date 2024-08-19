@@ -4,13 +4,21 @@ import { backgroundImage as userBackgroundImage } from '~/icons/User';
 import { backgroundImage as communityBackgroundImage } from '~/icons/Community';
 import useChatInfo from '~/ila26/chat/hooks/useChatInfo';
 
-import { ChatItemLeft, Title, Avatar, ChatItemContainer, UnreadCount } from './styles';
+import {
+  ChatItemLeft,
+  Title,
+  Avatar,
+  ChatItemContainer,
+  UnreadCount,
+  SubTitle,
+  TitleContainer,
+} from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannelSubscription from '~/social/hooks/useChannelSubscription';
 import useChannel from '~/ila26/chat/hooks/useChannel';
 import useSDK from '~/core/hooks/useSDK';
 
-function getNormalizedUnreadCount(channelUnreadCount: number) {
+export const getNormalizedUnreadCount = (channelUnreadCount: number) => {
   // Within this range the unread counter will show an actuall number
   const ACTUAL_NUMBER_AS_COUNTER_EDGES = {
     BOTTOM: 1,
@@ -24,7 +32,7 @@ function getNormalizedUnreadCount(channelUnreadCount: number) {
   if (channelUnreadCount <= ACTUAL_NUMBER_AS_COUNTER_EDGES.TOP) return channelUnreadCount;
 
   return `${ACTUAL_NUMBER_AS_COUNTER_EDGES.TOP}+`;
-}
+};
 
 interface ChatItemProps {
   channelId: string;
@@ -34,10 +42,10 @@ interface ChatItemProps {
 
 const ChatItem = ({ channelId, isSelected, onSelect }: ChatItemProps) => {
   const channel = useChannel(channelId);
-  const { chatName, chatAvatar } = useChatInfo({ channel });
+  const { chatName, chatAvatar, messagePreview } = useChatInfo({ channel });
   const { ila26_displayName } = useSDK();
 
-  const normalizedUnreadCount = getNormalizedUnreadCount(channel?.unreadCount || 0);
+  const normalizedUnreadCount = getNormalizedUnreadCount(channel?.subChannelsUnreadCount || 0);
 
   useChannelSubscription({
     channelId: channel?.channelId,
@@ -60,13 +68,18 @@ const ChatItem = ({ channelId, isSelected, onSelect }: ChatItemProps) => {
             (channel?.memberCount || 0) > 2 ? communityBackgroundImage : userBackgroundImage
           }
         />
-        <Title>
-          {ila26_displayName ? chatName?.replace(ila26_displayName, '').replace(',', '') : chatName}
-        </Title>
+        <TitleContainer>
+          <Title>
+            {ila26_displayName
+              ? chatName?.replace(ila26_displayName, '').replace(',', '')
+              : chatName}
+          </Title>
+          <SubTitle>{messagePreview}</SubTitle>
+        </TitleContainer>
+        {normalizedUnreadCount && (
+          <UnreadCount data-qa-anchor="chat-item-unread-count">{normalizedUnreadCount}</UnreadCount>
+        )}
       </ChatItemLeft>
-      {normalizedUnreadCount && (
-        <UnreadCount data-qa-anchor="chat-item-unread-count">{normalizedUnreadCount}</UnreadCount>
-      )}
     </ChatItemContainer>
   );
 };

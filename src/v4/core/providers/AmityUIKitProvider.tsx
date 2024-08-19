@@ -37,6 +37,7 @@ import { CustomReactionProvider } from './CustomReactionProvider';
 import { AdEngineProvider } from './AdEngineProvider';
 import { AdEngine } from '~/v4/core/AdEngine';
 import { GlobalFeedProvider } from '~/v4/social/providers/GlobalFeedProvider';
+import { ILA26_UiKitProviderProps } from '~/ila26/types/kitProviderProps';
 
 export type AmityUIKitConfig = Config;
 
@@ -71,7 +72,7 @@ interface AmityUIKitProviderProps {
   configs?: AmityUIKitConfig;
 }
 
-const AmityUIKitProvider: React.FC<AmityUIKitProviderProps> = ({
+const AmityUIKitProvider: React.FC<AmityUIKitProviderProps & ILA26_UiKitProviderProps> = ({
   apiKey,
   apiRegion,
   apiEndpoint,
@@ -86,6 +87,7 @@ const AmityUIKitProvider: React.FC<AmityUIKitProviderProps> = ({
   onDisconnected,
   getAuthToken,
   configs,
+  locale,
 }) => {
   const queryClient = new QueryClient();
   const [client, setClient] = useState<Amity.Client | null>(null);
@@ -150,7 +152,7 @@ const AmityUIKitProvider: React.FC<AmityUIKitProviderProps> = ({
   return (
     <div className="asc-uikit">
       <QueryClientProvider client={queryClient}>
-        <Localization locale="en">
+        <Localization locale={locale}>
           <CustomizationProvider initialConfig={configs || defaultConfig}>
             <StyledThemeProvider theme={buildGlobalTheme(theme)}>
               <ThemeProvider>
