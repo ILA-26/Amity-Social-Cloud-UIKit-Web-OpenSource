@@ -33,7 +33,7 @@ export const Container = styled.div`
 `;
 
 export const Cover = styled.div<{ backgroundImage?: string }>`
-  padding-top: 56.25%;
+  padding-top: 20%;
   position: relative;
 
   ${({ backgroundImage, theme }) => `
