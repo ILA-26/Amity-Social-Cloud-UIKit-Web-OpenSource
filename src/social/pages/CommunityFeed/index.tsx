@@ -73,7 +73,7 @@ const CommunityFeed = ({
   const [isCreatedModalOpened, setCreatedModalOpened] = useState(isNewCommunity);
 
   return (
-    <Wrapper style={{ maxWidth: 'unset !important' }}>
+    <Wrapper>
       <CommunityInfo communityId={communityId} />
 
       <FeedHeaderTabs
