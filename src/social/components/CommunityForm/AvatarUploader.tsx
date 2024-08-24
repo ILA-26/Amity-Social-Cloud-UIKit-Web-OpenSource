@@ -9,6 +9,7 @@ import { backgroundImage as communityCoverPlaceholder } from '~/icons/CommunityC
 import CameraIcon from '~/icons/Camera';
 import useFile from '~/core/hooks/useFile';
 import useFileUpload, { getUpdatedTime, isAmityFile } from '~/core/hooks/useFileUpload';
+import { FormattedMessage } from 'react-intl';
 
 const StyledCameraIcon = styled(CameraIcon).attrs({
   height: 20,
@@ -138,9 +139,10 @@ const AvatarUploader = ({
         data-qa-anchor={`${dataQaAnchor}-avatar-uploader`}
         mimeType={mimeType}
         onChange={(newAvatar: File[]) => setLoadedAvatar(newAvatar)}
+        fileLimitRemaining={1}
       >
         <AvatarUploadButton>
-          <StyledCameraIcon /> &nbsp; Upload image
+          <StyledCameraIcon /> &nbsp; <FormattedMessage id="upload.uploadImage" />
         </AvatarUploadButton>
       </CoverImageLoader>
     </AvatarUploadContainer>
