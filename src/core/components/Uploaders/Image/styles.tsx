@@ -79,11 +79,13 @@ export const RemoveButton = styled(Button).attrs<{
   children: <RemoveIcon />,
 })`
   position: absolute;
-  max-height: 20%;
-  max-width: 15%;
+  max-height: 40px;
+  max-width: 40px;
+  height: 20%;
+  width: 15%;
   aspect-ratio: 1;
-  top: 10%;
-  right: 10%;
+  top: 20px;
+  right: 20px;
   padding: 3px;
   background-color: #f2f2f4e1;
 `;
