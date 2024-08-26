@@ -225,8 +225,8 @@ const Comment = ({ commentId, readonly }: CommentProps) => {
     const content = isReplyComment ? 'reply.deleteBody' : 'comment.deleteBody';
     confirm({
       'data-qa-anchor': 'delete-comment',
-      title: <FormattedMessage id={title} />,
-      content: <FormattedMessage id={content} />,
+      title: formatMessage({ id: title }),
+      content: formatMessage({ id: content }),
       cancelText: formatMessage({ id: 'comment.deleteConfirmCancelText' }),
       okText: formatMessage({ id: 'comment.deleteConfirmOkText' }),
       onOk: handleDeleteComment,
