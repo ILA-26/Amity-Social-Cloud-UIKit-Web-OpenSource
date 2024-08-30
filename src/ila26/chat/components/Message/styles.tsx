@@ -117,9 +117,12 @@ export const UnsupportedMessageBody = styled(CommonMessageBody)`
 `;
 
 export const MessageDate = styled.div`
-  font-size: 13px;
   opacity: 0.5;
   margin-left: auto;
+`;
+
+export const StyledDate = styled.span`
+  font-size: 12px !important;
 `;
 
 export const BottomLine = styled.div`

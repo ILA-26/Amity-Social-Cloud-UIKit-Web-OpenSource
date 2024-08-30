@@ -81,4 +81,14 @@ export {
   ILA26_PostTextUrlExtractor,
 };
 
+export const isToday = (date: Date): boolean => {
+  const today = new Date();
+
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
+};
+
 export type ILA26_Values<T> = T[keyof T];
