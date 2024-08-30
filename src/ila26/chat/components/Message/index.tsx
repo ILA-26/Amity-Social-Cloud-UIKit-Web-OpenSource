@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { FormattedTime, FormattedDate, useIntl } from 'react-intl';
+import { FormattedTime, FormattedDate, useIntl, FormattedMessage } from 'react-intl';
 
 import { backgroundImage as UserImage } from '~/icons/User';
 
@@ -105,7 +105,9 @@ const Message = ({
                 <MessageDate title={createdAt.toLocaleString()}>
                   <StyledDate>
                     {isToday(createdAt) ? (
-                      <FormattedTime value={createdAt} />
+                      <>
+                        <FormattedMessage id="chat.today" /> <FormattedTime value={createdAt} />
+                      </>
                     ) : (
                       createdAt.toLocaleString(locale)
                     )}
