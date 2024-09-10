@@ -70,7 +70,7 @@ const ChatItem = ({ channelId, isSelected, onSelect }: ChatItemProps) => {
         />
         <TitleContainer>
           <Title>
-            {ila26_displayName ? chatName?.replace(ila26_displayName, '').replace(',', '') : chatName}
+            {chatName}
           </Title>
           <SubTitle>{messagePreview}</SubTitle>
         </TitleContainer>
