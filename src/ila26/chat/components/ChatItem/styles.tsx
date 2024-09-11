@@ -54,6 +54,6 @@ export const UnreadCount = styled.div`
   padding: 0px 5px;
   font-size: 12px !important;
   color: #fff;
-  background: #f9563a;
+  background: red;
   border-radius: 20px;
 `;
