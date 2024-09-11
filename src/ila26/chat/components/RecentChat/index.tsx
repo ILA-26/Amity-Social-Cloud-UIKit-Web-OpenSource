@@ -102,9 +102,9 @@ const RecentChat = ({
   const communuityUnreadCount = useMemo(
     () =>
       getNormalizedUnreadCount(
-        channels
-          .filter((channel) => channel.type === 'community')
-          .reduce((acc, channel) => acc + channel.subChannelsUnreadCount, 0),
+        channels.filter(
+          (channel) => channel.type === 'community' && channel.subChannelsUnreadCount > 0,
+        ).length,
       ),
     [channels],
   );
@@ -112,9 +112,9 @@ const RecentChat = ({
   const conversationUnreadCount = useMemo(
     () =>
       getNormalizedUnreadCount(
-        channels
-          .filter((channel) => channel.type === 'conversation')
-          .reduce((acc, channel) => acc + channel.subChannelsUnreadCount, 0),
+        channels.filter(
+          (channel) => channel.type === 'conversation' && channel.subChannelsUnreadCount > 0,
+        ).length,
       ),
     [channels],
   );

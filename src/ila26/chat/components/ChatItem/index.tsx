@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { backgroundImage as userBackgroundImage } from '~/icons/User';
 import { backgroundImage as communityBackgroundImage } from '~/icons/Community';
@@ -16,7 +16,6 @@ import {
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import useChannelSubscription from '~/social/hooks/useChannelSubscription';
 import useChannel from '~/ila26/chat/hooks/useChannel';
-import useSDK from '~/core/hooks/useSDK';
 
 export const getNormalizedUnreadCount = (channelUnreadCount: number) => {
   // Within this range the unread counter will show an actuall number
@@ -42,8 +41,8 @@ interface ChatItemProps {
 
 const ChatItem = ({ channelId, isSelected, onSelect }: ChatItemProps) => {
   const channel = useChannel(channelId);
+  const [messagePreviewState, setMessagePreviewState] = useState<string>();
   const { chatName, chatAvatar, messagePreview } = useChatInfo({ channel });
-  const { ila26_displayName } = useSDK();
 
   const normalizedUnreadCount = getNormalizedUnreadCount(channel?.subChannelsUnreadCount || 0);
 
@@ -51,6 +50,12 @@ const ChatItem = ({ channelId, isSelected, onSelect }: ChatItemProps) => {
     channelId: channel?.channelId,
     shouldSubscribe: () => !!channel?.channelId,
   });
+
+  useEffect(() => {
+    if (messagePreview !== '') {
+      setMessagePreviewState(messagePreview);
+    }
+  }, [messagePreview]);
 
   return (
     <ChatItemContainer
@@ -69,10 +74,8 @@ const ChatItem = ({ channelId, isSelected, onSelect }: ChatItemProps) => {
           }
         />
         <TitleContainer>
-          <Title>
-            {ila26_displayName ? chatName?.replace(ila26_displayName, '').replace(',', '') : chatName}
-          </Title>
-          <SubTitle>{messagePreview}</SubTitle>
+          <Title>{chatName}</Title>
+          <SubTitle>{messagePreviewState}</SubTitle>
         </TitleContainer>
         {normalizedUnreadCount && (
           <UnreadCount data-qa-anchor="chat-item-unread-count">{normalizedUnreadCount}</UnreadCount>
