@@ -48,7 +48,6 @@ export {
   ILA26_internalData as ILA26_Amity_DataTypes,
 };
 
-
 // Chat v4
 
 export { ChatHeader as AmityLiveChatHeader } from '~/v4/chat/components/ChatHeader';
