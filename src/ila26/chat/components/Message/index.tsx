@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { FormattedTime } from 'react-intl';
+import { FormattedTime, FormattedDate, useIntl, FormattedMessage } from 'react-intl';
 
 import { backgroundImage as UserImage } from '~/icons/User';
 
@@ -18,10 +18,12 @@ import {
   UserName,
   BottomLine,
   MessageDate,
+  StyledDate,
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import { MessageType, PropsContext } from '../Chat';
 import { MessageContentType } from '@amityco/ts-sdk';
+import { isToday } from '~/ila26/utils';
 
 const MessageBody = ({
   isDeleted,
@@ -70,6 +72,7 @@ const Message = ({
   userDisplayName,
   containerRef,
 }: MessageProps) => {
+  const { locale } = useIntl();
   const shouldShowUserName = isIncoming && !isConsequent && userDisplayName;
   const isSupportedMessageType = (
     [MessageContentType.TEXT, MessageContentType.IMAGE, MessageContentType.FILE] as MessageType[]
@@ -100,7 +103,15 @@ const Message = ({
             {!isDeleted && (
               <BottomLine>
                 <MessageDate title={createdAt.toLocaleString()}>
-                  <FormattedTime value={createdAt} />
+                  <StyledDate>
+                    {isToday(createdAt) ? (
+                      <>
+                        <FormattedMessage id="chat.today" /> <FormattedTime value={createdAt} />
+                      </>
+                    ) : (
+                      createdAt.toLocaleString(locale)
+                    )}
+                  </StyledDate>
                 </MessageDate>
                 <Options
                   messageId={messageId}

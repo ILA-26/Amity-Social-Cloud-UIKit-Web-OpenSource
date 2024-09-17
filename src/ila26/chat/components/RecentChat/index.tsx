@@ -52,7 +52,8 @@ const RecentChat = ({
   const { currentUserId } = useSDK();
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedChannelsType, setSelectedChannelsType] = useState<Amity.ChannelType>('community');
+  const [selectedChannelsType, setSelectedChannelsType] =
+    useState<Amity.ChannelType>('conversation');
 
   const { followers } = useFollowersCollection({ userId: currentUserId, status: 'accepted' });
   const { followings } = useFollowingsCollection({ userId: currentUserId, status: 'accepted' });
@@ -104,9 +105,9 @@ const RecentChat = ({
   const communuityUnreadCount = useMemo(
     () =>
       getNormalizedUnreadCount(
-        channels
-          .filter((channel) => channel.type === 'community')
-          .reduce((acc, channel) => acc + channel.subChannelsUnreadCount, 0),
+        channels.filter(
+          (channel) => channel.type === 'community' && channel.subChannelsUnreadCount > 0,
+        ).length,
       ),
     [channels],
   );
@@ -114,9 +115,9 @@ const RecentChat = ({
   const conversationUnreadCount = useMemo(
     () =>
       getNormalizedUnreadCount(
-        channels
-          .filter((channel) => channel.type === 'conversation')
-          .reduce((acc, channel) => acc + channel.subChannelsUnreadCount, 0),
+        channels.filter(
+          (channel) => channel.type === 'conversation' && channel.subChannelsUnreadCount > 0,
+        ).length,
       ),
     [channels],
   );
@@ -217,21 +218,21 @@ const RecentChat = ({
     <CategoriesContainer>
       <div>
         <CategoryItem
-          onClick={() => handleSelectChannelCategory('community')}
-          selected={selectedChannelsType === 'community'}
-        >
-          {communuityUnreadCount && <CountBadge>{communuityUnreadCount}</CountBadge>}
-          <CommunityAlt />
-          <FormattedMessage id="chat.community" tagName="span" />
-        </CategoryItem>
-
-        <CategoryItem
           onClick={() => handleSelectChannelCategory('conversation')}
           selected={selectedChannelsType === 'conversation'}
         >
           {conversationUnreadCount && <CountBadge>{conversationUnreadCount}</CountBadge>}
           <ChatIcon />
           <FormattedMessage id="chat.chat" tagName="span" />
+        </CategoryItem>
+
+        <CategoryItem
+          onClick={() => handleSelectChannelCategory('community')}
+          selected={selectedChannelsType === 'community'}
+        >
+          {communuityUnreadCount && <CountBadge>{communuityUnreadCount}</CountBadge>}
+          <CommunityAlt />
+          <FormattedMessage id="chat.community" tagName="span" />
         </CategoryItem>
       </div>
       <RecentContainer>
@@ -244,10 +245,13 @@ const RecentChat = ({
           {/* this component work only with Callback and User selector on Eko Side, during Personal Mode
         development selector was not add as there is not specific suitable design for UI Kit.
         Need to be done internaly by ASC when needed. */}
-          <CreateNewChatIcon
-            data-qa-anchor="chat-create-chat-button"
-            onClick={onAddNewChannelClick}
-          />
+
+          {selectedChannelsType === 'community' && (
+            <CreateNewChatIcon
+              data-qa-anchor="chat-create-chat-button"
+              onClick={onAddNewChannelClick}
+            />
+          )}
         </RecentHeader>
         <SearchContainer>
           <SearchIcon />

@@ -1,4 +1,3 @@
-/* eslint no-underscore-dangle: 0 */
 import { FileRepository } from '@amityco/ts-sdk';
 import { trim } from 'lodash';
 
@@ -7,6 +6,7 @@ import { useSDK } from '~/core/hooks/useSDK';
 import { useEffect, useMemo, useState } from 'react';
 import useImage from '~/core/hooks/useImage';
 import { useIntl } from 'react-intl';
+import useChannelMembersCollection from './collections/useChannelMembersCollection';
 
 const MEMBER_COUNT_PER_CASE = {
   DIRECT_CHAT: 2,
@@ -14,22 +14,7 @@ const MEMBER_COUNT_PER_CASE = {
 };
 
 function getChatName(channel: Amity.Channel, otherUser?: Amity.User | null) {
-  // If direct have just only current user, will return just "ME"
-  if (
-    channel?.metadata?.isDirectChat &&
-    channel?.memberCount === MEMBER_COUNT_PER_CASE.ONLY_ME_CHAT
-  ) {
-    return 'Me';
-  }
-
-  // Group chat will use displayName to show as a channel name
-  if (!channel?.metadata?.isDirectChat && channel?.displayName) return channel?.displayName;
-
-  // To default assume it is direct chat and use participant full name as channel name
-  const { firstname = '', lastname = '' } = otherUser?.metadata ?? {};
-  const fullName = trim(`${firstname}${lastname}`);
-
-  return otherUser?.displayName || fullName || otherUser?.userId || channel.channelId;
+  return trim(channel.type === 'community' ? channel.displayName : otherUser?.displayName);
 }
 
 /**
@@ -57,14 +42,8 @@ async function getAvatarUrl({
 async function getChatAvatar(
   channel?: Amity.Channel | null,
   otherUser?: { avatarUrl?: string } | null,
-  currentUser?: { avatarUrl?: string } | null,
 ) {
-  // It is direct chat but only one user - show current user instead
-  if (channel?.memberCount === MEMBER_COUNT_PER_CASE.ONLY_ME_CHAT) {
-    return getAvatarUrl({ avatarCustomUrl: currentUser?.avatarUrl });
-  }
-
-  if (channel?.metadata?.isDirectChat && otherUser?.avatarUrl) {
+  if (channel?.type === 'conversation' && otherUser?.avatarUrl) {
     return getAvatarUrl({ avatarCustomUrl: otherUser.avatarUrl });
   }
 
@@ -75,39 +54,35 @@ async function getChatAvatar(
 }
 
 function useChatInfo({ channel }: { channel: Amity.Channel | null }) {
-  const { formatMessage } = useIntl();
+  const { formatMessage: __ } = useIntl();
   const { currentUserId } = useSDK();
   const [chatAvatar, setChatAvatar] = useState<string | null>(null);
 
-  const otherUserId = channel?.metadata?.isDirectChat
-    ? (channel?.metadata?.userIds ?? []).find((userId: string) => userId !== currentUserId)
-    : null;
+  const { channelMembers } = useChannelMembersCollection(
+    channel?.type === 'conversation' ? channel?._id : undefined,
+  );
 
-  const currentUser = useUser(currentUserId);
+  const otherUserId = useMemo(() => {
+    const isConversation = channel?.type === 'conversation';
+    const members = channelMembers.map((m) => m.userId);
+
+    return isConversation ? members.find((userId: string) => userId !== currentUserId) : null;
+  }, [channel, channelMembers, currentUserId]);
+
   const otherUser = useUser(otherUserId);
-
-  const currentUserAvatarUrl = useImage({ fileId: currentUser?.avatarFileId });
   const otherUserAvatarUrl = useImage({ fileId: otherUser?.avatarFileId });
 
   useEffect(() => {
     async function run() {
-      setChatAvatar(null);
-      const url = await getChatAvatar(
-        channel,
-        { avatarUrl: otherUser?.avatarCustomUrl || otherUserAvatarUrl },
-        { avatarUrl: currentUser?.avatarCustomUrl || currentUserAvatarUrl },
-      );
-
+      const url = await getChatAvatar(channel, { avatarUrl: otherUserAvatarUrl });
       setChatAvatar(url);
     }
     run();
-  }, [otherUser?.avatarCustomUrl, channel, currentUserAvatarUrl, currentUser?.avatarCustomUrl]);
+  }, [otherUserAvatarUrl, channel]);
 
   const chatName = useMemo(() => {
-    if (channel == null) return;
-
-    const receiveChatName = getChatName(channel, otherUser);
-    return receiveChatName;
+    if (!channel) return;
+    return trim(channel.type === 'conversation' ? otherUser?.displayName : channel.displayName);
   }, [channel, otherUser]);
 
   const messagePreview = useMemo(() => {
@@ -120,13 +95,13 @@ function useChatInfo({ channel }: { channel: Amity.Channel | null }) {
 
     if (preview.dataType === 'text') {
       return isCurrentUser
-        ? `${formatMessage({ id: 'chat.preview.you' })}: ${preview.data.text}`
+        ? `${__({ id: 'chat.preview.you' })}: ${preview.data.text}`
         : preview.data.text;
     }
 
     const messageKey = isCurrentUser ? 'youSent' : 'youReceived';
-    return `${formatMessage({ id: `chat.preview.${messageKey}` })} ${formatMessage({ id: `chat.preview.${preview.dataType}` })}`;
-  }, [channel, formatMessage]);
+    return `${__({ id: `chat.preview.${messageKey}` })} ${__({ id: `chat.preview.${preview.dataType}` })}`;
+  }, [channel, __]);
 
   return { chatName, chatAvatar, type: channel?.type, messagePreview };
 }
