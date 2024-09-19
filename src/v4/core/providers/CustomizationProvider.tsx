@@ -60,6 +60,7 @@ type ThemeValue = {
   alert_color: string;
   background_color: string;
   base_inverse_color: string;
+  background_shade1: string;
 };
 
 export type Theme = {
@@ -145,11 +146,12 @@ export const defaultConfig: DefaultConfig = {
       base_shade1_color: '#636878',
       base_shade2_color: '#898e9e',
       base_shade3_color: '#a5a9b5',
-      base_shade4_color: '#ebecef',
+      base_shade4_color: '#f7f7f7',
       base_shade5_color: '#F9F9FA',
       alert_color: '#FA4D30',
       background_color: '#FFFFFF',
       base_inverse_color: '#000000',
+      background_shade1: '#f6f7f8',
     },
     dark: {
       primary_color: '#1054DE',
@@ -167,6 +169,7 @@ export const defaultConfig: DefaultConfig = {
       alert_color: '#FA4D30',
       background_color: '#191919',
       base_inverse_color: '#FFFFFF',
+      background_shade1: '#40434e',
     },
   },
   excludes: [],

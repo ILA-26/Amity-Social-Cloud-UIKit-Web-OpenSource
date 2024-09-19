@@ -71,6 +71,7 @@ export function useGenerateStylesShadeColors(config: GetConfigReturnValue) {
       '--asc-color-base-shade5': themeConfig.base_shade5_color,
 
       '--asc-color-background-default': themeConfig.background_color,
+      '--asc-color-background-shade1': themeConfig.background_shade1,
     };
   }, [config, computedTheme]);
 
