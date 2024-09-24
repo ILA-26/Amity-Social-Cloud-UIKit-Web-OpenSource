@@ -13,6 +13,7 @@ import withUIStyles from './ila26/exportsWrapper';
 
 import fr from '~/ila26/fr.json';
 import en from '~/i18n/en.json';
+export { useNavigation } from '~/social/providers/NavigationProvider';
 export const ILA26_IntlMessages = { fr, en };
 
 // ILA26 exports with UIStyles wrap at component level
