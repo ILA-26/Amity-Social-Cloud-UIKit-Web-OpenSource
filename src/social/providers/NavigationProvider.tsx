@@ -200,8 +200,8 @@ export default function NavigationProvider({
   const handleClickCommunity = useCallback(
     (communityId) => {
       const next = {
-        type: PageTypes.CommunityFeed,
-        communityId,
+        type: communityId ? PageTypes.CommunityFeed : PageTypes.Explore,
+        communityId
       };
 
       if (onChangePage) return onChangePage(next);
