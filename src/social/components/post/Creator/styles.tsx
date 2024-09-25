@@ -20,11 +20,7 @@ export const PostCreatorContainer = styled.div`
 export const Footer = styled.div`
   padding-top: 12px;
   display: flex;
-  align-items: center;
-
-  & > :not(:last-child) {
-    margin-right: 0.5rem;
-  }
+  align-items: flex-start;
 `;
 
 export const PostContainer = styled.div`
@@ -57,5 +53,39 @@ export const PollButton = styled.button`
   border: none;
   padding: 0;
 `;
+
+export const FileLoaderContainer = styled.label`
+  cursor: pointer;
+  transition: background 0.1s;
+  width: auto;
+  height: auto;
+  padding: 5px 10px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: rgb(235 236 239);
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  > svg {
+    height: 1.125rem;
+    width: 1.125rem;
+    font-size: 1.125rem;
+  }
+`;
+
+export const Label = styled("div")`
+  display: flex;
+  gap: 5px;
+  color: #565656;
+`
 
 export const PollIcon = styled(Poll)``;

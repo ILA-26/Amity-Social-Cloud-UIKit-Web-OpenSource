@@ -366,6 +366,10 @@
   "postCreator.unableToMention": "Unable to mention",
   "postCreator.overMentionees": "You have reached maximum 30 mentioned users in a post.",
   "postCreator.okText": "OK",
+  "postCreator.photos": "Photos",
+  "postCreator.videos": "Videos",
+  "postCreator.documents": "Documents",
+  "postCreator.polls": "Polls",
 
   "pollComposer.unableToMention": "Unable to mention",
   "pollComposer.overMentionees": "You have reached maximum 30 mentioned users in a post.",
