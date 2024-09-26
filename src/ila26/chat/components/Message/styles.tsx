@@ -71,6 +71,7 @@ export const MessageContainer = styled.div<{ variant: 'regular' | 'popup' }>`
 export const AvatarWrapper = styled.div`
   width: 52px;
   flex-shrink: 0;
+  cursor: pointer;
 `;
 
 export const UserName = styled.div`
@@ -78,6 +79,11 @@ export const UserName = styled.div`
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 4px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
 `;
 
 const CommonMessageBody = styled.div`
