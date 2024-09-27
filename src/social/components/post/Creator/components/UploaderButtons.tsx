@@ -2,16 +2,23 @@ import { FileType } from '@amityco/ts-sdk';
 import React from 'react';
 import styled from 'styled-components';
 import Loader from '~/core/components/Uploaders/Loader';
-import ImageAttachmentIcon from '~/icons/ImageAttachment';
-import FileAttachmentIcon from '~/icons/FileAttachment';
-import { VideoAttachmentIcon } from '../styles';
+import ImageAttachmentIcon from '~/icons/ImageAttachmentAlt';
+import FileAttachmentIcon from '~/icons/FileAttachmentAlt';
+import VideoAttachmentIcon from '~/icons/VideoAttachmentAlt';
+import { Label } from './styles';
+import { FormattedMessage } from 'react-intl';
 
 const ALLOWED_VIDEO_MIME_TYPES = 'video/mp4,video/webm,video/ogg';
 
-const StyledLoader = styled(Loader)<{
+const StyledLoader = styled(Loader) <{
   uploadLoading?: boolean;
   disabled?: boolean;
 }>`
+  background: transparent;
+  width: auto;
+  height: auto;
+  padding: 5px 8px;
+  border-radius: 25px;
   ${({ uploadLoading }) => uploadLoading && 'cursor: wait !important;'}
   ${({ disabled, theme }) => disabled && `color: ${theme.palette.neutral.shade2};`}
 `;
@@ -47,7 +54,10 @@ const PostCreatorUploaders = ({
       multiple
       onChange={onChangeImages}
     >
-      <ImageAttachmentIcon />
+      <Label>
+        <ImageAttachmentIcon />
+        <FormattedMessage id="postCreator.photos" />
+      </Label>
     </StyledLoader>
 
     <StyledLoader
@@ -64,7 +74,10 @@ const PostCreatorUploaders = ({
         onChangeVideos?.(files);
       }}
     >
-      <VideoAttachmentIcon />
+      <Label>
+        <VideoAttachmentIcon />
+        <FormattedMessage id="postCreator.videos" />
+      </Label>
     </StyledLoader>
 
     <StyledLoader
@@ -75,7 +88,10 @@ const PostCreatorUploaders = ({
       multiple
       onChange={onChangeFiles}
     >
-      <FileAttachmentIcon />
+      <Label>
+        <FileAttachmentIcon />
+        <FormattedMessage id="postCreator.documents" />
+      </Label>
     </StyledLoader>
   </>
 );

@@ -20,15 +20,8 @@ import { backgroundImage as UserImage } from '~/icons/User';
 import { backgroundImage as CommunityImage } from '~/icons/Community';
 import { useNavigation } from '~/social/providers/NavigationProvider';
 
-import { FileLoaderContainer } from '~/core/components/Uploaders/Loader';
-import PollModal from '~/social/components/post/PollComposer/PollModal';
-import PostTargetSelector from './components/PostTargetSelector';
-import UploaderButtons from './components/UploaderButtons';
-import ImagesUploaded from './components/ImagesUploaded';
-import VideosUploaded from './components/VideosUploaded';
-import FilesUploaded from './components/FilesUploaded';
-
 import {
+  FileLoaderContainer,
   Avatar,
   PostCreatorContainer,
   Footer,
@@ -37,8 +30,17 @@ import {
   UploadsContainer,
   PostInputText,
   PollButton,
-  PollIcon,
+  Label,
 } from './styles';
+import PollModal from '~/social/components/post/PollComposer/PollModal';
+import PostTargetSelector from './components/PostTargetSelector';
+import UploaderButtons from './components/UploaderButtons';
+import ImagesUploaded from './components/ImagesUploaded';
+import VideosUploaded from './components/VideosUploaded';
+import FilesUploaded from './components/FilesUploaded';
+
+
+import PollIcon from "~/icons/PollAlt";
 
 import { MAXIMUM_POST_CHARACTERS, MAXIMUM_POST_MENTIONEES } from './constants';
 import useSDK from '~/core/hooks/useSDK';
@@ -408,7 +410,10 @@ const PostCreatorBar = ({
           />
           <PollButton data-qa-anchor="post-creator-poll-button" onClick={openPollModal}>
             <FileLoaderContainer>
-              <PollIcon />
+              <Label>
+                <PollIcon />
+                <FormattedMessage id="postCreator.polls" />
+              </Label>
             </FileLoaderContainer>
           </PollButton>
           <ILA26_CustomPostCreatorPostButton
