@@ -32,6 +32,7 @@ const MessageItem = ({ message, isConsequent, isIncoming, containerRef }: Messag
       createdAt={new Date(message.createdAt)}
       isDeleted={message.isDeleted}
       userDisplayName={user?.displayName || ''}
+      creatorId={message.creatorId}
       isConsequent={isConsequent}
       isIncoming={isIncoming}
       containerRef={containerRef}

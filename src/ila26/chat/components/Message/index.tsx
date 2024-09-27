@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { FormattedTime, FormattedDate, useIntl, FormattedMessage } from 'react-intl';
 
 import { backgroundImage as UserImage } from '~/icons/User';
@@ -24,6 +24,7 @@ import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import { MessageType, PropsContext } from '../Chat';
 import { MessageContentType } from '@amityco/ts-sdk';
 import { isToday } from '~/ila26/utils';
+import { useNavigation } from '~/social/providers/NavigationProvider';
 
 const MessageBody = ({
   isDeleted,
@@ -58,6 +59,7 @@ interface MessageProps {
   isConsequent: boolean;
   userDisplayName: string;
   containerRef: React.RefObject<HTMLDivElement>;
+  creatorId: string;
 }
 
 const Message = ({
@@ -71,12 +73,14 @@ const Message = ({
   isConsequent,
   userDisplayName,
   containerRef,
+  creatorId,
 }: MessageProps) => {
   const { locale } = useIntl();
   const shouldShowUserName = isIncoming && !isConsequent && userDisplayName;
   const isSupportedMessageType = (
     [MessageContentType.TEXT, MessageContentType.IMAGE, MessageContentType.FILE] as MessageType[]
   ).includes(type);
+  const { onClickUser } = useNavigation();
 
   const { variant } = useContext(PropsContext);
 
@@ -86,13 +90,19 @@ const Message = ({
     return <Avatar backgroundImage={UserImage} />;
   };
 
+  const handleClickUser = useCallback(() => {
+    onClickUser(creatorId);
+  }, []);
+
   return (
     <MessageReservedRow isIncoming={isIncoming}>
       <MessageWrapper>
-        {isIncoming && <AvatarWrapper>{!isConsequent && renderAvatar()}</AvatarWrapper>}
+        {isIncoming && (
+          <AvatarWrapper onClick={handleClickUser}>{!isConsequent && renderAvatar()}</AvatarWrapper>
+        )}
 
         <MessageContainer variant={variant} data-qa-anchor="message">
-          {shouldShowUserName && <UserName>{userDisplayName}</UserName>}
+          {shouldShowUserName && <UserName onClick={handleClickUser}>{userDisplayName}</UserName>}
           <MessageBody
             type={type}
             isIncoming={isIncoming}
