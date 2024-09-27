@@ -64,36 +64,44 @@ const RecentChat = ({
   const membership = searchQuery && isCommunity ? 'all' : membershipFilter;
 
   const {
-    channels,
-    hasMore,
-    loadMore,
+    channels: conversationChannels,
+    hasMore: hasMoreConversation,
+    loadMore: loadMoreConversation,
     isLoading: isLoadingChannels,
   } = useChannelsCollection({
     membership,
     sortBy: 'lastActivity',
-    types: ['community', 'conversation'],
+    types: ['conversation'],
+    limit: 20,
+  });
+
+  const {
+    channels: communityChannels,
+    hasMore: hasMoreCommunity,
+    loadMore: loadMoreCommunity,
+  } = useChannelsCollection({
+    membership,
+    sortBy: 'lastActivity',
+    types: ['community'],
     limit: 20,
   });
 
   const filteredChannels = useMemo(() => {
-    const lowerCaseSearchQuery = searchQuery?.toLowerCase();
+    if (selectedChannelsType === 'community') {
+      if (!searchQuery) return communityChannels;
+      const lowerCaseSearchQuery = searchQuery?.toLowerCase();
 
-    return channels.filter((channel) => {
-      if (selectedChannelsType !== channel.type) return false;
+      return communityChannels.filter((channel) =>
+        channel.displayName?.toLowerCase().includes(lowerCaseSearchQuery),
+      );
+    } else if (selectedChannelsType === 'conversation') {
+      return conversationChannels.filter((channel) => channel.messageCount > 0);
+    }
 
-      if (selectedChannelsType === 'conversation') {
-        return channel.messageCount > 0;
-      }
-
-      if (selectedChannelsType === 'community') {
-        if (!searchQuery) return true;
-        return channel.displayName?.toLowerCase().includes(lowerCaseSearchQuery);
-      }
-
-      return false;
-    });
+    return [];
   }, [
-    channels,
+    communityChannels,
+    conversationChannels,
     selectedChannelsType,
     ChannelRepository.onChannelLeft,
     ChannelRepository.onChannelJoined,
@@ -102,21 +110,17 @@ const RecentChat = ({
   const communuityUnreadCount = useMemo(
     () =>
       getNormalizedUnreadCount(
-        channels.filter(
-          (channel) => channel.type === 'community' && channel.subChannelsUnreadCount > 0,
-        ).length,
+        communityChannels.filter((channel) => channel.subChannelsUnreadCount > 0).length,
       ),
-    [channels],
+    [communityChannels],
   );
 
   const conversationUnreadCount = useMemo(
     () =>
       getNormalizedUnreadCount(
-        channels.filter(
-          (channel) => channel.type === 'conversation' && channel.subChannelsUnreadCount > 0,
-        ).length,
+        conversationChannels.filter((channel) => channel.subChannelsUnreadCount > 0).length,
       ),
-    [channels],
+    [conversationChannels],
   );
 
   const debouncedSetSearchQuery = useMemo(() => debounce(setSearchQuery, 300), []);
@@ -270,8 +274,10 @@ const RecentChat = ({
             <InfiniteScroll
               scrollableTarget={containerRef.current}
               scrollThreshold={0.7}
-              hasMore={hasMore}
-              next={loadMore}
+              hasMore={
+                selectedChannelsType === 'community' ? hasMoreCommunity : hasMoreConversation
+              }
+              next={selectedChannelsType === 'community' ? loadMoreCommunity : loadMoreConversation}
               loader={
                 (isLoadingChannels || isLoadingUsers) && (
                   <Center key={0}>
