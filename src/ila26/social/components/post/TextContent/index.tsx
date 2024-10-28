@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Truncate from 'react-truncate-markup';
 import styled from 'styled-components';
@@ -9,6 +9,10 @@ import Linkify from '~/core/components/Linkify';
 import MentionHighlightTag from '~/core/components/MentionHighlightTag';
 import { Mentioned, findChunks } from '~/helpers/utils';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
+import { getYouTubeOEmbedFromText } from '~/ila26/utils';
+import YouTubePreview, {
+  YouTubeOEmbedResponse,
+} from '~/ila26/social/components/post/TextContent/YouTubePreview';
 
 export const PostContent = styled.div`
   overflow-wrap: break-word;
@@ -27,13 +31,23 @@ interface TextContentProps {
   text?: string;
   postMaxLines?: number;
   mentionees?: Mentioned[];
+  hasChildrenPosts: boolean;
 }
 
-const TextContent = ({ text, postMaxLines, mentionees }: TextContentProps) => {
+const TextContent = ({ text, postMaxLines, mentionees, hasChildrenPosts }: TextContentProps) => {
+  const [oembed, setOembed] = useState<YouTubeOEmbedResponse | null>();
   const chunks = useMemo(
     () => processChunks(text || '', findChunks(mentionees)),
     [mentionees, text],
   );
+
+  useEffect(() => {
+    if (text) {
+      getYouTubeOEmbedFromText(text).then((res) =>
+        setOembed(res),
+      );
+    }
+  }, []);
 
   const textContent = text ? (
     <PostContent data-qa-anchor="post-text-content">
@@ -66,16 +80,27 @@ const TextContent = ({ text, postMaxLines, mentionees }: TextContentProps) => {
   if (isExpanded) return textContent;
 
   return (
-    <Truncate
-      lines={postMaxLines}
-      ellipsis={
-        <ReadMoreButton onClick={onExpand}>
-          <FormattedMessage id="post.readMore" />
-        </ReadMoreButton>
-      }
-    >
-      {textContent}
-    </Truncate>
+    <>
+      <Truncate
+        lines={postMaxLines}
+        ellipsis={
+          <ReadMoreButton onClick={onExpand}>
+            <FormattedMessage id="post.readMore" />
+          </ReadMoreButton>
+        }
+      >
+        {textContent}
+      </Truncate>
+      {oembed && !hasChildrenPosts && (
+        <YouTubePreview
+          thumbnail={oembed.thumbnail_url}
+          provider={oembed.provider_name}
+          title={oembed.title}
+          author={oembed.author_name}
+          url={oembed.url}
+        />
+      )}
+    </>
   );
 };
 

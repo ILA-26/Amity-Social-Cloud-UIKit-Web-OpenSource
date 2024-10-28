@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextContent from '~/social/components/post/TextContent';
+import TextContent from '~/ila26/social/components/post/TextContent';
 import ImageContent from '~/social/components/post/ImageContent';
 import VideoContent from '~/social/components/post/VideoContent';
 import FileContent from '~/social/components/post/FileContent';
@@ -11,13 +11,14 @@ import ILA26_CustomPostContent from '~/ila26/components/ILA26_CustomPostContent'
 
 interface PostContentProps {
   data?: any;
-  dataType?: Amity.PostContentType & ILA26_internalElementsTypes;
+  dataType?: Amity.PostContentType;
   postMaxLines?: number;
   mentionees?: Amity.User[];
   metadata?: ILA26_internalData;
+  hasChildrenPosts: boolean;
 }
 
-const PostContent = ({ data, dataType, postMaxLines, mentionees, metadata }: PostContentProps) => {
+const PostContent = ({ data, dataType, postMaxLines, mentionees, metadata, hasChildrenPosts }: PostContentProps) => {
   if (!data) return null;
 
   if (Object.values(ILA26_customTypeDataTypes).includes(dataType ?? '')) {
@@ -29,7 +30,7 @@ const PostContent = ({ data, dataType, postMaxLines, mentionees, metadata }: Pos
   }
 
   if (dataType === 'text') {
-    return <TextContent {...data} postMaxLines={postMaxLines} mentionees={mentionees} />;
+    return <TextContent {...data} postMaxLines={postMaxLines} mentionees={mentionees} hasChildrenPosts={hasChildrenPosts} />;
   }
   if (dataType === 'image') {
     return <ImageContent {...data} postMaxLines={postMaxLines} mentionees={mentionees} />;

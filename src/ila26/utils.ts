@@ -1,3 +1,4 @@
+import { YouTubeOEmbedResponse } from './social/components/post/TextContent/YouTubePreview';
 import { ILA26_internalElementsTypes } from './types/customPosts';
 
 const serviceOffersRegex = /.+offers\/([^/]+)/;
@@ -92,3 +93,37 @@ export const isToday = (date: Date): boolean => {
 };
 
 export type ILA26_Values<T> = T[keyof T];
+
+export const getYouTubeOEmbedFromText = async (
+  text: string,
+): Promise<YouTubeOEmbedResponse | null> => {
+  // Regular expression to find the first YouTube link
+  const youtubeRegex =
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/;
+  const match = text.match(youtubeRegex);
+
+  // If no YouTube link is found, return null
+  if (!match) {
+    return null;
+  }
+
+  // Construct the oEmbed URL using the matched YouTube link
+  const youtubeUrl = match[0];
+  const oEmbedEndpoint = `https://www.youtube.com/oembed?url=${encodeURIComponent(
+    youtubeUrl,
+  )}&format=json`;
+
+  try {
+    const response = await fetch(oEmbedEndpoint);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch oEmbed data: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return { ...data, url: youtubeUrl };
+  } catch (error) {
+    console.error('Error fetching oEmbed data:', error);
+    return null;
+  }
+};
