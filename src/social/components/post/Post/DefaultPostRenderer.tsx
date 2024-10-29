@@ -185,6 +185,7 @@ const DefaultPostRenderer = ({
             postMaxLines={postMaxLines}
             mentionees={post?.metadata?.mentioned}
             metadata={post?.metadata}
+            hasChildrenPosts={hasChildrenPosts}
           />
 
           {hasChildrenPosts && <ChildrenContent contents={childrenPosts} />}
