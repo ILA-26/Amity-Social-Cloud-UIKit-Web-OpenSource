@@ -26,6 +26,7 @@ type UIPostHeaderProps = ReturnType<typeof usePostHeaderProps>;
 
 const UIPostHeader = ({
   avatarFileUrl,
+  communityAvatarFileUrl,
   postAuthorName,
   postTargetName,
   timeAgo,
@@ -42,6 +43,7 @@ const UIPostHeader = ({
   if (CustomComponentFn)
     return CustomComponentFn({
       avatarFileUrl,
+      communityAvatarFileUrl,
       postAuthorName,
       postTargetName,
       timeAgo,
@@ -57,21 +59,24 @@ const UIPostHeader = ({
   const renderPostNames = () => {
     return (
       <PostNamesContainer data-qa-anchor="post-header-post-names">
-        <Truncate lines={3}>
-          <Name
-            data-qa-anchor="post-header-post-name"
-            className={cx({ clickable: !!onClickUser })}
-            onClick={onClickUser}
-          >
-            {postAuthorName}
-          </Name>
-        </Truncate>
+        {!postTargetName ||
+          (postTargetName && !isModerator && (
+            <Truncate lines={3}>
+              <Name
+                data-qa-anchor="post-header-post-name"
+                className={cx({ clickable: !!onClickUser })}
+                onClick={onClickUser}
+              >
+                {postAuthorName}
+              </Name>
+            </Truncate>
+          ))}
 
         {isBanned && <BanIcon />}
 
-        {postTargetName && !hidePostTarget && (
+        {postTargetName && (!hidePostTarget || isModerator) && (
           <>
-            <ArrowSeparator />
+            {!isModerator && <ArrowSeparator />}
             <Name
               data-qa-anchor="post-header-post-target-name"
               className={cx({ clickable: !!onClickCommunity })}
@@ -88,11 +93,11 @@ const UIPostHeader = ({
   const renderAdditionalInfo = () => {
     return (
       <AdditionalInfo data-qa-anchor="post-header-additional-info" showTime={!!timeAgo}>
-        {isModerator && (
+        {/* {isModerator && (
           <ModeratorBadge data-qa-anchor="post-header-additional-info-moderator-badge">
             <ShieldIcon /> <FormattedMessage id="moderator" />
           </ModeratorBadge>
-        )}
+        )} */}
 
         {timeAgo && (
           <Time data-qa-anchor="post-header-additional-info-time-ago" date={timeAgo.getTime()} />
@@ -111,7 +116,7 @@ const UIPostHeader = ({
     <PostHeaderContainer data-qa-anchor="post-header">
       <Avatar
         data-qa-anchor="post-header-avatar"
-        avatar={avatarFileUrl}
+        avatar={(postTargetName && isModerator) ? communityAvatarFileUrl : avatarFileUrl }
         backgroundImage={UserImage}
         loading={loading}
         onClick={onClickUser}

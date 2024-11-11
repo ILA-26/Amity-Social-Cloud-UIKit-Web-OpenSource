@@ -1,4 +1,5 @@
 import { useIntl } from 'react-intl';
+import useImage from '~/core/hooks/useImage';
 import useUser from '~/core/hooks/useUser';
 import { isAdmin, isModerator } from '~/helpers/permissions';
 import useCommunity from '~/social/hooks/useCommunity';
@@ -22,6 +23,7 @@ export const usePostHeaderProps = ({
   const user = useUser(post?.postedUserId);
 
   const community = useCommunity(post?.targetId);
+  const communityAvatarFileUrl = useImage({ fileId: community?.avatarFileId, imageSize: 'small' });
   const { isModerator: isCommunityModerator } = useCommunityPostPermission({
     community,
     post,
@@ -38,6 +40,7 @@ export const usePostHeaderProps = ({
 
   return {
     avatarFileUrl: avatarFileUrl,
+    communityAvatarFileUrl: communityAvatarFileUrl,
     postAuthorName: user?.displayName || formatMessage({ id: 'anonymous' }),
     postTargetName: postTargetName,
     timeAgo: new Date(post?.createdAt),
