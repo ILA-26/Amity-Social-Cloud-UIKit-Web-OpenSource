@@ -1,16 +1,16 @@
 import React from 'react';
 
-import RecommendedList from '~/social/components/community/RecommendedList';
-import TrendingList from '~/social/components/community/TrendingList';
+import Recommended from '~/ila26/social/components/community/RecommendedCommunities';
+import FollowedEnterprises from '~/ila26/social/components/community/FollowedEnterprises';
 import CategoriesCard from '~/social/components/category/CategoriesCard';
 
 import { PageContainer } from './styles';
 
 const ExplorePage = () => (
   <PageContainer>
-    <RecommendedList />
-    <TrendingList />
+    <Recommended />
     <CategoriesCard />
+    <FollowedEnterprises />
   </PageContainer>
 );
 

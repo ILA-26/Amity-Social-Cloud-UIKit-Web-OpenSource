@@ -71,11 +71,6 @@ const Description = styled.p`
 
 const TrendingCommunityName = styled(CommunityName)`
   ${({ theme }) => theme.typography.title};
-
-  &:before {
-    content: counter(trending, decimal-leading-zero);
-    margin-right: 0.375em;
-  }
 `;
 
 interface UITrendingItemProps {
