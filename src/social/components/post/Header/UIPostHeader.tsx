@@ -57,24 +57,26 @@ const UIPostHeader = ({
     });
 
   const renderPostNames = () => {
+    const showName = !postTargetName || !isModerator;
+    const showCommunity = postTargetName && !hidePostTarget;
+
     return (
       <PostNamesContainer data-qa-anchor="post-header-post-names">
-        {!postTargetName ||
-          (postTargetName && !isModerator && (
-            <Truncate lines={3}>
-              <Name
-                data-qa-anchor="post-header-post-name"
-                className={cx({ clickable: !!onClickUser })}
-                onClick={onClickUser}
-              >
-                {postAuthorName}
-              </Name>
-            </Truncate>
-          ))}
+        {showName && (
+          <Truncate lines={3}>
+            <Name
+              data-qa-anchor="post-header-post-name"
+              className={cx({ clickable: !!onClickUser })}
+              onClick={onClickUser}
+            >
+              {postAuthorName}
+            </Name>
+          </Truncate>
+        )}
 
         {isBanned && <BanIcon />}
 
-        {postTargetName && (!hidePostTarget || isModerator) && (
+        {showCommunity && (
           <>
             {!isModerator && <ArrowSeparator />}
             <Name
@@ -116,7 +118,7 @@ const UIPostHeader = ({
     <PostHeaderContainer data-qa-anchor="post-header">
       <Avatar
         data-qa-anchor="post-header-avatar"
-        avatar={(postTargetName && isModerator) ? communityAvatarFileUrl : avatarFileUrl }
+        avatar={postTargetName && isModerator ? communityAvatarFileUrl : avatarFileUrl}
         backgroundImage={UserImage}
         loading={loading}
         onClick={onClickUser}
