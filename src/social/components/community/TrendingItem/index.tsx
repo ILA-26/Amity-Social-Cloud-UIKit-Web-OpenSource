@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import useCommunity from '~/social/hooks/useCommunity';
 import useImage from '~/core/hooks/useImage';
 import UITrendingItem from './UITrendingItem';
@@ -17,6 +17,12 @@ const TrendingItem = ({ communityId, onClick, loading }: TrendingItemProps) => {
 
   const communityCategories = useCategoriesByIds(community?.categoryIds);
 
+  // Function to remove the HTML comment used for ordering from the description
+  const cleanDescription = useCallback((description?: string): string => {
+    if (!description) return '';
+    return description.replace(/<!--order:\d+-->/, '').trim();
+  }, []);
+
   const handleClick = () => onClick(communityId);
 
   if (community == null) return null;
@@ -26,7 +32,7 @@ const TrendingItem = ({ communityId, onClick, loading }: TrendingItemProps) => {
   return (
     <UITrendingItem
       avatarFileUrl={avatarFileUrl}
-      description={description}
+      description={cleanDescription(description)}
       categories={communityCategories}
       membersCount={membersCount}
       isOfficial={community.isOfficial}

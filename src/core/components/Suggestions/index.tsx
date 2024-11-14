@@ -12,7 +12,7 @@ const MenuList = styled.div`
   display: block;
   overflow-y: auto;
   min-height: 3em;
-  max-height: 200px;
+  max-height: 400px;
   background: #fff;
   border-radius: 4px;
   cursor: pointer;

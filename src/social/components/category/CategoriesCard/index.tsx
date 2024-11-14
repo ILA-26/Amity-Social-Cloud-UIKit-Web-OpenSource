@@ -30,6 +30,7 @@ const List = () => {
   const { categories, hasMore, loadMore, isLoading, loadMoreHasBeenCalled } =
     useCategoriesCollection({
       includeDeleted: false,
+      limit: 10,
     });
 
   const items = useMemo(() => {
