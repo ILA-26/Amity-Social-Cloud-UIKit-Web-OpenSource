@@ -13,7 +13,7 @@ export const HeaderSection = styled.div`
 `;
 
 export const PageContainer = styled.div`
-  & > * {
-    margin-bottom: 20px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
