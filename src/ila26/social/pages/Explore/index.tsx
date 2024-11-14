@@ -4,10 +4,14 @@ import Recommended from '~/ila26/social/components/community/RecommendedCommunit
 import FollowedEnterprises from '~/ila26/social/components/community/FollowedEnterprises';
 import CategoriesCard from '~/social/components/category/CategoriesCard';
 
-import { PageContainer } from './styles';
+import { HeaderSection, PageContainer } from './styles';
+import SocialSearch from '~/ila26/social/components/SocialSearch';
 
 const ExplorePage = () => (
   <PageContainer>
+    <HeaderSection>
+      <SocialSearch sticky />
+    </HeaderSection>
     <Recommended />
     <CategoriesCard />
     <FollowedEnterprises />
