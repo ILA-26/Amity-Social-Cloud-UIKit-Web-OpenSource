@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import useImage from '~/core/hooks/useImage';
 
 import useCommunity from '~/social/hooks/useCommunity';
@@ -21,6 +21,12 @@ const CommunityCard = ({ communityId, onClick, ...props }: CommunityCardProps) =
   const communityCategories = useCategoriesByIds(community?.categoryIds || []);
   const fileUrl = useImage({ fileId: file?.fileId ?? undefined });
 
+  // Function to remove the HTML comment used for ordering from the description
+  const cleanDescription = useCallback((description?: string): string => {
+    if (!description) return '';
+    return description.replace(/<!--order:\d+-->/, '').trim();
+  }, []);
+
   if (community == null) return <></>;
 
   const { membersCount, description } = community;
@@ -31,7 +37,7 @@ const CommunityCard = ({ communityId, onClick, ...props }: CommunityCardProps) =
       community={community}
       communityCategories={communityCategories}
       membersCount={membersCount}
-      description={description}
+      description={cleanDescription(description)}
       isOfficial={community.isOfficial}
       isPublic={community.isPublic}
       name={community.displayName}

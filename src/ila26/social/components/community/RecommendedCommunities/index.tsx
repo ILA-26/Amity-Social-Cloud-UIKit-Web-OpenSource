@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 
 import { FormattedMessage } from 'react-intl';
 
@@ -49,6 +49,18 @@ const RecommendedList = () => {
     limit: 6,
   });
 
+  const parseOrderFromDescription = useCallback((description: string | undefined): number => {
+    if (!description) return Infinity;
+    const match = description.match(/<!--order:(\d+)-->/);
+    return match ? parseInt(match[1], 10) : Infinity;
+  }, []);
+
+  const sortedCommunities: Amity.Community[] = useMemo(() => {
+    return communities.sort((a, b) => {
+      return parseOrderFromDescription(a.description) - parseOrderFromDescription(b.description);
+    });
+  }, [communities]);
+
   const title = isLoading ? (
     <Skeleton style={{ fontSize: 12, maxWidth: 156 }} />
   ) : (
@@ -62,7 +74,7 @@ const RecommendedList = () => {
       {isLoading && new Array(4).fill(1).map((x, index) => <UICommunityCard key={index} loading />)}
 
       {!isLoading &&
-        communities.map(({ communityId }) => (
+        sortedCommunities.map(({ communityId }) => (
           <CommunityCard key={communityId} communityId={communityId} onClick={onClickCommunity} />
         ))}
     </HorizontalList>
