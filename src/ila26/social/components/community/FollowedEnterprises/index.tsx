@@ -69,7 +69,13 @@ const FollowedEnterprises = () => {
           </li>
         ))}
       </CommunitiesList>
-      <Footer>{hasMore && <LoadMore onClick={loadMore}>Show more</LoadMore>}</Footer>
+      <Footer>
+        {hasMore && (
+          <LoadMore onClick={loadMore}>
+            <FormattedMessage id="loadMore" />
+          </LoadMore>
+        )}
+      </Footer>
     </div>
   );
 };
