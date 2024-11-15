@@ -6,10 +6,10 @@ import ILA26_AmityUiKitChat_unwrapped from '~/ila26/chat/pages/Application';
 import ILA26_AmityUiKitChatPopup_unwrapped from '~/ila26/chat/components/ChatPopup';
 import { default as AmityUiKitFeed_unwrapped, FeedProps } from '~/social/components/Feed';
 import { default as AmityUiKitSocial_unwrapped } from '~/social/pages/Application';
+import { default as AmityUiKitEnterpriseFeed_unwrapped, EnterpriseFeedProps } from '~/ila26/social/pages/EnterpriseFeed';
 
 // HOC that wrappes the passed component inside UIStyles
 import withUIStyles from './ila26/exportsWrapper';
-
 
 import fr from '~/ila26/fr.json';
 import en from '~/i18n/en.json';
@@ -20,6 +20,7 @@ export const ILA26_AmityUiKitChat = withUIStyles(ILA26_AmityUiKitChat_unwrapped)
 export const ILA26_AmityUiKitChatPopup = withUIStyles(ILA26_AmityUiKitChatPopup_unwrapped);
 export const AmityUiKitFeed = withUIStyles(AmityUiKitFeed_unwrapped);
 export const AmityUiKitSocial = withUIStyles(AmityUiKitSocial_unwrapped);
+export const AmityUiKitEnterpriseFeed = withUIStyles(AmityUiKitEnterpriseFeed_unwrapped);
 
 // Export helper
 export {
