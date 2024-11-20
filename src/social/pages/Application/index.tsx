@@ -59,7 +59,7 @@ const Community = ({
             onClick={() => onClickCommunity(undefined as unknown as string)}
           >
             <BackIcon />
-            <FormattedMessage id="backTitle" />
+            <FormattedMessage id="exploreHeader.searchCommunityTitle" />
           </Button>
         ) // hide community news feed and fallback to explore
       }
