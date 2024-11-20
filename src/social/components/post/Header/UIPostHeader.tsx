@@ -55,11 +55,11 @@ const UIPostHeader = ({
       loading,
       isBanned,
     });
+  const showName =
+    !postTargetName || (postTargetName && !isModerator) || (postTargetName && hidePostTarget);
+  const showCommunity = postTargetName && !hidePostTarget;
 
   const renderPostNames = () => {
-    const showName = !postTargetName || !isModerator;
-    const showCommunity = postTargetName && !hidePostTarget;
-
     return (
       <PostNamesContainer data-qa-anchor="post-header-post-names">
         {showName && (
@@ -78,7 +78,7 @@ const UIPostHeader = ({
 
         {showCommunity && (
           <>
-            {!isModerator && <ArrowSeparator />}
+            {showName && <ArrowSeparator />}
             <Name
               data-qa-anchor="post-header-post-target-name"
               className={cx({ clickable: !!onClickCommunity })}
@@ -95,11 +95,11 @@ const UIPostHeader = ({
   const renderAdditionalInfo = () => {
     return (
       <AdditionalInfo data-qa-anchor="post-header-additional-info" showTime={!!timeAgo}>
-        {/* {isModerator && (
+        {isModerator && hidePostTarget && (
           <ModeratorBadge data-qa-anchor="post-header-additional-info-moderator-badge">
             <ShieldIcon /> <FormattedMessage id="moderator" />
           </ModeratorBadge>
-        )} */}
+        )}
 
         {timeAgo && (
           <Time data-qa-anchor="post-header-additional-info-time-ago" date={timeAgo.getTime()} />
@@ -118,7 +118,7 @@ const UIPostHeader = ({
     <PostHeaderContainer data-qa-anchor="post-header">
       <Avatar
         data-qa-anchor="post-header-avatar"
-        avatar={postTargetName && isModerator ? communityAvatarFileUrl : avatarFileUrl}
+        avatar={showName ? avatarFileUrl : communityAvatarFileUrl}
         backgroundImage={UserImage}
         loading={loading}
         onClick={onClickUser}

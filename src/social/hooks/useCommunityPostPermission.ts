@@ -16,7 +16,7 @@ const useCommunityPostPermission = ({
   community?: Amity.Community | null;
   userId?: string;
 }) => {
-  const { moderators } = useCommunityModeratorsCollection(community?.communityId);
+  const { moderators } = useCommunityModeratorsCollection(community?.communityId, { limit: 100 });
   const { members } = useCommunityMembersCollection(community?.communityId);
   const { posts: reviewingPosts } = usePostsCollection({
     targetType: 'community',
