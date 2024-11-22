@@ -153,7 +153,7 @@ const TruncatedGrid = <T extends Amity.Post>({
   }, [items.length]);
 
   return (
-    <Square ratio={0.75} className={className}>
+    <Square ratio={1} className={className}>
       <Gallery className={cx(config)} count={items.length}>
         {items.slice(0, 3).map((item, index) => (
           <TruncatedGridCell
