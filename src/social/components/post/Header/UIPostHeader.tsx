@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import cx from 'clsx';
 import Truncate from 'react-truncate-markup';
@@ -56,10 +56,16 @@ const UIPostHeader = ({
       isBanned,
     });
 
-  const renderPostNames = () => {
-    const showName = !postTargetName || !isModerator;
-    const showCommunity = postTargetName && !hidePostTarget;
+  const showName = useMemo(
+    () => !postTargetName || (postTargetName && !isModerator) || (postTargetName && hidePostTarget),
+    [postTargetName, isModerator, hidePostTarget],
+  );
+  const showCommunity = useMemo(
+    () => postTargetName && !hidePostTarget,
+    [postTargetName, hidePostTarget],
+  );
 
+  const renderPostNames = useCallback(() => {
     return (
       <PostNamesContainer data-qa-anchor="post-header-post-names">
         {showName && (
@@ -78,7 +84,7 @@ const UIPostHeader = ({
 
         {showCommunity && (
           <>
-            {!isModerator && <ArrowSeparator />}
+            {showName && <ArrowSeparator />}
             <Name
               data-qa-anchor="post-header-post-target-name"
               className={cx({ clickable: !!onClickCommunity })}
@@ -90,16 +96,16 @@ const UIPostHeader = ({
         )}
       </PostNamesContainer>
     );
-  };
+  }, [postTargetName, postAuthorName, isModerator, isBanned, hidePostTarget]);
 
-  const renderAdditionalInfo = () => {
+  const renderAdditionalInfo = useCallback(() => {
     return (
       <AdditionalInfo data-qa-anchor="post-header-additional-info" showTime={!!timeAgo}>
-        {/* {isModerator && (
+        {isModerator && hidePostTarget && (
           <ModeratorBadge data-qa-anchor="post-header-additional-info-moderator-badge">
             <ShieldIcon /> <FormattedMessage id="moderator" />
           </ModeratorBadge>
-        )} */}
+        )}
 
         {timeAgo && (
           <Time data-qa-anchor="post-header-additional-info-time-ago" date={timeAgo.getTime()} />
@@ -112,13 +118,13 @@ const UIPostHeader = ({
         )}
       </AdditionalInfo>
     );
-  };
+  }, [timeAgo, isEdited]);
 
   return (
     <PostHeaderContainer data-qa-anchor="post-header">
       <Avatar
         data-qa-anchor="post-header-avatar"
-        avatar={postTargetName && isModerator ? communityAvatarFileUrl : avatarFileUrl}
+        avatar={showName ? avatarFileUrl : communityAvatarFileUrl}
         backgroundImage={UserImage}
         loading={loading}
         onClick={onClickUser}
