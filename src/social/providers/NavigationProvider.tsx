@@ -1,6 +1,15 @@
-import React, { createContext, useCallback, useContext, useState, useMemo, ReactNode } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+  useMemo,
+  ReactNode,
+  useEffect,
+} from 'react';
 import { FormattedMessage } from 'react-intl';
 import { confirm } from '~/core/components/Confirm';
+import useSearchParams from '~/ila26/hooks/useSearchParams';
 import { PageTypes } from '~/social/constants';
 
 type Page =
@@ -132,6 +141,8 @@ export default function NavigationProvider({
   onEditUser,
   onMessageUser,
 }: NavigationProviderProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [pages, setPages] = useState<Page[]>([
     { type: PageTypes.NewsFeed, communityId: undefined },
   ]);
@@ -164,9 +175,23 @@ export default function NavigationProvider({
     return true;
   }, [askForConfirmation, navigationBlocker]);
 
+  useEffect(() => {
+    if (searchParams.has('communityId')) {
+      pushPage(
+        { type: PageTypes.CommunityFeed, communityId: searchParams.get('communityId') },
+        true,
+      );
+    }
+  }, [searchParams]);
+
   const pushPage = useCallback(
-    async (newPage) => {
+    async (newPage, skipUrlUpdate?) => {
       if (!(await confirmPageChange())) return;
+
+      // ILA26 Add community id to URL
+      if (!skipUrlUpdate && newPage.type == PageTypes.CommunityFeed && newPage.communityId) {
+        setSearchParams({ communityId: newPage.communityId });
+      }
 
       setPages((prevState) => [...prevState, newPage]);
     },
@@ -201,12 +226,14 @@ export default function NavigationProvider({
     (communityId) => {
       const next = {
         type: communityId ? PageTypes.CommunityFeed : PageTypes.Explore,
-        communityId
+        communityId,
       };
+
+      setSearchParams({ communityId });
 
       if (onChangePage) return onChangePage(next);
       if (onClickCommunity) onClickCommunity(communityId);
-      
+
       pushPage(next);
     },
     [onChangePage, onClickCommunity, pushPage],
