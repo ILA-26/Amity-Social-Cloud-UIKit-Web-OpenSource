@@ -1,4 +1,4 @@
-import React, { ReactNode, memo, useRef, useState } from 'react';
+import React, { ReactNode, memo, useCallback, useRef, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -86,6 +86,18 @@ const CreateCommunityForm = ({
 
   const formBodyRef = useRef<HTMLDivElement | null>(null);
 
+  const handleTextInputChange = useCallback(
+    (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      inputTarget: 'displayName' | 'description',
+      maxLength: number,
+    ) => {
+      const { value } = e.target;
+      setValue(inputTarget, value.length > maxLength ? value.slice(0, maxLength) : value);
+    },
+    [],
+  );
+
   const validateAndSubmit = async (data: CreateFormValues) => {
     try {
       setSubmitting(true);
@@ -155,6 +167,8 @@ const CreateCommunityForm = ({
               {...register('displayName')}
               data-qa-anchor={`${dataQaAnchor}-community-name-input`}
               placeholder="Enter community name"
+              onChange={(e) => handleTextInputChange(e, 'displayName', 30)}
+              value={displayName}
             />
             <ErrorMessage errors={errors} name="displayName" />
           </Field>
@@ -171,6 +185,8 @@ const CreateCommunityForm = ({
               })}
               data-qa-anchor={`${dataQaAnchor}-community-description-textarea`}
               placeholder="Enter description"
+              onChange={(e) => handleTextInputChange(e, 'description', 180)}
+              value={description}
             />
             <ErrorMessage errors={errors} name="description" />
           </Field>
