@@ -1,5 +1,5 @@
 import { CommunityPostSettings } from '@amityco/ts-sdk';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import Truncate from 'react-truncate-markup';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -22,10 +22,15 @@ import {
   Divider,
   Content,
   CommunityName,
+  LeftContent,
+  TooltipWrapper,
+  TooltipContainer,
+  TooltipText,
 } from './styles';
 import { useCustomComponent } from '~/core/providers/CustomComponentsProvider';
 import millify from 'millify';
 import { isNonNullable } from '~/helpers/utils';
+import { Check, LinkIcon } from '~/icons';
 
 interface UICommunityInfoProps {
   communityId: string;
@@ -69,6 +74,17 @@ const UICommunityInfo = ({
   postSetting,
 }: UICommunityInfoProps) => {
   const { formatMessage } = useIntl();
+  const [copied, setCopied] = useState<boolean>(false);
+
+  const copyCurrentUrlToClipboard = useCallback(async (): Promise<void> => {
+    try {
+      const currentUrl = window.location.href; // Get the current location URL
+      await navigator.clipboard.writeText(currentUrl); // Copy to clipboard
+      setCopied(true);
+    } catch (error) {
+      console.error('An error occured while attempting to copy text to the clipboard');
+    }
+  }, []);
 
   return (
     <Container data-qa-anchor="community-info">
@@ -104,25 +120,48 @@ const UICommunityInfo = ({
           </CountsContainer>
 
           {isJoined && (
-            <OptionMenu
-              data-qa-anchor="community-info-options-button"
-              options={[
-                canEditCommunity
-                  ? {
-                      name: formatMessage({ id: 'community.settings' }),
-                      action: () => onEditCommunity(communityId),
-                      dataQaAnchorMenuItem: 'settings',
-                    }
-                  : null,
-                canLeaveCommunity
-                  ? {
-                      name: formatMessage({ id: 'community.leaveCommunity' }),
-                      action: () => onClickLeaveCommunity(communityId),
-                      dataQaAnchorMenuItem: 'leave-community',
-                    }
-                  : null,
-              ].filter(isNonNullable)}
-            />
+            <LeftContent>
+              <TooltipWrapper>
+                <TooltipContainer>
+                  <Button
+                    variant="secondary"
+                    style={{ padding: '5px' }}
+                    onClick={copyCurrentUrlToClipboard}
+                  >
+                    {copied ? (
+                      <Check height="18" width="18" fill="#90EE90" />
+                    ) : (
+                      <LinkIcon fill='#000' height="18" width="18" />
+                    )}
+                  </Button>
+                  <TooltipText>
+                    <FormattedMessage
+                      id={copied ? 'community.copyLinkSuccess' : 'community.copyLinkTip'}
+                    />
+                  </TooltipText>
+                </TooltipContainer>
+              </TooltipWrapper>
+
+              <OptionMenu
+                data-qa-anchor="community-info-options-button"
+                options={[
+                  canEditCommunity
+                    ? {
+                        name: formatMessage({ id: 'community.settings' }),
+                        action: () => onEditCommunity(communityId),
+                        dataQaAnchorMenuItem: 'settings',
+                      }
+                    : null,
+                  canLeaveCommunity
+                    ? {
+                        name: formatMessage({ id: 'community.leaveCommunity' }),
+                        action: () => onClickLeaveCommunity(communityId),
+                        dataQaAnchorMenuItem: 'leave-community',
+                      }
+                    : null,
+                ].filter(isNonNullable)}
+              />
+            </LeftContent>
           )}
         </Header>
 

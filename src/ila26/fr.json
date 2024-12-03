@@ -78,6 +78,9 @@
   "community.members": "membres",
   "community.settings": "Paramètres",
   "community.leaveCommunity": "Quitter la communauté",
+  "community.copyLinkTip": "Copier le lien de la communauté dans le presse-papiers",
+  "community.copyLinkSuccess": "Lien copié",
+
   "CommunityMembers.members": "Membres",
   "CommunityMembers.moderators": "Modérateurs",
   "EmptyFeed.TargetType.globalFeed": "Ce fil est vide",
