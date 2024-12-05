@@ -81,6 +81,8 @@
   "community.members": "members",
   "community.settings": "Settings",
   "community.leaveCommunity": "Leave Community",
+  "community.copyLinkTip": "Copy community link to clipboard",
+  "community.copyLinkSuccess": "Link copied",
 
   "CommunityMembers.members": "Members",
   "CommunityMembers.moderators": "Moderators",

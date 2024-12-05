@@ -14,10 +14,55 @@ export const PencilIcon = styled(Pencil).attrs<{ icon?: ReactNode }>({ width: 15
   margin-right: 4px;
 `;
 
-export const OptionMenu = styled(UIOptionMenu)`
+export const TooltipContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+export const TooltipText = styled.span`
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+  }
+`;
+
+export const TooltipWrapper = styled.div`
+  &:hover ${TooltipText} {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+export const LeftContent = styled('div')`
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-left: auto;
   margin-right: 0;
+`;
 
+export const OptionMenu = styled(UIOptionMenu)`
   & .leave-community {
     color: ${({ theme }) => theme.palette.alert.main};
   }
