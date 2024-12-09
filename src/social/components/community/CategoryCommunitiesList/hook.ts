@@ -9,6 +9,7 @@ export const useCategoryCommunitiesList = ({ categoryId }: { categoryId?: string
     useCommunitiesCollection({
       categoryId: categoryId || undefined,
       sortBy: 'displayName',
+      limit: 6,
     });
 
   const items: (Amity.Community | { skeleton: boolean })[] = useMemo(() => {

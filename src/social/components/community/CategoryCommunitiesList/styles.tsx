@@ -12,3 +12,7 @@ export const ListEmptyState = styled(EmptyState)`
   margin-right: auto;
   margin-left: auto;
 `;
+
+export const CardContainer = styled.div`
+  width: 15%;
+`

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Grid, ListEmptyState } from './styles';
+import { CardContainer, Grid, ListEmptyState } from './styles';
 import EmptyFeedIcon from '~/icons/EmptyFeed';
 import CommunityCard, { UICommunityCard } from '~/social/components/community/Card';
 import { useCategoryCommunitiesList } from './hook';
@@ -48,11 +48,13 @@ const UICategoryCommunitiesList = ({
           isLoadingItem(community) ? (
             <UICommunityCard key={index} loading />
           ) : (
-            <CommunityCard
-              key={community?.communityId}
-              communityId={community?.communityId}
-              onClick={onClickCommunity}
-            />
+            <CardContainer>
+              <CommunityCard
+                key={community?.communityId}
+                communityId={community?.communityId}
+                onClick={onClickCommunity}
+              />
+            </CardContainer>
           ),
         )}
       </Grid>
