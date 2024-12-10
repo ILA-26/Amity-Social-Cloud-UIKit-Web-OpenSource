@@ -53,6 +53,7 @@ export const CategoriesList = styled.div`
 `;
 
 export const Content = styled.div`
+  height: 90px;
   padding: 12px 16px;
 `;
 

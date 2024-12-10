@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Button from '~/core/components/Button';
 
 export const PageContainer = styled.div`
-  max-width: 1160px;
   margin: 0 auto;
   padding: 30px 0;
   overflow-x: hidden;
