@@ -88,6 +88,9 @@
   "EmptyFeed.TargetType.userFeed": "Le fil de cet utilisateur est vide",
   "EmptyFeed.TargetType.myFeed": "Votre fil est vide. Commencez votre premier post",
   "EmptyFeed.exploreCommunity": "Explorer la communauté",
+
+  "EmptyResult": "Aucun résultat trouvé",
+
   "UserFeed.tabs.timeline": "Chronologie",
   "community.exploreCommunities": "Explorer les communautés",
   "community.permissions.postReview": "Examen des posts",

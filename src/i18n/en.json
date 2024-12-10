@@ -93,6 +93,8 @@
   "EmptyFeed.TargetType.myFeed": "Your feed is empty. Start your first post",
   "EmptyFeed.exploreCommunity": "Explore Community",
 
+  "EmptyResult": "No results found",
+
   "UserFeed.tabs.timeline": "Timeline",
   "community.exploreCommunities": "Explore Community",
   "community.permissions.postReview": "Post review",
