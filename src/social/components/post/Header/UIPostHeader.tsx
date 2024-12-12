@@ -57,12 +57,8 @@ const UIPostHeader = ({
     });
 
   const showName = useMemo(
-    () => !postTargetName || (postTargetName && !isModerator) || (postTargetName && hidePostTarget),
-    [postTargetName, isModerator, hidePostTarget],
-  );
-  const showCommunity = useMemo(
-    () => postTargetName && !hidePostTarget,
-    [postTargetName, hidePostTarget],
+    () => !postTargetName || (postTargetName && !isModerator),
+    [postTargetName, isModerator],
   );
 
   const renderPostNames = useCallback(() => {
@@ -82,7 +78,7 @@ const UIPostHeader = ({
 
         {isBanned && <BanIcon />}
 
-        {showCommunity && (
+        {postTargetName && (
           <>
             {showName && <ArrowSeparator />}
             <Name
@@ -96,16 +92,16 @@ const UIPostHeader = ({
         )}
       </PostNamesContainer>
     );
-  }, [postTargetName, postAuthorName, isModerator, isBanned, hidePostTarget]);
+  }, [postTargetName, postAuthorName, isModerator, isBanned]);
 
   const renderAdditionalInfo = useCallback(() => {
     return (
       <AdditionalInfo data-qa-anchor="post-header-additional-info" showTime={!!timeAgo}>
-        {isModerator && hidePostTarget && (
+        {/* {isModerator && hidePostTarget && (
           <ModeratorBadge data-qa-anchor="post-header-additional-info-moderator-badge">
             <ShieldIcon /> <FormattedMessage id="moderator" />
           </ModeratorBadge>
-        )}
+        )} */}
 
         {timeAgo && (
           <Time data-qa-anchor="post-header-additional-info-time-ago" date={timeAgo.getTime()} />
