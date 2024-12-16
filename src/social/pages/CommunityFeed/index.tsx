@@ -13,7 +13,7 @@ import CommunityMembers from '~/social/components/CommunityMembers';
 import FeedHeaderTabs from '~/social/components/FeedHeaderTabs';
 import { CommunityFeedTabs } from './constants';
 import { getTabs } from './utils';
-import { DeclineBanner, Wrapper } from './styles';
+import { Box, DeclineBanner, FeedContainer, Wrapper } from './styles';
 import useCommunityPermission from '~/social/hooks/useCommunityPermission';
 import useCommunitySubscription from '~/social/hooks/useCommunitySubscription';
 import usePostsCollection from '~/social/hooks/collections/usePostsCollection';
@@ -84,15 +84,19 @@ const CommunityFeed = ({
       />
 
       {activeTab === CommunityFeedTabs.TIMELINE && (
-        <Feed
-          targetType={'community'}
-          targetId={communityId}
-          readonly={!isJoined}
-          showPostCreator={isJoined}
-          feedType={'published'}
-          ILA26_communityManagerProps={ILA26_communityManagerProps}
-          ILA26_getInternalData={ILA26_getInternalData}
-        />
+        <FeedContainer>
+          <Box>
+            <Feed
+              targetType={'community'}
+              targetId={communityId}
+              readonly={!isJoined}
+              showPostCreator={isJoined}
+              feedType={'published'}
+              ILA26_communityManagerProps={ILA26_communityManagerProps}
+              ILA26_getInternalData={ILA26_getInternalData}
+            />
+          </Box>
+        </FeedContainer>
       )}
 
       {activeTab === CommunityFeedTabs.GALLERY && (
