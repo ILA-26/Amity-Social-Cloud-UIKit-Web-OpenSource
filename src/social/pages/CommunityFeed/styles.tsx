@@ -15,3 +15,13 @@ export const DeclineBanner = styled.div`
   padding: 12px 16px;
   border-radius: 4px;
 `;
+
+export const FeedContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const Box = styled.div`
+  min-width: 800px;
+  width: 60%;
+`;
