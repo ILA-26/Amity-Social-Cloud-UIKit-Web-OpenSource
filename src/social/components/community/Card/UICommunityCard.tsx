@@ -51,13 +51,6 @@ const UICommunityCard = ({
     <Container onClick={handleClick} {...props}>
       <Cover backgroundImage={avatarFileUrl}>
         <CoverContent>
-          <CommunityName
-            isOfficial={isOfficial}
-            isPublic={isPublic}
-            isTitle
-            name={name}
-            truncate={2}
-          />
           <Truncate lines={1}>
             <CategoriesList>
               {(communityCategories || []).map((category) => category.name).join(', ')}
@@ -76,10 +69,14 @@ const UICommunityCard = ({
           </Count>
         )}
 
-        {!loading && description ? (
-          <Truncate lines={2}>
-            <Description>{description}</Description>
-          </Truncate>
+        {!loading ? (
+          <CommunityName
+            isOfficial={isOfficial}
+            isPublic={isPublic}
+            isTitle
+            name={name}
+            truncate={2}
+          />
         ) : null}
       </Content>
     </Container>
