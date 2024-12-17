@@ -33,15 +33,8 @@ export const CoverContent = styled.div`
 `;
 
 export const CommunityName = styled(SocialCommunityName)`
-  color: #ffffff;
   ${({ theme }) => theme.typography.headline}
   line-height: 30px !important;
-
-  * {
-    color: #ffffff;
-    line-height: 30px !important;
-    padding: 0;
-  }
 `;
 
 export const CategoriesList = styled.div`
