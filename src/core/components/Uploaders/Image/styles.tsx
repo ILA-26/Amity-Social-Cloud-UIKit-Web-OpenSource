@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useState } from 'react';
+import React, { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { SizeMe } from 'react-sizeme';
 
@@ -8,7 +8,9 @@ import Skeleton from '~/core/components/Skeleton';
 import RemoveIcon from '~/icons/Remove';
 import ExclamationCircle from '~/icons/ExclamationCircle';
 
-export const ImageContainer = styled.div<{ border?: boolean }>`
+export const ImageContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'border',
+})<{ border?: boolean }>`
   position: relative;
   display: inline-block;
   min-width: 2em;
@@ -38,13 +40,17 @@ const ImgPreviewContainerStyles = css<{ mediaFit?: string; loading?: string }>`
   object-position: center;
 `;
 
-export const ImgPreview = styled.img.attrs<{ mediaFit?: string; loading?: string }>({
-  loading: 'lazy',
-})`
+export const ImgPreview = styled.img
+  .withConfig({ shouldForwardProp: (prop) => prop !== 'mediaFit' })
+  .attrs<{ mediaFit?: string; loading?: string }>({
+    loading: 'lazy',
+  })`
   ${ImgPreviewContainerStyles}
 `;
 
-export const SkeletonWrapper = styled.div<{ mediaFit?: string; loading?: string }>`
+export const SkeletonWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'mediaFit',
+})<{ mediaFit?: string; loading?: string }>`
   ${ImgPreviewContainerStyles};
 
   display: flex;

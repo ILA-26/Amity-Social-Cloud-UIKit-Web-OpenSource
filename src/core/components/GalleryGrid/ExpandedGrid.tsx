@@ -3,7 +3,9 @@ import styled from 'styled-components';
 
 import Square from '~/core/components/Square';
 
-const Gallery = styled.div<{ count?: number }>`
+const Gallery = styled.div.withConfig({ shouldForwardProp: (prop) => prop != 'count' })<{
+  count?: number;
+}>`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(3, 1fr);

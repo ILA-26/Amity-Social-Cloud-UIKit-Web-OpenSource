@@ -1,7 +1,10 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-const Frame = styled.div<{ percent: number; className?: string }>`
+const Frame = styled.div.withConfig({ shouldForwardProp: (prop) => prop !== 'percent' })<{
+  percent: number;
+  className?: string;
+}>`
   position: relative;
   width: 100%;
   height: 0;

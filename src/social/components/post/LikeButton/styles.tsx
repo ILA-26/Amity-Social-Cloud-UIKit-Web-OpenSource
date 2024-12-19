@@ -8,7 +8,9 @@ const isLikedStyle = css`
   color: ${({ theme }) => theme.palette.primary.main};
 `;
 
-export const StyledLikeButton = styled(SecondaryButton)`
+export const StyledLikeButton = styled(SecondaryButton).withConfig({
+  shouldForwardProp: (prop) => prop !== 'active',
+})`
   ${({ active }) => active && isLikedStyle}
 `;
 
