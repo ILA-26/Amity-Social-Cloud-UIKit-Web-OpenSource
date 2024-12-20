@@ -18,7 +18,7 @@ const ExplorePage = () => {
   return (
     <PageContainer>
       <HeaderSection>
-        <SocialSearch sticky />
+        <SocialSearch />
         <Button variant="primary" onClick={handleToggleCreationModal}>
           <PlusIcon />{' '}
           <span>
