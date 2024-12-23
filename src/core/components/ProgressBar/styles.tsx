@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const LoadingIndicator = styled.div.attrs<{ progress?: number; lightMode?: boolean }>(
-  ({ progress }) => ({
+export const LoadingIndicator = styled.div
+  .withConfig({ shouldForwardProp: (prop) => prop !== 'progress' })
+  .attrs<{ progress?: number; lightMode?: boolean }>(({ progress }) => ({
     style: { width: `${progress || 0}%` },
-  }),
-)`
+  }))`
   background: ${({ lightMode, theme }) =>
     lightMode ? theme.palette.primary.main : theme.palette.base.shade4};
   position: absolute;

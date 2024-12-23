@@ -95,6 +95,7 @@ const UIPostHeader = ({
   }, [postTargetName, postAuthorName, isModerator, isBanned]);
 
   const renderAdditionalInfo = useCallback(() => {
+    const parsedTimeAgo = timeAgo.getTime();
     return (
       <AdditionalInfo data-qa-anchor="post-header-additional-info" showTime={!!timeAgo}>
         {/* {isModerator && hidePostTarget && (
@@ -103,8 +104,8 @@ const UIPostHeader = ({
           </ModeratorBadge>
         )} */}
 
-        {timeAgo && (
-          <Time data-qa-anchor="post-header-additional-info-time-ago" date={timeAgo.getTime()} />
+        {parsedTimeAgo && (
+          <Time data-qa-anchor="post-header-additional-info-time-ago" date={parsedTimeAgo} />
         )}
 
         {isEdited && (

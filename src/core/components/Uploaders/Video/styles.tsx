@@ -8,7 +8,9 @@ import LiveBadge from '~/social/components/LiveBadge';
 
 import { ExclamationCircle, Play, Remove } from '~/icons';
 
-export const VideoContainer = styled.div<{ border?: boolean }>`
+export const VideoContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'border',
+})<{ border?: boolean }>`
   position: relative;
   display: inline-block;
   min-width: 2em;
@@ -61,7 +63,9 @@ export const VideoPreview = styled(BaseVideoPreview)<{ mediaFit?: string }>`
   cursor: pointer;
 `;
 
-export const SkeletonWrapper = styled.div<{ mediaFit?: string }>`
+export const SkeletonWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'mediaFit',
+})<{ mediaFit?: string }>`
   ${VideoPreviewContainerStyles};
 
   display: flex;
