@@ -27,7 +27,9 @@ export const SideWrapper = styled.div`
   align-items: center;
 `;
 
-export const ControlItemLabel = styled.div<{ isDanger?: boolean }>`
+export const ControlItemLabel = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isDanger',
+})<{ isDanger?: boolean }>`
   padding-right: 8px;
   ${({ theme }) => theme.typography.body};
   color: ${({ theme, isDanger }) =>

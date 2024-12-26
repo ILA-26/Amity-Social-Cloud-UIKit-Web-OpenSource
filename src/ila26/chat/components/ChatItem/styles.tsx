@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import SideMenuItem from '~/core/components/SideMenuItem';
 import UserAvatar from '~/ila26/chat/components/UserAvatar';
 
-export const ChatItemContainer = styled(SideMenuItem)<{active?: boolean }>`
+export const ChatItemContainer = styled(SideMenuItem).withConfig({
+  shouldForwardProp: (prop) => prop !== 'active',
+})<{ active?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,7 +15,7 @@ export const ChatItemContainer = styled(SideMenuItem)<{active?: boolean }>`
   border-radius: 0;
   ${({ active }) => active && 'background-color: #EFF4FE;'};
   &:hover {
-    background-color: #EBECEE;
+    background-color: #ebecee;
   }
 `;
 

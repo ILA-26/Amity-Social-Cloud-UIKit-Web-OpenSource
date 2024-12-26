@@ -18,7 +18,10 @@ export const FrameContainer = styled.div`
   overflow: hidden;
 `;
 
-export const Frame = styled.div<{
+export const Frame = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    prop !== 'fullSized' && prop !== 'scrollable' && prop !== 'scrollableHeight',
+})<{
   position?: string;
   align?: string;
   fullSized?: boolean;

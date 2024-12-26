@@ -64,7 +64,9 @@ export const StyledModalWindow = ({
   return <ModalWindow {...props} />;
 };
 
-export const Header = styled.div<{ clean?: boolean }>`
+export const Header = styled.div.withConfig({ shouldForwardProp: (prop) => prop !== 'clean' })<{
+  clean?: boolean;
+}>`
   padding: 16px 16px 12px 16px;
   ${({ clean, theme }) =>
     !clean &&
@@ -76,7 +78,9 @@ export const Header = styled.div<{ clean?: boolean }>`
   align-items: center;
 `;
 
-export const Content = styled.div<{ isText?: boolean }>`
+export const Content = styled.div.withConfig({ shouldForwardProp: (prop) => prop !== 'isText' })<{
+  isText?: boolean;
+}>`
   ${({ isText }) =>
     isText &&
     css`

@@ -2,7 +2,9 @@ import styled, { css } from 'styled-components';
 
 import Avatar from '~/core/components/Avatar';
 
-export const UserHeaderContainer = styled.div<{ noSubtitle?: boolean }>`
+export const UserHeaderContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'noSubtitle',
+})<{ noSubtitle?: boolean }>`
   display: grid;
   grid-template-areas: 'avatar title' 'avatar subtitle';
   grid-template-columns: min-content auto;
@@ -15,7 +17,7 @@ export const UserHeaderContainer = styled.div<{ noSubtitle?: boolean }>`
   &:active {
     background-color: #eff4fe;
   }
-  
+
   cursor: pointer;
   ${({ noSubtitle }) =>
     !noSubtitle &&
