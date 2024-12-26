@@ -39,7 +39,6 @@ const Modal = ({
         small={size === 'small'}
         tabIndex={0}
         className={className}
-        ref={modalRef}
         data-qa-anchor={dataQaAnchor}
       >
         {(title || onCancel) && (
