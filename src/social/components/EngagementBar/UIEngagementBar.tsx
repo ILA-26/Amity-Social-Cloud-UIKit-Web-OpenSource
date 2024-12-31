@@ -12,6 +12,7 @@ import {
   CommentIcon,
   NoInteractionMessage,
   CommentsLabel,
+  ShareIcon,
 } from './styles';
 import CommentList from '~/social/components/CommentList';
 import { LIKE_REACTION_KEY } from '~/constants';
@@ -62,7 +63,10 @@ const UIEngagementBar = ({
         )}
 
         {commentsCount > 0 && (
-          <CommentsLabel data-qa-anchor="engagement-bar-comment-counter" onClick={toggleShowComments}>
+          <CommentsLabel
+            data-qa-anchor="engagement-bar-comment-counter"
+            onClick={toggleShowComments}
+          >
             {millify(commentsCount || 0)}{' '}
             <FormattedMessage id="plural.comment" values={{ amount: commentsCount }} />
           </CommentsLabel>
@@ -77,6 +81,12 @@ const UIEngagementBar = ({
               onClick={onClickComment}
             >
               <CommentIcon /> <FormattedMessage id="comment" />
+            </SecondaryButton>
+            <SecondaryButton
+              data-qa-anchor="engagement-bar-share-button"
+              onClick={() => console.log('Share post')} // TODO: Implement share post
+            >
+              <ShareIcon /> <FormattedMessage id="post.share" />
             </SecondaryButton>
           </InteractionBar>
           {showComments && (

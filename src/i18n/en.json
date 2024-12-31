@@ -34,6 +34,7 @@
   "post.edited": "Edited",
   "post.like": "Like",
   "post.liked": "Liked",
+  "post.share": "Share",
   "post.unknownPost.description": "We couldn’t recognize this post.",
   "post.unknownPost.title": "Something went wrong",
   "post.renderingError.description": "We couldn’t render this post.",

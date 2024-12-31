@@ -91,6 +91,7 @@ export { default as ChevronRight } from './ChevronRight';
 export { default as Camera } from './Camera';
 export { default as Close } from './Close';
 export { default as Comment } from './Comment';
+export { default as Share } from './Share';
 export { default as CreateChat } from './CreateChat';
 export { default as EllipsisH } from './EllipsisH';
 export { default as EllipsisV } from './EllipsisV';

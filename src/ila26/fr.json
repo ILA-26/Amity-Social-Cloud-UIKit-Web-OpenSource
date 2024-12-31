@@ -33,6 +33,7 @@
   "post.edited": "Modifié",
   "post.like": "Aimer",
   "post.liked": "Aimé",
+  "post.share": "Partager",
   "post.unknownPost.description": "Nous n'avons pas pu reconnaître ce post.",
   "post.unknownPost.title": "Un problème est survenu",
   "post.renderingError.description": "Nous n'avons pas pu afficher ce post.",
