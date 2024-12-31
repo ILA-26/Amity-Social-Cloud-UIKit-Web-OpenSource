@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import useIntelligentSearchPost from '~/core/hooks/useIntelligentSearchPost';
-import EmptyFeed from '~/social/components/EmptyFeed';
+import React from 'react';
+import useIntelligentSearchPost from '~/ila26/hooks/useIntelligentSearchPost';
 import { FeedScrollContainer } from '~/social/components/Feed/styles';
 import LoadMoreWrapper from '~/social/components/LoadMoreWrapper';
 import Post from '~/social/components/post/Post';
