@@ -52,6 +52,7 @@ type PostData = {
     high: string;
   };
   streamId?: string;
+  originPostId?: string;
 };
 
 type HashFlag = {

@@ -238,7 +238,7 @@ const DefaultPostRenderer = ({
               title={formatMessage({ id: 'post.sharePost' })}
               onCancel={closeSharePostModal}
             >
-              <PostShare post={post} onSave={() => console.log('on save clicked!')} />
+              <PostShare post={post} onSave={closeSharePostModal} />
             </Modal>
           )}
         </>
