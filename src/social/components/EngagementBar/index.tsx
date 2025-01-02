@@ -15,9 +15,11 @@ import { ERROR_RESPONSE } from '~/social/constants';
 interface EngagementBarProps {
   postId: string;
   readonly?: boolean;
+  hidePostTarget?: boolean;
+  onClickShare?: () => void;
 }
 
-const EngagementBar = ({ postId, readonly = false }: EngagementBarProps) => {
+const EngagementBar = ({ postId, readonly = false, onClickShare, hidePostTarget }: EngagementBarProps) => {
   const [isComposeBarDisplayed, setComposeBarDisplayed] = useState(false);
   const toggleComposeBar = () => setComposeBarDisplayed((prevValue) => !prevValue);
 
@@ -75,6 +77,8 @@ const EngagementBar = ({ postId, readonly = false }: EngagementBarProps) => {
       post={post}
       readonly={readonly}
       isComposeBarDisplayed={isComposeBarDisplayed}
+      onClickShare={onClickShare}
+      hidePostTarget={hidePostTarget}
       handleAddComment={handleAddComment}
       onClickComment={toggleComposeBar}
     />

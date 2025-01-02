@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import Button, { PrimaryButton } from '~/core/components/Button';
 import { confirm, info } from '~/core/components/Confirm';
@@ -8,6 +8,7 @@ import { isNonNullable } from '~/helpers/utils';
 import EngagementBar from '~/social/components/EngagementBar';
 import ChildrenContent from '~/social/components/post/ChildrenContent';
 import PostEditor from '~/social/components/post/Editor';
+import PostShare from '~/ila26/social/components/post/Share';
 import PostHeader from '~/social/components/post/Header';
 import Content from '~/social/components/post/Post/Content';
 import {
@@ -50,8 +51,12 @@ const DefaultPostRenderer = ({
 }: DefaultPostRendererProps) => {
   const { formatMessage } = useIntl();
   const [isEditing, setIsEditing] = useState(false);
+  const [isSharing, setisSharing] = useState(false);
   const openEditingPostModal = () => setIsEditing(true);
   const closeEditingPostModal = () => setIsEditing(false);
+
+  const openSharePostModal = useCallback(() => setisSharing(true), []);
+  const closeSharePostModal = useCallback(() => setisSharing(false), []);
 
   function showHasBeenReviewedMessageIfNeeded(error: unknown) {
     if (error instanceof Error) {
@@ -190,7 +195,14 @@ const DefaultPostRenderer = ({
 
           {hasChildrenPosts && <ChildrenContent contents={childrenPosts} />}
 
-          {!isPostUnderReview && <EngagementBar readonly={readonly} postId={post?.postId} />}
+          {!isPostUnderReview && (
+            <EngagementBar
+              readonly={readonly}
+              hidePostTarget={hidePostTarget}
+              postId={post?.postId}
+              onClickShare={openSharePostModal}
+            />
+          )}
 
           {isPostUnderReview && canReview && (
             <ReviewButtonsContainer data-qa-anchor="post-review">
@@ -218,6 +230,15 @@ const DefaultPostRenderer = ({
               onCancel={closeEditingPostModal}
             >
               <PostEditor postId={post?.postId} onSave={closeEditingPostModal} />
+            </Modal>
+          )}
+          {isSharing && (
+            <Modal
+              data-qa-anchor="post-share-modal"
+              title={formatMessage({ id: 'post.sharePost' })}
+              onCancel={closeSharePostModal}
+            >
+              <PostShare post={post} onSave={() => console.log('on save clicked!')} />
             </Modal>
           )}
         </>

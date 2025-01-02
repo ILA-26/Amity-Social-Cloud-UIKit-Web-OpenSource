@@ -27,6 +27,8 @@ interface UIEngagementBarProps {
   post: Amity.Post;
   readonly?: boolean;
   onClickComment?: () => void;
+  onClickShare?: () => void;
+  hidePostTarget?: boolean;
   isComposeBarDisplayed?: boolean;
   handleAddComment?: (text: string, mentionees: Mentionees, metadata: Metadata) => void;
 }
@@ -35,6 +37,8 @@ const UIEngagementBar = ({
   post,
   readonly,
   onClickComment,
+  onClickShare,
+  hidePostTarget,
   isComposeBarDisplayed,
   handleAddComment,
 }: UIEngagementBarProps) => {
@@ -82,10 +86,7 @@ const UIEngagementBar = ({
             >
               <CommentIcon /> <FormattedMessage id="comment" />
             </SecondaryButton>
-            <SecondaryButton
-              data-qa-anchor="engagement-bar-share-button"
-              onClick={() => console.log('Share post')} // TODO: Implement share post
-            >
+            <SecondaryButton data-qa-anchor="engagement-bar-share-button" onClick={onClickShare}>
               <ShareIcon /> <FormattedMessage id="post.share" />
             </SecondaryButton>
           </InteractionBar>
@@ -104,9 +105,11 @@ const UIEngagementBar = ({
         </>
       ) : (
         <>
-          <NoInteractionMessage>
-            <FormattedMessage id="community.cannotInteract" />
-          </NoInteractionMessage>
+          {hidePostTarget && (
+            <NoInteractionMessage>
+              <FormattedMessage id="community.cannotInteract" />
+            </NoInteractionMessage>
+          )}
           {showComments && (
             <CommentList
               referenceId={postId}

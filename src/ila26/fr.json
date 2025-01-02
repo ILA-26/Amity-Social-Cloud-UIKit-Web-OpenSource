@@ -27,6 +27,7 @@
   "moderatorMenu.removeFromCommunity": "Retirer de la communauté",
   "post.readMore": "...Lire la suite",
   "post.editPost": "Modifier le post",
+  "post.sharePost": "Partager le post",
   "post.deletePost": "Supprimer le post",
   "post.confirmDelete": "Ce post sera définitivement supprimé. Vous ne pourrez plus le voir ni le trouver. Continuer ?",
   "post.confirmPendingDelete": "Ce post sera définitivement supprimé de la liste d'attente",
