@@ -46,6 +46,7 @@ const defaultPostRenderer: PostRendererConfigType = {
   [PostContentType.POLL]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
   [PostContentType.TEXT]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
   [PostContentType.VIDEO]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
+  "custom.share": (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
   ...ILA26_customDataTypesPostRenderer, // ILA26 custom types
 };
 

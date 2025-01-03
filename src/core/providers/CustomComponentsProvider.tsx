@@ -50,6 +50,7 @@ type CustomComponentName =
   | 'UIEngagementBar'
   | 'UIPostHeader'
   | 'UITextContent'
+  | 'UIShareContent'
   | 'UITrendingItem'
   | 'UIUserInfo'
   | 'UserChip'

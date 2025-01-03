@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TextContent from '~/ila26/social/components/post/TextContent';
+import ShareContent from '~/ila26/social/components/post/ShareContent';
 import ImageContent from '~/social/components/post/ImageContent';
 import VideoContent from '~/social/components/post/VideoContent';
 import FileContent from '~/social/components/post/FileContent';
@@ -25,8 +26,12 @@ const PostContent = ({ data, dataType, postMaxLines, mentionees, metadata, hasCh
     return <ILA26_CustomPostContent {...{ metadata, dataType: dataType ?? '', data }} />; // render custom ila26 content component
   }
 
-  if (!['text', 'image', 'video', 'file', 'liveStream'].includes(dataType || '')) {
+  if (!['text', 'image', 'video', 'file', 'liveStream', 'custom.share'].includes(dataType || '')) {
     return null;
+  }
+
+  if(dataType === 'custom.share') {
+    return <ShareContent {...data} postMaxLines={postMaxLines} mentionees={mentionees}/>
   }
 
   if (dataType === 'text') {
