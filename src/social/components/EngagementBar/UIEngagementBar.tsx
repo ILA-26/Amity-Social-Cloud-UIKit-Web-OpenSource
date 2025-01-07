@@ -68,8 +68,9 @@ const UIEngagementBar = ({
 
         {commentsCount > 0 && (
           <CommentsLabel
+            $disabled={readonly && !hidePostTarget}
             data-qa-anchor="engagement-bar-comment-counter"
-            onClick={toggleShowComments}
+            onClick={readonly && !hidePostTarget ? undefined : toggleShowComments}
           >
             {millify(commentsCount || 0)}{' '}
             <FormattedMessage id="plural.comment" values={{ amount: commentsCount }} />

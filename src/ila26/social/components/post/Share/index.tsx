@@ -55,7 +55,7 @@ const PostShare = ({ post, placeholder, className, onSave }: PostShareProps) => 
         targetId: currentUserId,
         targetType: 'user',
         data: {
-          originPostId: post.dataType === 'custom.share' ? post.data.originPostId : post.postId,
+          originPostId: post.data.originPostId ?? post.postId,
           text,
         },
       });
@@ -96,10 +96,17 @@ const PostShare = ({ post, placeholder, className, onSave }: PostShareProps) => 
           placeholder={_placeholder}
           value={markup}
         />
-        <Post postId={post.postId} readonly={true} />
+        <Post
+          postId={post.data.originPostId ?? post.postId}
+          readonly={true}
+        />
       </ContentContainer>
       <Footer>
-        <PostButton data-qa-anchor="post-share-save-button" onClick={onSharePost} disabled={isCreating}>
+        <PostButton
+          data-qa-anchor="post-share-save-button"
+          onClick={onSharePost}
+          disabled={isCreating}
+        >
           <FormattedMessage id="post.repost" />
         </PostButton>
       </Footer>

@@ -34,9 +34,11 @@ export const NoInteractionMessage = styled.div`
   margin-top: 8px;
 `;
 
-export const CommentsLabel = styled.span`
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
+export const CommentsLabel = styled('span')<{ $disabled?: boolean }>`
+  ${({ $disabled }) =>
+    !$disabled &&
+    `cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }`}
 `;
