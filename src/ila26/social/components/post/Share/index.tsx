@@ -58,6 +58,8 @@ const PostShare = ({ post, placeholder, className, onSave }: PostShareProps) => 
           originPostId: post.data.originPostId ?? post.postId,
           text,
         },
+        mentionees,
+        metadata,
       });
 
       onSave();
@@ -81,6 +83,9 @@ const PostShare = ({ post, placeholder, className, onSave }: PostShareProps) => 
       <ContentContainer>
         <PostInputText
           multiline
+          mentionAllowed
+          queryMentionees={queryMentionees}
+          loadMoreMentionees={(query) => queryMentionees(query)}
           onChange={({ text, plainText: plainTextVal, mentions }) => {
             if (mentions?.length > MAXIMUM_POST_MENTIONEES) {
               return info({
@@ -96,10 +101,7 @@ const PostShare = ({ post, placeholder, className, onSave }: PostShareProps) => 
           placeholder={_placeholder}
           value={markup}
         />
-        <Post
-          postId={post.data.originPostId ?? post.postId}
-          readonly={true}
-        />
+        <Post postId={post.data.originPostId ?? post.postId} readonly={true} />
       </ContentContainer>
       <Footer>
         <PostButton
