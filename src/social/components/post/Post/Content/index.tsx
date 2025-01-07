@@ -6,9 +6,10 @@ import ImageContent from '~/social/components/post/ImageContent';
 import VideoContent from '~/social/components/post/VideoContent';
 import FileContent from '~/social/components/post/FileContent';
 import LivestreamContent from '~/social/components/post/LivestreamContent';
-import { ILA26_customTypeDataTypes } from '~/ila26/constants';
-import { ILA26_internalData, ILA26_internalElementsTypes } from '~/ila26/types/customPosts';
+import { PostContentType_extended } from '~/ila26/constants';
+import { ILA26_internalData } from '~/ila26/types/customPosts';
 import ILA26_CustomPostContent from '~/ila26/components/ILA26_CustomPostContent';
+import { PostContentType } from '@amityco/ts-sdk';
 
 interface PostContentProps {
   data?: any;
@@ -22,31 +23,45 @@ interface PostContentProps {
 const PostContent = ({ data, dataType, postMaxLines, mentionees, metadata, hasChildrenPosts }: PostContentProps) => {
   if (!data) return null;
 
-  if (Object.values(ILA26_customTypeDataTypes).includes(dataType ?? '')) {
-    return <ILA26_CustomPostContent {...{ metadata, dataType: dataType ?? '', data }} />; // render custom ila26 content component
-  }
-
-  if (!['text', 'image', 'video', 'file', 'liveStream', 'custom.share'].includes(dataType || '')) {
+  if (
+    ![...Object.values(PostContentType), ...Object.values(PostContentType_extended)].includes(
+      dataType || '',
+    )
+  ) {
     return null;
   }
 
-  if(dataType === 'custom.share') {
-    return <ShareContent {...data} postMaxLines={postMaxLines} mentionees={mentionees}/>
+  if (
+    dataType === PostContentType_extended.MARKETPLACE_PRODUCT ||
+    dataType === PostContentType_extended.MARKETPLACE_SERVICEOFFER
+  ) {
+    return <ILA26_CustomPostContent {...{ metadata, dataType: dataType ?? '', data }} />; // render custom ila26 content component
   }
 
-  if (dataType === 'text') {
-    return <TextContent {...data} postMaxLines={postMaxLines} mentionees={mentionees} hasChildrenPosts={hasChildrenPosts} />;
+  if (dataType === PostContentType_extended.SHARE) {
+    return <ShareContent {...data} postMaxLines={postMaxLines} mentionees={mentionees} />;
   }
-  if (dataType === 'image') {
+
+  if (dataType === PostContentType.TEXT) {
+    return (
+      <TextContent
+        {...data}
+        postMaxLines={postMaxLines}
+        mentionees={mentionees}
+        hasChildrenPosts={hasChildrenPosts} // used for figuring out whether to add link open graph preview card
+      />
+    );
+  }
+  if (dataType === PostContentType.IMAGE) {
     return <ImageContent {...data} postMaxLines={postMaxLines} mentionees={mentionees} />;
   }
-  if (dataType === 'video') {
+  if (dataType === PostContentType.VIDEO) {
     return <VideoContent {...data} postMaxLines={postMaxLines} mentionees={mentionees} />;
   }
-  if (dataType === 'file') {
+  if (dataType === PostContentType.FILE) {
     return <FileContent {...data} postMaxLines={postMaxLines} mentionees={mentionees} />;
   }
-  if (dataType === 'liveStream') {
+  if (dataType === PostContentType.LIVESTREAM) {
     return <LivestreamContent {...data} postMaxLines={postMaxLines} mentionees={mentionees} />;
   }
 
