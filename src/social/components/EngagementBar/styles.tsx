@@ -1,6 +1,5 @@
-import { ReactNode } from 'react';
 import styled from 'styled-components';
-import { Comment, Share } from '~/icons';
+import { Comment, Repost } from '~/icons';
 
 export const EngagementBarContainer = styled.div`
   color: ${({ theme }) => theme.palette.neutral.shade1};
@@ -25,7 +24,7 @@ export const CommentIcon = styled(Comment).attrs({ width: 16, height: 16 })`
   margin-right: 5px;
 `;
 
-export const ShareIcon = styled(Share).attrs({ width: 16, height: 16 })`
+export const RepostIcon = styled(Repost).attrs({ width: 16, height: 16 })`
   position: relative;
   margin-right: 5px;
 `;

@@ -50,7 +50,7 @@ const PostShare = ({ post, placeholder, className, onSave }: PostShareProps) => 
         return;
       }
 
-      const postData = await PostRepository.createPost({
+      await PostRepository.createPost({
         dataType: 'custom.share',
         targetId: currentUserId,
         targetType: 'user',
@@ -100,7 +100,7 @@ const PostShare = ({ post, placeholder, className, onSave }: PostShareProps) => 
       </ContentContainer>
       <Footer>
         <PostButton data-qa-anchor="post-share-save-button" onClick={onSharePost} disabled={isCreating}>
-          <FormattedMessage id="post.share" />
+          <FormattedMessage id="post.repost" />
         </PostButton>
       </Footer>
     </PostShareContainer>

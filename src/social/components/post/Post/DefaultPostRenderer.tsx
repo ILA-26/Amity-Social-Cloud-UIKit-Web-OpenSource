@@ -235,7 +235,7 @@ const DefaultPostRenderer = ({
           {isSharing && (
             <Modal
               data-qa-anchor="post-share-modal"
-              title={formatMessage({ id: 'post.sharePost' })}
+              title={formatMessage({ id: 'post.repostPost' })}
               onCancel={closeSharePostModal}
             >
               <PostShare post={post} onSave={closeSharePostModal} />

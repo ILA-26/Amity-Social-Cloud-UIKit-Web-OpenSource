@@ -12,7 +12,7 @@ import {
   CommentIcon,
   NoInteractionMessage,
   CommentsLabel,
-  ShareIcon,
+  RepostIcon,
 } from './styles';
 import CommentList from '~/social/components/CommentList';
 import { LIKE_REACTION_KEY } from '~/constants';
@@ -86,8 +86,8 @@ const UIEngagementBar = ({
             >
               <CommentIcon /> <FormattedMessage id="comment" />
             </SecondaryButton>
-            <SecondaryButton data-qa-anchor="engagement-bar-share-button" onClick={onClickShare}>
-              <ShareIcon /> <FormattedMessage id="post.share" />
+            <SecondaryButton data-qa-anchor="engagement-bar-repost-button" onClick={onClickShare}>
+              <RepostIcon /> <FormattedMessage id="post.repost" />
             </SecondaryButton>
           </InteractionBar>
           {showComments && (
