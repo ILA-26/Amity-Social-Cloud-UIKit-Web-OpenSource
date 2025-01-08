@@ -12,6 +12,7 @@ import {
   CommentIcon,
   NoInteractionMessage,
   CommentsLabel,
+  RepostIcon,
 } from './styles';
 import CommentList from '~/social/components/CommentList';
 import { LIKE_REACTION_KEY } from '~/constants';
@@ -26,6 +27,8 @@ interface UIEngagementBarProps {
   post: Amity.Post;
   readonly?: boolean;
   onClickComment?: () => void;
+  onClickShare?: () => void;
+  hidePostTarget?: boolean;
   isComposeBarDisplayed?: boolean;
   handleAddComment?: (text: string, mentionees: Mentionees, metadata: Metadata) => void;
 }
@@ -34,6 +37,8 @@ const UIEngagementBar = ({
   post,
   readonly,
   onClickComment,
+  onClickShare,
+  hidePostTarget,
   isComposeBarDisplayed,
   handleAddComment,
 }: UIEngagementBarProps) => {
@@ -62,7 +67,11 @@ const UIEngagementBar = ({
         )}
 
         {commentsCount > 0 && (
-          <CommentsLabel data-qa-anchor="engagement-bar-comment-counter" onClick={toggleShowComments}>
+          <CommentsLabel
+            $disabled={readonly && !hidePostTarget}
+            data-qa-anchor="engagement-bar-comment-counter"
+            onClick={readonly && !hidePostTarget ? undefined : toggleShowComments}
+          >
             {millify(commentsCount || 0)}{' '}
             <FormattedMessage id="plural.comment" values={{ amount: commentsCount }} />
           </CommentsLabel>
@@ -77,6 +86,9 @@ const UIEngagementBar = ({
               onClick={onClickComment}
             >
               <CommentIcon /> <FormattedMessage id="comment" />
+            </SecondaryButton>
+            <SecondaryButton data-qa-anchor="engagement-bar-repost-button" onClick={onClickShare}>
+              <RepostIcon /> <FormattedMessage id="post.repost" />
             </SecondaryButton>
           </InteractionBar>
           {showComments && (
@@ -94,9 +106,11 @@ const UIEngagementBar = ({
         </>
       ) : (
         <>
-          <NoInteractionMessage>
-            <FormattedMessage id="community.cannotInteract" />
-          </NoInteractionMessage>
+          {hidePostTarget && (
+            <NoInteractionMessage>
+              <FormattedMessage id="community.cannotInteract" />
+            </NoInteractionMessage>
+          )}
           {showComments && (
             <CommentList
               referenceId={postId}

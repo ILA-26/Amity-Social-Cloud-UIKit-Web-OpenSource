@@ -1,6 +1,5 @@
-import { ReactNode } from 'react';
 import styled from 'styled-components';
-import { Comment } from '~/icons';
+import { Comment, Repost } from '~/icons';
 
 export const EngagementBarContainer = styled.div`
   color: ${({ theme }) => theme.palette.neutral.shade1};
@@ -25,14 +24,21 @@ export const CommentIcon = styled(Comment).attrs({ width: 16, height: 16 })`
   margin-right: 5px;
 `;
 
+export const RepostIcon = styled(Repost).attrs({ width: 16, height: 16 })`
+  position: relative;
+  margin-right: 5px;
+`;
+
 export const NoInteractionMessage = styled.div`
   color: ${({ theme }) => theme.palette.base.shade2};
   margin-top: 8px;
 `;
 
-export const CommentsLabel = styled.span`
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
+export const CommentsLabel = styled('span')<{ $disabled?: boolean }>`
+  ${({ $disabled }) =>
+    !$disabled &&
+    `cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }`}
 `;
