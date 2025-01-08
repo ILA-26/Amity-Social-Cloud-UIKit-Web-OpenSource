@@ -39,10 +39,12 @@ export const CloseIcon = styled(Close)<{ icon?: ReactNode }>`
   cursor: pointer;
 `;
 
-export const MessageOptionsIcon = styled(EllipsisV).attrs<{
-  isIncoming?: boolean;
-  icon?: ReactNode;
-}>({ width: 11, height: 11 })`
+export const MessageOptionsIcon = styled(EllipsisV)
+  .withConfig({ shouldForwardProp: (prop) => prop !== 'isIncoming' })
+  .attrs<{
+    isIncoming?: boolean;
+    icon?: ReactNode;
+  }>({ width: 11, height: 11 })`
   opacity: 0.5;
   margin: 0 5px;
   cursor: pointer;
@@ -53,7 +55,9 @@ export const Avatar = styled(UiKitAvatar)`
   margin-right: auto;
 `;
 
-export const MessageReservedRow = styled.div<{ isIncoming?: boolean }>`
+export const MessageReservedRow = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isIncoming',
+})<{ isIncoming?: boolean }>`
   display: flex;
   width: 100%;
   ${({ isIncoming }) => !isIncoming && 'justify-content: flex-end;'}
@@ -98,7 +102,9 @@ const CommonMessageBody = styled.div`
   }
 `;
 
-export const GeneralMessageBody = styled(CommonMessageBody)<{ isIncoming?: boolean }>`
+export const GeneralMessageBody = styled(CommonMessageBody).withConfig({
+  shouldForwardProp: (prop) => prop !== 'isIncoming',
+})<{ isIncoming?: boolean }>`
   ${({ theme, isIncoming }) =>
     isIncoming
       ? `
@@ -112,7 +118,9 @@ export const GeneralMessageBody = styled(CommonMessageBody)<{ isIncoming?: boole
   `}
 `;
 
-export const DeletedMessageBody = styled(CommonMessageBody)<{ isIncoming?: boolean }>`
+export const DeletedMessageBody = styled(CommonMessageBody).withConfig({
+  shouldForwardProp: (prop) => prop !== 'isIncoming',
+})<{ isIncoming?: boolean }>`
   text-align: ${({ isIncoming }) => (isIncoming ? 'left' : 'right')};
 `;
 
