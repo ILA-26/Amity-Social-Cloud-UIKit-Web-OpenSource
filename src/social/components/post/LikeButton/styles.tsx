@@ -20,6 +20,10 @@ export const BaseLikeIcon = styled(ThumbsUp).attrs<{ icon?: ReactNode }>({
 })`
   font-size: 16px;
   margin-right: 5px;
+  :dir(rtl) & {
+    margin-left: 5px;
+    margin-right: unsent;
+  }
 `;
 
 export const IsLikedLikeIcon = styled(BaseLikeIcon)<{ icon?: ReactNode }>`

@@ -38,7 +38,15 @@ const BackButton = styled.button`
   }
   & > svg {
     margin-right: 5px;
+    :dir(rtl) & {
+      transform: rotate(180deg);
+      margin-right: unset;
+      margin-left: 5px;
+    }
   }
+  
+
+
 `;
 
 interface PageHeaderProps {

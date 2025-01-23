@@ -31,5 +31,13 @@ export const Option = styled.div<{ active?: boolean }>`
 export const Container = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'pullRight',
 })<{ pullRight?: boolean }>`
-  ${({ pullRight }) => pullRight && `margin-left: auto;`}
+  ${({ pullRight }) =>
+    pullRight &&
+    `
+  margin-left: auto;
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: auto;
+  }
+  `}
 `;

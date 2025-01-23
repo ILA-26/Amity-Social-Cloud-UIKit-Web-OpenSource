@@ -43,6 +43,11 @@
   "post.myTimeline": "Ma chronologie",
   "post.wasLive": "était en direct",
   "post.placehoder": "Que se passe-t-il...",
+  "post.serviceOffer": "Offre de service",
+  "post.noImage": "Image non disponible",
+  "post.listing": "Annonce",
+  "post.price": "Prix",
+  "post.unknownDataType": "Type de data non reconnu",
 
   "post.success.approved": "Post approuvé",
   "post.success.declined": "Post refusé",
@@ -367,5 +372,12 @@
   "follower.body.removeUser": "On va pas notifier {displayName} qu'il est retiré de la liste des abonnés",
   "poll.votes": "{voteCount} votes",
   "poll.vote.closedIn": "Sondage va finir dans {closedIn} jours",
-  "select.chatType.item": "type: {answerType}"
+  "select.chatType.item": "type: {answerType}",
+
+  "createCommunity.addCommunityName": "Entrez le nom de la communauté",
+  "createCommunity.addDescription": "Entrez une description",
+  "createCommunity.public": "Public",
+  "createCommunity.publicDescription": "Tout le monde peut rejoindre, consulter et rechercher les publications sur cette page.",
+  "createCommunity.private": "Privé",
+  "createCommunity.privateDescription": "Seuls les membres invités par les modérateurs peuvent rejoindre, consulter et rechercher les publications sur cette page."
 }

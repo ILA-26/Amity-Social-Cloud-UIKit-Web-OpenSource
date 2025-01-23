@@ -7,6 +7,11 @@ import PlayCircle from '~/icons/PlayCircle';
 
 export const Avatar = styled(UIAvatar)`
   margin-right: 8px;
+  :dir(rtl) & {
+    margin-right: unset;
+    margin-left: 8px;
+  }
+
 `;
 
 export const PostCreatorContainer = styled.div`

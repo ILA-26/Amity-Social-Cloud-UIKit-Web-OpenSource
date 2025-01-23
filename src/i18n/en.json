@@ -44,6 +44,11 @@
   "post.myTimeline": "My Timeline",
   "post.wasLive": "was live",
   "post.placehoder": "What's going on...",
+  "post.serviceOffer": "Service Offer",
+  "post.noImage": "Image not available",
+  "post.listing": "Listing",
+  "post.price": "Price",
+  "post.unknownDataType": "Unknown data type",
 
   "post.success.approved": "Post approved",
   "post.success.declined": "Post declined",
@@ -410,5 +415,12 @@
   "editChatMembersModal.confirm.cancelText": "Continue editing",
   "editChatMembersModal.confirm.okText": "Leave",
 
-  "notification.error.blockedWord": "Amity SDK (400308): Text contain blocked word"
+  "notification.error.blockedWord": "Amity SDK (400308): Text contain blocked word",
+
+  "createCommunity.addCommunityName": "Enter community name",
+  "createCommunity.addDescription": "Enter description",
+  "createCommunity.public": "Public",
+  "createCommunity.publicDescription": "Anyone can join, view and search the posts in this page.",
+  "createCommunity.private": "Private",
+  "createCommunity.privateDescription": "Only members invited by the moderators can join, view, and search the posts in this page."
 }

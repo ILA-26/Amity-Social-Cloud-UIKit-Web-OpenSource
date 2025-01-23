@@ -24,6 +24,11 @@ const ApplicationContainer = styled.div`
 const BackIcon = styled(ArrowLeftIcon)`
   width: 10px;
   margin-right: 10px;
+  :dir(rtl) & {
+    margin-right: unset;
+    margin-left: 10px;
+    transform: rotate(180deg)
+  }
 `;
 
 const Community = ({

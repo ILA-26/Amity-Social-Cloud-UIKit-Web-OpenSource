@@ -25,6 +25,11 @@ export const ControlItem = styled.div`
 export const SideWrapper = styled.div`
   display: flex;
   align-items: center;
+  :dir(rtl) & {
+    .chevron-right-icon  {
+      transform: rotate(180deg)
+    }
+  }
 `;
 
 export const ControlItemLabel = styled.div.withConfig({
@@ -45,6 +50,9 @@ export const ControlItemArrowRight = styled(ChevronRight).attrs({ width: 16, hei
   width: 16px !important;
   padding-left: 8px;
   fill: ${({ theme }) => theme.palette.neutral.shade3};
+  :dir(rtl) & {
+    transform: rotate(180deg);
+  }
 `;
 
 const controlIconStyle = css`

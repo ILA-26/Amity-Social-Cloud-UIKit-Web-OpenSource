@@ -6,6 +6,14 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   /* padding: 28px 0; */
   overflow-y: auto;
+
+  :dir(rtl) & {
+    [align='right'] {
+      right: unset;
+      left: 0px;
+    }
+  }
+
 `;
 
 export const DeclineBanner = styled.div`

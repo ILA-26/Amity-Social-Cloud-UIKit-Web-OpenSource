@@ -12,9 +12,10 @@ import { default as AmityUiKitSearchFeed_unwrapped } from '~/ila26/social/pages/
 // HOC that wrappes the passed component inside UIStyles
 import withUIStyles from './ila26/exportsWrapper';
 
-import fr from '~/ila26/fr.json';
+import fr from '~/ila26/i18n/fr.json';
+import ar from '~/ila26/i18n/ar.json';
 import en from '~/i18n/en.json';
-export const ILA26_IntlMessages = { fr, en };
+export const ILA26_IntlMessages = { fr, en, ar };
 
 // ILA26 exports with UIStyles wrap at component level
 export const ILA26_AmityUiKitChat = withUIStyles(ILA26_AmityUiKitChat_unwrapped);

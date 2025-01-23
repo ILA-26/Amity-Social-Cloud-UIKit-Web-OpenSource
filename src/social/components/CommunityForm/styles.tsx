@@ -56,12 +56,21 @@ export const IconWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  :dir(rtl) & {
+    margin-right: unset;
+    margin-left: 1rem;
+  }
+
 `;
 
 export const Counter = styled.div`
   margin-left: auto;
   color: ${({ theme }) => theme.palette.base.shade1};
   ${({ theme }) => theme.typography.caption}
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: auto;
+  }
 `;
 
 export const Label = styled.label`
@@ -258,6 +267,11 @@ export const TextField = styled.input`
 
 export const SelectIcon = styled(ChevronDown).attrs({ width: 16, height: 16 })`
   margin-left: auto;
+  
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: auto;
+  }
 `;
 
 export const Field = styled.div<{ error?: ReactNode }>`

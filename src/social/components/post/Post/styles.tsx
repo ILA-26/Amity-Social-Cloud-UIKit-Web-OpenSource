@@ -6,6 +6,10 @@ import Skeleton from '~/core/components/Skeleton';
 
 export const OptionMenu = styled(UIOptionMenu)<{ icon?: ReactNode }>`
   margin-left: auto;
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: auto;
+  }
 `;
 
 const PlainPostContainer = ({
@@ -22,12 +26,24 @@ export const PostContainer = styled(PlainPostContainer)`
   background: ${({ theme }) => theme.palette.system.background};
   border: 1px solid #edeef2;
   border-radius: 4px;
+  :dir(rtl) & {
+    [data-qa-anchor='post-share-modal'] > div:first-child > svg {
+      margin-left: unset;
+      margin-right: auto;
+    }
+  }
 `;
 
 export const PostHeadContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 14px;
+  :dir(rtl) & {
+    [align='right'] {
+      right: unset;
+      left: 0px;
+    }
+  }
 `;
 
 export const ReviewButtonsContainer = styled.div`

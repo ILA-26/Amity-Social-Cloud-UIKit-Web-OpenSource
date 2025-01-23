@@ -68,6 +68,10 @@ export const SearchIcon = styled(Search).attrs<{ icon?: ReactNode }>({
   padding-right: 8px;
   text-align: center;
   fill: gray;
+  :dir(rtl) & {
+    padding-right: unset;
+    padding-left: 8px;
+  }
 `;
 
 export const Center = styled.p`

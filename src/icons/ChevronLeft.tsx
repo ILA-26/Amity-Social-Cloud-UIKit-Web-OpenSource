@@ -8,6 +8,7 @@ const ChevronLeft = (props: React.SVGProps<SVGSVGElement>) => (
     viewBox="0 0 256 512"
     fill="currentColor"
     {...props}
+    className='chevron-left-icon'
   >
     <path
       d="M231.293 473.899l19.799-19.799c4.686-4.686 4.686-12.284 0-16.971L70.393 256 251.092

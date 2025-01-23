@@ -2,11 +2,9 @@ import React from 'react';
 import { ILA26_ServiceOfferProps } from '../types/componentProps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
-import { useIntl } from 'react-intl';
-import { ILA26_UiKitProviderProps } from '../types/kitProviderProps';
+import { FormattedMessage } from 'react-intl';
 
 const ILA26_ServiceOffer = ({ metadata }: ILA26_ServiceOfferProps) => {
-  const { locale } = useIntl();
   return (
     <>
       <span
@@ -17,9 +15,7 @@ const ILA26_ServiceOffer = ({ metadata }: ILA26_ServiceOfferProps) => {
           borderRadius: '3px',
         }}
       >
-        {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US'
-          ? 'Service offer'
-          : 'Offre de service'}
+        <FormattedMessage id="post.serviceOffer" />
       </span>
       <h1>{metadata?.title}</h1>
       <p
@@ -36,13 +32,14 @@ const ILA26_ServiceOffer = ({ metadata }: ILA26_ServiceOfferProps) => {
       <p
         style={{
           overflow: 'hidden',
-          display: '-webkit-box',
+          display: 'flex',
           WebkitLineClamp: 2,
           lineClamp: 2,
           WebkitBoxOrient: 'vertical',
+          gap : "10px"
         }}
       >
-        <FontAwesomeIcon icon={faMapMarkedAlt} style={{ marginRight: '10px' }} />
+        <FontAwesomeIcon icon={faMapMarkedAlt} />
         {`${metadata?.address?.streetLine1 ?? ' - '}`}
       </p>
     </>

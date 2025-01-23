@@ -4,6 +4,10 @@ import { Lock, Verified } from '~/icons';
 
 export const PrivateIcon = styled(Lock).attrs<{ icon?: ReactNode }>({ width: 16, height: 16 })`
   margin-right: 8px;
+  :dir(rtl) & {
+    margin-right: unset;
+    margin-left: 8px;
+  }
 `;
 
 export const VerifiedIcon = styled(Verified).attrs<{ icon?: ReactNode }>({
@@ -12,6 +16,11 @@ export const VerifiedIcon = styled(Verified).attrs<{ icon?: ReactNode }>({
 })`
   margin-left: 8px;
   fill: #1253de;
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: 8px;
+  }
+
 `;
 
 // the padding-right is to avoid cutting too short when the name ends with an emoji (due to the flex + text-overflow combination)

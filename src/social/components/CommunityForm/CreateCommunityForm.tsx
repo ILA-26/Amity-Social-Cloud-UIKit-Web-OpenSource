@@ -1,6 +1,6 @@
 import React, { ReactNode, memo, useCallback, useRef, useState } from 'react';
 import { Controller } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '~/core/components/Button';
 import Radio from '~/core/components/Radio';
@@ -78,6 +78,7 @@ const CreateCommunityForm = ({
   const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, setError, watch, control, formState, setValue, getValues } =
     useCreateCommunityForm();
+  const { formatMessage } = useIntl();
 
   const { errors } = formState;
   const displayName = watch('displayName');
@@ -166,7 +167,7 @@ const CreateCommunityForm = ({
             <TextField
               {...register('displayName')}
               data-qa-anchor={`${dataQaAnchor}-community-name-input`}
-              placeholder="Enter community name"
+              placeholder={formatMessage({ id: 'createCommunity.addCommunityName' })}
               onChange={(e) => handleTextInputChange(e, 'displayName', 30)}
               value={displayName}
             />
@@ -184,7 +185,7 @@ const CreateCommunityForm = ({
                 maxLength: { value: 180, message: 'Description text is too long' },
               })}
               data-qa-anchor={`${dataQaAnchor}-community-description-textarea`}
-              placeholder="Enter description"
+              placeholder={formatMessage({ id: 'createCommunity.addDescription' })}
               onChange={(e) => handleTextInputChange(e, 'description', 180)}
               value={description}
             />
@@ -226,8 +227,8 @@ const CreateCommunityForm = ({
                   label="Public"
                   renderer={() => (
                     <CommunityTypeItem
-                      type="Public"
-                      description="Anyone can join, view and search the posts in this page."
+                      type={formatMessage({ id: 'createCommunity.public' })}
+                      description={formatMessage({ id: 'createCommunity.publicDescription' })}
                       icon={<WorldIcon />}
                     />
                   )}
@@ -240,8 +241,8 @@ const CreateCommunityForm = ({
                   label="Private"
                   renderer={() => (
                     <CommunityTypeItem
-                      type="Private"
-                      description="Only members invited by the moderators can join, view, and search the posts in this page."
+                      type={formatMessage({ id: 'createCommunity.private' })}
+                      description={formatMessage({ id: 'createCommunity.privateDescription' })}
                       icon={<LockIcon />}
                     />
                   )}

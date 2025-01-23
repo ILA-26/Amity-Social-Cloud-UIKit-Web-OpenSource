@@ -64,7 +64,7 @@ const ChatDetailsMembers = ({
   return (
     <ChatMembersContainer>
       <MembersReturn onClick={handleReturnClick}>
-        <MembersArrowLeft />
+        <MembersArrowLeft /> 
         <MembersReturnTitle>
           <FormattedMessage id="chat.members.return" />
         </MembersReturnTitle>
