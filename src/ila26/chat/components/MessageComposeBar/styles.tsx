@@ -8,7 +8,10 @@ export const SendMessageIcon = styled(SendMessage).attrs<{ icon?: ReactNode }>({
 })`
   cursor: pointer;
   margin-left: 12px;
-  margin-right: 0px;
+  :dir(rtl) & {
+    margin-right: 12px;
+    margin-left: unset;
+  }
   fill: #0f86fe;
 `;
 
@@ -55,6 +58,12 @@ export const AttachementComposerContainer = styled.div`
   margin-top: 10px;
   & > :not(:last-child) {
     margin-right: 10px;
+  }
+  :dir(rtl) & {
+    & > :not(:last-child) {
+      margin-left: 10px;
+      margin-right: unset;
+    }
   }
 `;
 

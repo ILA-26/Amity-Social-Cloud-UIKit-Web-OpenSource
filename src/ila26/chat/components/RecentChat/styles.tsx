@@ -86,6 +86,7 @@ export const CategoriesContainer = styled.div`
 export const CategoryItem = styled.div.attrs<{ selected?: boolean }>({})`
   position: relative;
   display: flex;
+  min-width: 80px;
   flex-direction: column;
   align-items: center;
   padding: 10px 5px;
@@ -99,13 +100,18 @@ export const CategoryItem = styled.div.attrs<{ selected?: boolean }>({})`
   }
   font-weight: 600;
   &:hover {
-    background-color: #EBECEE;
+    background-color: #ebecee;
   }
-  border-left: 2px solid transparent;
+
   ${({ selected, theme }) =>
     selected &&
     `
     border-left: 2px solid ${theme.palette.primary.main};
+    :dir(rtl) & {
+      border-right: 2px solid ${theme.palette.primary.main};
+      border-left: unset;
+    }
+
     background-color: #f7f7f8;
     color: ${theme.palette.primary.main};
     fill: ${theme.palette.primary.main};
