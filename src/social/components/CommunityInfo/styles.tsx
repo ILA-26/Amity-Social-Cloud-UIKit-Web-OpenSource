@@ -8,10 +8,19 @@ import SocialCommunityName from '~/social/components/community/Name';
 
 export const PlusIcon = styled(Plus).attrs<{ icon?: ReactNode }>({ width: 15, height: 15 })`
   margin-right: 8px;
+  :dir(rtl) & {
+    margin-right: unset;
+    margin-left: 8px;
+  }
+
 `;
 
 export const PencilIcon = styled(Pencil).attrs<{ icon?: ReactNode }>({ width: 15, height: 15 })`
   margin-right: 4px;
+  :dir(rtl) & {
+    margin-right: unset;
+    margin-left: 4px;
+  }
 `;
 
 export const TooltipContainer = styled.div`
@@ -60,6 +69,10 @@ export const LeftContent = styled('div')`
   gap: 8px;
   margin-left: auto;
   margin-right: 0;
+  :dir(rtl) & {
+    margin-left: 0;
+    margin-right: auto;
+  }
 `;
 
 export const OptionMenu = styled(UIOptionMenu)`

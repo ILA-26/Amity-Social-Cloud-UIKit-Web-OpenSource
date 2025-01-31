@@ -6,6 +6,10 @@ export const SearchIconContainer = styled.div`
   display: flex;
   align-items: center;
   padding-left: 20px;
+  :dir(rtl) & {
+    padding-left: unset;
+    padding-right: 20px;
+  }
 `;
 
 export const SearchIcon = styled(Search).attrs({ width: 16, height: 16 })`

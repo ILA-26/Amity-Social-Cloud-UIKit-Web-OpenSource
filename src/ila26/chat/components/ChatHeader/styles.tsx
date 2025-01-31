@@ -36,6 +36,10 @@ export const Channel = styled.div`
 
 export const ChannelInfo = styled.div`
   margin-left: 8px;
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: 8px;
+  }
 `;
 
 export const ChannelName = styled.div`

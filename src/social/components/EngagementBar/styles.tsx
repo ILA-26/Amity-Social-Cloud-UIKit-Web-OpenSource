@@ -22,11 +22,19 @@ export const InteractionBar = styled.div`
 export const CommentIcon = styled(Comment).attrs({ width: 16, height: 16 })`
   position: relative;
   margin-right: 5px;
+  :dir(rtl) & {
+    margin-right: unsent;
+    margin-left: 5px;
+  }
 `;
 
 export const RepostIcon = styled(Repost).attrs({ width: 16, height: 16 })`
   position: relative;
   margin-right: 5px;
+  :dir(rtl) & {
+    margin-left: 5px;
+    margin-right: unsent;
+  }
 `;
 
 export const NoInteractionMessage = styled.div`

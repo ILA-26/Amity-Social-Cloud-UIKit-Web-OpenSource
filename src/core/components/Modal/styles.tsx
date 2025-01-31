@@ -9,6 +9,11 @@ export const CloseIcon = styled(Close).attrs<{ icon?: ReactNode }>({ width: 22, 
   &.svg-inline--fa {
     width: auto;
   }
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: auto;
+  }
+
 `;
 
 export const Overlay = styled.div`

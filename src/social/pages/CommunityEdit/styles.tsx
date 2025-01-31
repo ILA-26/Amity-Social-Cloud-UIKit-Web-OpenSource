@@ -41,4 +41,9 @@ export const ExtraActionButton = styled(Button)`
 
 export const PlusIcon = styled(Plus).attrs<{ icon?: ReactNode }>({ width: 15, height: 15 })`
   margin-right: 8px;
+  :dir(rtl) & {
+    margin-right: unset;
+    margin-left: 8px;
+  }
+
 `;

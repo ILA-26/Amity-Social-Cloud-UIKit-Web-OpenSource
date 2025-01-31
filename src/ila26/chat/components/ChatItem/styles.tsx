@@ -32,6 +32,10 @@ export const TitleContainer = styled.div`
   margin-left: 8px;
   text-align: start;
   width: 180px;
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: 8px;
+  }
 `;
 
 export const Title = styled.div`

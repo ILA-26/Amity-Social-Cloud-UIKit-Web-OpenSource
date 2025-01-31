@@ -131,6 +131,7 @@ const DefaultPostRenderer = ({
         id: isPostUnderReview ? 'post.confirmPendingDelete' : 'post.confirmDelete',
       }),
       okText: formatMessage({ id: 'delete' }),
+      cancelText: formatMessage({ id: 'cancel' }),
       onOk: handleDeletePost,
     });
 

@@ -9,6 +9,10 @@ export const PostHeaderContainer = styled.div`
 
 export const PostInfo = styled.div`
   margin-left: 8px;
+  :dir(rtl) & {
+    margin-left: 0;
+    margin-right: 8px;
+  }
 `;
 
 export const Name = styled.div`

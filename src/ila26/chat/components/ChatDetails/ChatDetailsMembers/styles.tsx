@@ -23,9 +23,18 @@ export const MembersReturn = styled.div`
   &:hover {
     color: ${({ theme }) => theme.palette.neutral.main};
   }
+  :dir(rtl) & {
+    .chevron-left-icon  {
+      transform: rotate(180deg)
+    }
+  }
 `;
 
-export const MembersArrowLeft = styled(ChevronLeft).attrs({ width: 18, height: 14 })``;
+export const MembersArrowLeft = styled(ChevronLeft).attrs({ width: 18, height: 14 })`
+  :dir(rtl) & {
+    margin-right : 8px;
+  }
+`;
 
 export const MembersReturnTitle = styled.span`
   padding-left: 8px;
@@ -44,6 +53,10 @@ export const MemberItemInfo = styled.span`
   padding-left: 12px;
   ${({ theme }) => theme.typography.body};
   color: ${({ theme }) => theme.palette.neutral.main};
+  :dir(rtl) & {
+    padding-left: unset;
+    padding-right: 12px;
+  }
 `;
 
 export const ClickableMenuItem = styled(MemberItem)`

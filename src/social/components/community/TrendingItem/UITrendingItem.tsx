@@ -58,7 +58,8 @@ const Category = styled.span`
 const Infos = styled.div`
   ${({ theme }) => theme.typography.caption};
   color: ${({ theme }) => theme.palette.base.shade1};
-
+  display: flex;
+  gap: 5px;
   & > * {
     font: inherit;
   }

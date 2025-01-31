@@ -6,6 +6,10 @@ import UIAvatar from '~/core/components/Avatar';
 
 export const Avatar = styled(UIAvatar)`
   margin-right: 8px;
+  :dir(rtl) & {
+    margin-right: unsent;
+    margin-left: 8px;
+  }
 `;
 
 export const CommentComposeBarContainer = styled.div`
@@ -31,4 +35,8 @@ export const AddCommentButton = styled(PrimaryButton)`
   height: 40px;
   padding: 10px 16px;
   margin-left: 12px;
+  :dir(rtl) & {
+    margin-left: unsent;
+    margin-right: 12px;
+  }
 `;

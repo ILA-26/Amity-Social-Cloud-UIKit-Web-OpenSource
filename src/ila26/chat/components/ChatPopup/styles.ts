@@ -4,6 +4,10 @@ export const Popup = styled.div`
   position: fixed;
   bottom: 0px;
   right: 50px;
+  :dir(rtl) & {
+    left: 50px;
+    right: unset;
+  }
   height: 70vh;
   width: 30vw;
   z-index: 1;

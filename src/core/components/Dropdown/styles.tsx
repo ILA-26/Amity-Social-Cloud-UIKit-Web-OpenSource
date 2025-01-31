@@ -42,4 +42,16 @@ export const Frame = styled.div.withConfig({
   `}
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+
+  :dir(rtl) & {
+    [align='right'] {
+      right: unset;
+      left: 0px;
+    }
+    [align='left'] {
+      left: unset;
+      right: 0px;
+    }
+  }
+
 `;

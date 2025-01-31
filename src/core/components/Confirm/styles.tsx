@@ -4,6 +4,12 @@ import Button, { PrimaryButton } from '~/core/components/Button';
 
 export const ConfirmModal = styled(Modal)`
   max-width: 360px;
+  :dir(rtl) & {
+    div:first-child > svg {
+      margin-left: unset;
+      margin-right: auto;
+    }
+  }
 `;
 
 export const Footer = styled.div`

@@ -1,7 +1,6 @@
 import { ILA26_MarketplaceProductProps } from '../types/componentProps';
 import React from 'react';
-import { ILA26_UiKitProviderProps } from '../types/kitProviderProps';
-import { useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 const formatter = new Intl.NumberFormat('fr-FR', {
   style: 'currency',
@@ -9,8 +8,6 @@ const formatter = new Intl.NumberFormat('fr-FR', {
 });
 
 const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) => {
-  const { locale } = useIntl();
-
   return (
     <>
       <div
@@ -51,10 +48,7 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
           </object>
           {!metadata?.productPicture?.azureBlobUri && (
             <span style={{ margin: '12px 0' }}>
-              {' '}
-              {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US'
-                ? 'Image not available'
-                : 'Image non disponible'}
+              <FormattedMessage id="post.noImage" />
             </span>
           )}
         </div>
@@ -78,7 +72,7 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
           borderRadius: '3px',
         }}
       >
-        {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US' ? 'Listing' : 'Annonce'}
+        <FormattedMessage id="post.listing" />
       </span>
 
       <h1>{metadata?.title}</h1>
@@ -95,7 +89,7 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
       </p>
 
       <p>
-        {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US' ? 'Price' : 'Prix'}
+        <FormattedMessage id="post.price" />
 
         <span
           style={{

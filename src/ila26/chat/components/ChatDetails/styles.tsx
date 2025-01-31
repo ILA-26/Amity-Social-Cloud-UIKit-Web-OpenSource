@@ -36,6 +36,10 @@ export const ChatDetailsTitle = styled.div`
 
 export const TitleInfo = styled.div`
   margin-left: 12px;
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: 12px;
+  }
 `;
 
 export const TitleInfoLabel = styled.div`

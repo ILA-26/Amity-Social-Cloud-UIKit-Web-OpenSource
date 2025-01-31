@@ -53,6 +53,10 @@ export const MessageOptionsIcon = styled(EllipsisV)
 
 export const Avatar = styled(UiKitAvatar)`
   margin-right: auto;
+  :dir(rtl) & {
+    margin-right: unset;
+    margin-left: auto;
+  }
 `;
 
 export const MessageReservedRow = styled.div.withConfig({

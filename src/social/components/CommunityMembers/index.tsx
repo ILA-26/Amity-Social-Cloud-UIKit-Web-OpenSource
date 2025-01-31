@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useMemo, useState } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import useCommunity from '~/social/hooks/useCommunity';
 
@@ -218,7 +218,9 @@ const CommunityMembers = ({ communityId }: CommunityMembersProps) => {
 
   return (
     <CommunityMembersContainer>
-      <CommunityMembersHeader>Community Members • {members.length || 0}</CommunityMembersHeader>
+      <CommunityMembersHeader>
+        <FormattedMessage id="community.members" /> • {members.length || 0}
+      </CommunityMembersHeader>
       <CommunityMembersTabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
 
       {activeTab === MemberTabs.MEMBERS && (

@@ -11,6 +11,10 @@ import UIAvatar from '~/core/components/Avatar';
 
 export const Avatar = styled(UIAvatar)`
   margin-right: 8px;
+  :dir(rtl) & {
+    margin-right: unsent;
+    margin-left: 8px;
+  }
 `;
 
 export const OptionMenu = styled(UIOptionMenu)`
@@ -72,6 +76,10 @@ export const CommentContent = styled.div`
 
 export const CommentInfo = styled.div`
   margin-left: 8px;
+  :dir(rtl) & {
+    margin-left: unsent;
+    margin-right: 8px;
+  }
 `;
 
 export const AuthorName = styled.span`
@@ -96,6 +104,10 @@ export const EditedMark = styled.span`
   &::before {
     content: '• ';
   }
+  :dir(rtl) & {
+    margin-left: unsent;
+    margin-right: 5px;
+  }
   ${({ theme }) => theme.typography.caption}
 `;
 
@@ -114,6 +126,10 @@ export const InteractionBar = styled.div`
   align-items: center;
   padding: 2px 0;
   margin-left: -10px;
+  :dir(rtl) & {
+    margin-left: unsent;
+    margin-right: -10px;
+  }
 `;
 
 export const DeletedCommentContainer = styled.div`
@@ -168,6 +184,10 @@ export const Text = styled.span`
 
 export const ReplyIcon = styled(Reply).attrs<{ icon?: ReactNode }>({ width: 16, height: 16 })`
   margin-right: 5px;
+  :dir(rtl) & {
+    margin-right: unsent;
+    margin-left: 5px;
+  }
 `;
 
 export const ReplyButton = styled(SecondaryButton)``;

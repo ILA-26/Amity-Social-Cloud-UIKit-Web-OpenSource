@@ -2,12 +2,9 @@ import { ILA26_CustomPostContentProps } from '../types/componentProps';
 import React from 'react';
 import ILA26_ServiceOffer from './ServiceOffer';
 import ILA26_MarketplaceProduct from './MarketplaceProduct';
-import { useIntl } from 'react-intl';
-import { ILA26_UiKitProviderProps } from '../types/kitProviderProps';
+import { FormattedMessage } from 'react-intl';
 import { ILA26_PostTextUrlExtractor, ILA26_PostTextUrlRemoval } from '../utils';
 const ILA26_CustomPostContent = ({ metadata, dataType, data }: ILA26_CustomPostContentProps) => {
-  const { locale } = useIntl();
-
   return metadata ? (
     <div>
       <p>{ILA26_PostTextUrlRemoval(data.text)}</p>
@@ -25,9 +22,7 @@ const ILA26_CustomPostContent = ({ metadata, dataType, data }: ILA26_CustomPostC
                 <ILA26_MarketplaceProduct metadata={metadata} />
               ) : (
                 <h1>
-                  {(locale as ILA26_UiKitProviderProps['locale']) === 'en-US'
-                    ? 'Unknown data type'
-                    : 'Type de data non reconnu'}
+                  <FormattedMessage id="post.unknownDataType" />
                 </h1>
               )}
             </div>
