@@ -3,20 +3,14 @@ import { ILA26_ServiceOfferProps } from '../types/componentProps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import { FormattedMessage } from 'react-intl';
+import { SharedCustomPostContentType } from './styles';
 
 const ILA26_ServiceOffer = ({ metadata }: ILA26_ServiceOfferProps) => {
   return (
     <>
-      <span
-        style={{
-          background: '#5C2DD3',
-          color: '#fff',
-          padding: '0.2rem 0.5rem',
-          borderRadius: '3px',
-        }}
-      >
+      <SharedCustomPostContentType>
         <FormattedMessage id="post.serviceOffer" />
-      </span>
+      </SharedCustomPostContentType>
       <h1>{metadata?.title}</h1>
       <p
         style={{

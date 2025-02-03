@@ -4,7 +4,7 @@ import Button, { PrimaryButton } from '~/core/components/Button';
 import { Plus } from '~/icons';
 
 export const ExtraActionContainer = styled.div`
-  border: 1px solid #edeef2;
+  border: 1px solid ${({ theme }) => theme.palette.system.dividers};
   border-radius: 4px;
   background: ${({ theme }) => theme.palette.system.background};
   align-self: flex-start;

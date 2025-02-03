@@ -82,7 +82,7 @@ export const OptionMenu = styled(UIOptionMenu)`
 `;
 
 export const Container = styled.div`
-  border: 1px solid #ebecef;
+  border: 1px solid ${({ theme }) => theme.palette.system.borders};
   border-radius: 8px;
   background: ${({ theme }) => theme.palette.system.background};
   flex-shrink: 0;

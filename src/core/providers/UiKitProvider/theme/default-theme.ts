@@ -1,4 +1,5 @@
 const defaultTheme = {
+  mode: 'light',
   palette: {
     alert: '#FA4D30',
     base: '#292B32',
@@ -7,8 +8,8 @@ const defaultTheme = {
     tertiary: '#FF305A',
     neutral: '#17181C',
     highlight: '#1054DE',
-
     system: {
+      dividers: '#ebecef',
       borders: '#ebecef',
       background: '#fff',
     },

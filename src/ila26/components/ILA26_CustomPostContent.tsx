@@ -4,6 +4,7 @@ import ILA26_ServiceOffer from './ServiceOffer';
 import ILA26_MarketplaceProduct from './MarketplaceProduct';
 import { FormattedMessage } from 'react-intl';
 import { ILA26_PostTextUrlExtractor, ILA26_PostTextUrlRemoval } from '../utils';
+import { SharedCustomPostContentContainer } from './styles';
 const ILA26_CustomPostContent = ({ metadata, dataType, data }: ILA26_CustomPostContentProps) => {
   return metadata ? (
     <div>
@@ -14,19 +15,19 @@ const ILA26_CustomPostContent = ({ metadata, dataType, data }: ILA26_CustomPostC
         target="_blank"
       >
         <div style={{ display: 'flex', flexDirection: 'column', padding: '0' }}>
-          <div style={{ borderRadius: '8px', overflow: 'hidden', background: '#f8f8f8' }}>
+          <SharedCustomPostContentContainer>
             <div style={{ padding: '1rem 1rem 0 1rem' }}>
               {dataType === `customPost.serviceOffer` ? (
                 <ILA26_ServiceOffer metadata={metadata} />
               ) : dataType === `customPost.marketplaceProduct` ? (
-                <ILA26_MarketplaceProduct metadata={metadata} />
+                <ILA26_MarketplaceProduct metadata={metadata} /> 
               ) : (
                 <h1>
                   <FormattedMessage id="post.unknownDataType" />
                 </h1>
               )}
             </div>
-          </div>
+          </SharedCustomPostContentContainer>
         </div>
       </a>
     </div>

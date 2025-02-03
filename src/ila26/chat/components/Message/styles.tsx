@@ -105,21 +105,22 @@ const CommonMessageBody = styled.div`
     white-space: pre-wrap;
   }
 `;
-
+ 
 export const GeneralMessageBody = styled(CommonMessageBody).withConfig({
   shouldForwardProp: (prop) => prop !== 'isIncoming',
 })<{ isIncoming?: boolean }>`
   ${({ theme, isIncoming }) =>
+    
     isIncoming
       ? `
-      background: ${theme.palette.neutral.shade4};
+      background: ${theme.mode ==="light" ? theme.palette.neutral.shade4 : "#101a3b"};
       border-radius: 0px 6px 6px 6px;
     `
       : `
       background: ${theme.palette.primary.main};
-      color: #fff;
+      color: ${theme.mode === "light" ? "#fff" : "#000"};
       border-radius: 6px 0px 6px 6px;
-  `}
+  `} 
 `;
 
 export const DeletedMessageBody = styled(CommonMessageBody).withConfig({

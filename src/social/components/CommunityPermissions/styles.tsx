@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const CommunityPermissionsContainer = styled.div`
   background: ${({ theme }) => theme.palette.system.background};
-  border: 1px solid #edeef2;
+  border: 1px solid ${({ theme }) => theme.palette.system.dividers};
   border-radius: 4px;
 `;
 

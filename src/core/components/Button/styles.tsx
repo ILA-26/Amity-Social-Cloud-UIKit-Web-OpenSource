@@ -23,8 +23,8 @@ export const DefaultButton = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== 'fullWidth',
 })<{ fullWidth?: boolean }>`
   ${commonButtonStyles};
-  background-color: #fff;
-  border: 1px solid #e3e4e8;
+  background-color: ${({ theme }) => theme.palette.system.background};
+  border: 1px solid ${({ theme }) => theme.palette.system.dividers};
   color: ${({ theme }) => theme.palette.neutral.main};
   &:hover {
     color: ${({ theme }) => theme.palette.neutral.shade1};
@@ -40,12 +40,12 @@ export const PrimaryButton = styled.button.withConfig({
   ${commonButtonStyles};
   border: none;
   background-color: ${({ theme }) => theme.palette.primary.main};
-  color: white;
+  color: ${({ theme }) => (theme.mode === 'light' ? '#fff' : '#000')};
   &:hover:not(:disabled) {
     opacity: 0.8;
   }
   &:disabled {
-    background-color: ${({ theme }) => theme.palette.primary.shade2};
+    opacity: 0.3;
   }
 `;
 
@@ -57,7 +57,7 @@ export const SecondaryButton = styled.button.withConfig({
   background-color: transparent;
   border: none;
   &:hover {
-    background-color: #f2f2f4;
+    background-color: ${({ theme }) => (theme.mode === 'light' ? '#f2f2f4' : '#0b2b4d')};
   }
   &:disabled {
     color: ${({ theme }) => theme.palette.neutral.shade2};

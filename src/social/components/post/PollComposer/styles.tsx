@@ -37,17 +37,18 @@ export const TextInput = styled.input`
   border: 1px solid #e3e4e8;
   padding: 10px 12px;
   outline: none;
+  color: ${({ theme }) => theme.palette.base.shade4};
   &:focus-within {
     border-color: ${({ theme }) => theme.palette.primary.main};
   }
 `;
 
 export const OptionInput = styled(TextInput)`
-  background: ${({ theme }) => theme.palette.base.shade4};
+  background: ${({ theme }) => theme.mode === "light" ? "#ebecee" : "#0b2b4d"};
   width: 100%;
   padding-right: 60px;
 `;
-
+ 
 export const CloseIcon = styled(CircleRemove)``;
 
 export const CloseButton = styled(Button)`
@@ -69,7 +70,7 @@ export const Field = styled.div<{ horizontal?: boolean; separate?: boolean }>`
   ${({ separate, theme }) =>
     separate &&
     `
-    border-top: 1px solid ${theme.palette.base.shade4};
+    border-top: 1px solid ${theme.palette.system.dividers};
     padding-top: 20px;
   `};
   margin-bottom: 20px;
@@ -82,7 +83,7 @@ export const ErrorMessage = (props: Omit<React.ComponentProps<typeof FormErrorMe
 );
 
 export const Footer = styled.div<{ edit?: boolean }>`
-  border-top: 1px solid ${({ theme }) => theme.palette.base.shade4};
+  border-top: 1px solid ${({ theme }) => theme.palette.system.dividers};
   padding: ${({ edit }) => (edit ? `12px 0` : `12px 16px`)};
   display: flex;
   justify-content: ${({ edit }) => (edit ? 'flex-start' : 'flex-end')};
@@ -103,6 +104,10 @@ export const Label = styled.label`
 export const LabelContainer = styled.div`
   width: 700px;
   margin-right: 20px;
+  :dir(rtl) & {
+    margin-right: unset;
+    margin-left: 20px;
+  }
 `;
 
 export const LabelWrapper = styled.div`
@@ -125,6 +130,10 @@ export const SubmitButton = styled(PrimaryButton).attrs<{ edit?: boolean }>({
 })`
   padding: 10px 16px;
   margin-left: 12px;
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: 12px;
+  }
   ${({ edit }) =>
     edit &&
     css`

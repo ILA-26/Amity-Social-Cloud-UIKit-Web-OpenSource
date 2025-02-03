@@ -32,15 +32,29 @@ export const hexToHslString = (hexColor: string) => {
   return hslObjectToString(hslObject);
 };
 
-export const lightenHex = (lightenAmount: number, hexColorString: string) => {
+export const lightenHex = (lightenAmount: number, hexColorString: string, mode: string  = "light") => {
   const currentHsl = parseToHsl(hexColorString);
   const { lightness } = currentHsl;
+
+  let newLightness;
+  
+  if (mode ==="dark") {
+    // In dark mode, subtract the lightenAmount to darken the color
+    newLightness = Math.max(0, lightness - lightenAmount);
+  } else {
+    // In light mode, add the lightenAmount to lighten the color
+    newLightness = Math.min(1, lightness + lightenAmount);
+  }
+
+
   const lightenedHsl = {
     ...currentHsl,
-    lightness: Math.min(1, lightness + lightenAmount),
+    lightness: newLightness,
   };
+
   return hslObjectToString(lightenedHsl);
 };
+
 
 // Lightness values for color variations.
 export const COLOR_SHADES = [0.25, 0.4, 0.5, 0.75];
@@ -52,7 +66,8 @@ type PaletteTheme = typeof defaultTheme['palette'];
  * Adds color variations based on the COLOR_SHADES constant.
  * @param {Object} mergedPaletteTheme
  */
-export const buildPaletteTheme = (mergedPaletteTheme: PaletteTheme) => {
+  export const buildPaletteTheme = (mergedPaletteTheme: PaletteTheme, mode: string  = "light" ) => {
+
   const { system, ...otherColors } = mergedPaletteTheme;
 
   // Create a color theme object that uses hsl string values.
@@ -72,7 +87,7 @@ export const buildPaletteTheme = (mergedPaletteTheme: PaletteTheme) => {
       const currentHexColor = otherColors[colorKey as keyof typeof otherColors];
       const shades = COLOR_SHADES.reduce((shadeAcc, shade, index) => {
         const shadeKey = `shade${index + 1}`;
-        shadeAcc[shadeKey] = lightenHex(shade, currentHexColor);
+        shadeAcc[shadeKey] = lightenHex(shade, currentHexColor, mode);
         return shadeAcc;
       }, {} as Record<string, string>);
       const main = hslColorTheme[colorKey];

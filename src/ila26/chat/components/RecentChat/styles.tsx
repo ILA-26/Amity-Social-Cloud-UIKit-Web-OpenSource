@@ -16,9 +16,9 @@ export const RecentContainer = styled.div`
   flex-shrink: 0;
   width: 280px;
   padding: 24px 0 5px 0;
-  background-color: white;
-  border-right: 1px solid #e3e4e8;
-  border-left: 1px solid #e3e4e8;
+  background-color: ${({ theme }) => theme.palette.system.background};
+  border-right: 1px solid ${({ theme }) => theme.palette.system.dividers};
+  border-left: 1px solid ${({ theme }) => theme.palette.system.dividers};
   max-height: 100dvh;
 `;
 
@@ -49,7 +49,7 @@ export const InfiniteScrollContainer = styled.div`
 export const SearchContainer = styled.div`
   display: flex;
   align-items: center;
-  border: 1px solid #e3e4e8;
+  border: 1px solid ${({ theme }) => theme.palette.system.dividers};
   border-radius: 5px;
   padding: 5px 10px;
   margin: 5px 15px;
@@ -59,6 +59,8 @@ export const SearchInput = styled.input`
   border: none;
   outline: none;
   flex-grow: 2;
+  background: transparent;
+  color : ${({ theme }) => theme.palette.neutral.main};
 `;
 
 export const SearchIcon = styled(Search).attrs<{ icon?: ReactNode }>({
@@ -67,7 +69,7 @@ export const SearchIcon = styled(Search).attrs<{ icon?: ReactNode }>({
 })`
   padding-right: 8px;
   text-align: center;
-  fill: gray;
+  fill: ${({ theme }) => theme.palette.base.shade2};
   :dir(rtl) & {
     padding-right: unset;
     padding-left: 8px;
@@ -80,7 +82,7 @@ export const Center = styled.p`
 
 export const CategoriesContainer = styled.div`
   display: flex;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.palette.system.background};
 `;
 
 export const CategoryItem = styled.div.attrs<{ selected?: boolean }>({})`
@@ -92,27 +94,21 @@ export const CategoryItem = styled.div.attrs<{ selected?: boolean }>({})`
   padding: 10px 5px;
   cursor: pointer;
   text-transform: uppercase;
-  color: gray;
-  fill: gray;
+  color: ${({ theme }) => theme.palette.base.shade2};
+  fill: ${({ theme }) => theme.palette.base.shade2};
   span {
     font-size: 10px;
     margin: 2px;
   }
   font-weight: 600;
   &:hover {
-    background-color: #ebecee;
+    background-color: ${({ theme }) => theme.mode === "light" ? "#EBECEE" : "#0b2b4d"};
   }
-
   ${({ selected, theme }) =>
     selected &&
     `
     border-left: 2px solid ${theme.palette.primary.main};
-    :dir(rtl) & {
-      border-right: 2px solid ${theme.palette.primary.main};
-      border-left: unset;
-    }
-
-    background-color: #f7f7f8;
+    background-color: ${theme.mode === "light" ? "#f7f7f8" : "#091e36"};
     color: ${theme.palette.primary.main};
     fill: ${theme.palette.primary.main};
     `}

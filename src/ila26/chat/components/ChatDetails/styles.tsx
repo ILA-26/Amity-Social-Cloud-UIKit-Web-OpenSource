@@ -10,7 +10,7 @@ export const ChatDetailsContainer = styled.div`
   width: 280px;
   height: 100%;
   padding-top: 24px;
-  border-left: 1px solid #e3e4e8;
+  border-left: 1px solid ${({ theme }) => theme.palette.system.dividers};
 `;
 
 export const ChatDetailsHeader = styled.div`
@@ -31,7 +31,7 @@ export const HeaderCloseIcon = styled(Close).attrs<{ icon?: ReactNode }>({ width
 export const ChatDetailsTitle = styled.div`
   display: flex;
   padding: 0 24px 25px 20px;
-  border-bottom: 1px solid #e3e4e8;
+  border-bottom: 1px solid ${({ theme }) => theme.palette.system.dividers};
 `;
 
 export const TitleInfo = styled.div`
@@ -52,5 +52,5 @@ export const TitleInfoLabel = styled.div`
 export const TitleInfoChatName = styled.div`
   ${({ theme }) => theme.typography.bodyBold};
   line-height: 24px;
-  color: #000000;
+  color: ${({ theme }) => theme.palette.neutral.main};
 `;

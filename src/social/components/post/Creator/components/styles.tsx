@@ -8,5 +8,5 @@ export const Avatar = styled(UIAvatar)`
 export const Label = styled("div")`
   display: flex;
   gap: 5px;
-  color: #565656;
+  color: ${({ theme }) => theme.palette.neutral.shade2};
 `

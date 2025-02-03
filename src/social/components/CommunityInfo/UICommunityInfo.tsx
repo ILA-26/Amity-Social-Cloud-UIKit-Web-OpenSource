@@ -131,7 +131,7 @@ const UICommunityInfo = ({
                     {copied ? (
                       <Check height="18" width="18" fill="#90EE90" />
                     ) : (
-                      <LinkIcon fill='#000' height="18" width="18" />
+                      <LinkIcon fill='currentcolor' height="18" width="18" />
                     )}
                   </Button>
                   <TooltipText>

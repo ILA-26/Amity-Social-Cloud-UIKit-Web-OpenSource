@@ -53,10 +53,13 @@ const styling = css`
   &[disabled] {
     background: none;
   }
+
 `;
 
 const TextField = styled.input`
-  ${styling}
+  ${styling};
+  color : ${({ theme }) => theme.palette.neutral.main};
+  
 `;
 
 const TextArea = styled(TextareaAutosize)`
@@ -100,6 +103,7 @@ const StyledMentionsInput = styled(MentionsInput)`
   textarea {
     ${styling}
     resize: vertical;
+    color : ${({ theme }) => theme.palette.neutral.main};
   }
 `;
 
@@ -142,7 +146,7 @@ const InsideInputText = forwardRef<HTMLInputElement | HTMLTextAreaElement, Insid
       'data-qa-anchor': dataQaAnchor = '',
       id,
       name = '',
-      value = '',
+      value = '', 
       placeholder = '',
       multiline = false,
       disabled = false,

@@ -31,7 +31,7 @@ export const CloseIcon = styled(Close).attrs({ width: 12, height: 12 })`
 `;
 
 export const Selector = styled.div`
-  border: 1px solid #e3e4e8;
+  border: 1px solid ${({ theme }) => theme.palette.system.dividers};
   &:focus-within {
     border: 1px solid ${({ theme }) => theme.palette.primary.main};
   }
@@ -108,6 +108,10 @@ export const SubmitButton = styled(PrimaryButton).attrs<{ edit?: boolean }>({
 })`
   padding: 10px 16px;
   margin-left: 12px;
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: 12px;
+  }
   ${({ edit }) =>
     edit &&
     css`
@@ -132,7 +136,7 @@ export const FormBlockContainer = styled.div<{ edit?: boolean }>`
           > :not(:first-child) {
             margin-top: 12px;
           }
-          border: 1px solid #edeef2;
+          border: 1px solid ${({ theme }) => theme.palette.system.borders};
           border-radius: 4px;
         `
       : css`
@@ -247,8 +251,10 @@ export const AboutTextarea = styled(TextareaAutosize).attrs({ minRows: 3, maxRow
   outline: none;
   border-radius: 4px;
   resize: none;
-  border: 1px solid #e3e4e8;
+  border: 1px solid ${({ theme }) => theme.palette.system.dividers};
   padding: 10px 12px;
+  background-color: transparent;
+  color : ${({ theme }) => theme.palette.neutral.main};
   &:focus-within {
     border-color: ${({ theme }) => theme.palette.primary.main};
   }
@@ -257,9 +263,11 @@ export const AboutTextarea = styled(TextareaAutosize).attrs({ minRows: 3, maxRow
 export const TextField = styled.input`
   ${({ theme }) => theme.typography.global};
   border-radius: 4px;
-  border: 1px solid #e3e4e8;
+  border: 1px solid ${({ theme }) => theme.palette.system.dividers};
   padding: 10px 12px;
   outline: none;
+  background-color: transparent;
+  color : ${({ theme }) => theme.palette.neutral.main};
   &:focus-within {
     border-color: ${({ theme }) => theme.palette.primary.main};
   }
@@ -299,4 +307,6 @@ export const FormBody = styled.div``;
 export const CategorySelectorInput = styled.input`
   outline: none;
   border: none;
+  background-color: transparent;
+  color : ${({ theme }) => theme.palette.neutral.main};
 `;

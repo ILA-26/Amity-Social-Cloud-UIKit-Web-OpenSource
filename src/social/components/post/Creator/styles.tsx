@@ -16,7 +16,7 @@ export const Avatar = styled(UIAvatar)`
 
 export const PostCreatorContainer = styled.div`
   padding: 16px 20px 12px 16px;
-  border: 1px solid #edeef2;
+  border: 1px solid ${({ theme }) => theme.palette.system.borders};
   display: flex;
   background: ${({ theme }) => theme.palette.system.background};
   border-radius: 4px;
@@ -73,7 +73,7 @@ export const FileLoaderContainer = styled.label`
   &:hover,
   &:focus,
   &:active {
-    background: rgb(235 236 239);
+    background: ${({ theme }) => theme.mode === "light" ? "#f2f2f4" : "#0b2b4d"};
   }
 
   &.disabled {
@@ -90,7 +90,7 @@ export const FileLoaderContainer = styled.label`
 export const Label = styled("div")`
   display: flex;
   gap: 5px;
-  color: #565656;
+  color: ${({ theme }) => theme.palette.neutral.shade2};
 `
 
 export const PollIcon = styled(Poll)``;

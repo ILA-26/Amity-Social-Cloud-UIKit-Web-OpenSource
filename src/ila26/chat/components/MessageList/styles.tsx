@@ -5,7 +5,7 @@ export const InfiniteScrollContainer = styled.div`
   flex-direction: column-reverse;
   flex-grow: 1;
   overflow: auto;
-  background: #f7f7f8;
+  background: ${({ theme }) => theme.mode === "light" ? "#f7f7f8" : "#0b2b4d"};
 `;
 
 export const MessageListContainer = styled.div`
