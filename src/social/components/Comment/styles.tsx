@@ -22,7 +22,7 @@ export const OptionMenu = styled(UIOptionMenu)`
 `;
 
 export const CommentBlock = styled.div`
-  border-bottom: 1px solid #e3e4e8;
+  border-bottom: 1px solid ${({ theme }) => theme.palette.borders};
 `;
 
 const encodeHexColor = (hex: string) => hex.replace('#', '%23');
@@ -34,13 +34,13 @@ const getCommentComposeBarBackground = (theme: DefaultTheme) =>
 
 export const CommentContainer = styled.div`
   display: flex;
-  color: black;
+  color: ${({ theme }) => theme.palette.neutral.main};
   padding-top: 16px;
 `;
 
 export const ReplyContainer = styled.div`
   display: flex;
-  color: black;
+  color: ${({ theme }) => theme.palette.neutral.main};
   padding-top: 16px;
   padding-left: 40px;
 `;
@@ -66,7 +66,7 @@ export const CommentContent = styled.div`
   overflow-wrap: anywhere !important;
   word-break: break-word;
   color: ${({ theme }) => theme.palette.neutral.main};
-  background-color: ${({ theme }) => theme.palette.base.shade4};
+  background-color: ${({ theme }) => theme.mode === "light" ? "#ebecee" : "#0b2b4d"};
   border-radius: 0 12px 12px 12px;
   padding: 12px;
   display: inline-block;

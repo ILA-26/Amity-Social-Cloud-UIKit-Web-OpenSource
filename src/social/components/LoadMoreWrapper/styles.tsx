@@ -9,7 +9,7 @@ export const LoadMoreButton = styled(Button)`
     justify-content: center;
   }
   color: ${({ theme }) => theme.palette.base.shade2};
-  border: 1px solid ${({ theme }) => theme.palette.base.shade4};
+  border: 1px solid ${({ theme }) => theme.palette.dividers};
   border-radius: 0;
 
   &.no-border {
@@ -22,12 +22,12 @@ export const LoadMoreButton = styled(Button)`
     border: none;
     margin-top: 16px;
     padding: 0 0 16px 0;
-    border-bottom: 1px solid #e3e4e8;
+    border-bottom: 1px solid ${({ theme }) => theme.palette.dividers};
   }
 
   &.reply-button {
     width: fit-content;
-    background-color: ${({ theme }) => theme.palette.base.shade4};
+    background-color: ${({ theme }) => theme.mode === "light" ? "#ebecee" : "#0b2b4d"};
     color: ${({ theme }) => theme.palette.base.shade1};
     margin: 12px 0px 16px 3rem;
     padding: 5px 12px;

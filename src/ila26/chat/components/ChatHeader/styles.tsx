@@ -15,7 +15,7 @@ export const ChatHeaderContainer = styled.div<{ $variant: 'regular' | 'popup' }>
   height: 76px;
   padding: 0 20px;
   background: ${({ theme }) => theme.palette.system.background};
-  border-bottom: 1px solid #e3e4e8;
+  border-bottom: 1px solid ${({ theme }) => theme.palette.system.dividers};
   border-top-right-radius: ${(props) => (props.$variant === 'popup' ? '10px' : '0px')};
   border-top-left-radius: ${(props) => (props.$variant === 'popup' ? '10px' : '0px')};
   display: flex;
@@ -45,10 +45,10 @@ export const ChannelInfo = styled.div`
 export const ChannelName = styled.div`
   font-weight: 600;
   font-size: 14px;
-  color: #000000;
+  color: ${({ theme }) => theme.palette.neutral.main};
 `;
 
 export const MemberCount = styled.div`
   font-size: 12px;
-  color: #999999;
+  color:${({ theme }) => theme.palette.neutral.shade3};
 `;

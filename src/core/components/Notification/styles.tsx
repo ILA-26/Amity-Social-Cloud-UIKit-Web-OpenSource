@@ -37,7 +37,7 @@ export const NotificationContainer = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
-  background: ${({ theme }) => theme.palette.base.main};
+  background: ${({ theme }) => theme.palette.system.background};
   border-radius: 4px;
   margin-bottom: 10px;
 

@@ -20,7 +20,7 @@ export const Option = styled.div<{ active?: boolean }>`
   padding: 8px 12px;
 
   &:hover {
-    background: #f2f2f4;
+    background: ${({ theme }) => theme.mode === "light" ? "#f2f2f4" : "#0b2b4d"};
   }
 
   &.danger-zone {

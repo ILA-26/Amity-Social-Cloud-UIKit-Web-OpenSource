@@ -86,7 +86,7 @@ const ChatApplication = ({
     if (!defaultChannelId) return;
     handleChannelSelect({ channelId: defaultChannelId, type: 'standard' });
   }, [defaultChannelId]);
-
+ 
   return (
     <ApplicationContainer>
       <RecentChat
@@ -94,7 +94,7 @@ const ChatApplication = ({
         membershipFilter={membershipFilter}
         onChannelSelect={handleChannelSelect}
         onAddNewChannelClick={() => {
-          openChatModal();
+          openChatModal(); 
           onAddNewChannel?.();
         }}
       />

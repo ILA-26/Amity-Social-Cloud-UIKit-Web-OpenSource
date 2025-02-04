@@ -9,7 +9,7 @@ import { backgroundImage as CommunityImage } from '~/icons/Community';
 const CommunitySettingsTabs = styled(UITabs)`
   background: ${({ theme }) => theme.palette.system.background};
   border-radius: 4px 4px 0 0;
-  border: 1px solid #edeef2;
+  border: 1px solid ${({ theme }) => theme.palette.system.borders};
 `;
 
 interface CommunityEditHeaderProps {

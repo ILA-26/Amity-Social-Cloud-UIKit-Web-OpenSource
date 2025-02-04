@@ -71,7 +71,9 @@ export const MessageComposeBarInput = styled.input`
   height: 34px;
   padding: 6px;
   outline: none;
-  border: 1px solid #e3e4e8;
+  border: 1px solid ${({ theme }) => theme.palette.system.dividers};
   border-radius: 4px;
   flex-grow: 1;
+  background-color: ${({ theme }) => theme.mode === "light" ? "#f2f2f4" : "#0b2b4d"};
+  color : ${({ theme }) => theme.palette.neutral.main};
 `;

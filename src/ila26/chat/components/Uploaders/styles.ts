@@ -4,4 +4,5 @@ import { PlayCircle } from "~/icons";
 
 export const VideoAttachmentIcon = styled(PlayCircle)`
   vertical-align: -0.125em;
+  color : ${({ theme }) => theme.palette.neutral.main};
 `;

@@ -14,11 +14,11 @@ export const ControlItem = styled.div`
   width: 100%;
   height: 52px;
   padding: 0 24px 0 20px;
-  border-bottom: 1px solid #f7f7f8;
+  border-bottom: 1px solid ${({ theme }) => theme.palette.system.dividers};
   cursor: pointer;
 
   &:hover {
-    background-color: #f7f7f8;
+    background-color: ${({ theme }) => theme.mode === "light" ? "#f7f7f8" : "#0b2b4d"};
   }
 `;
 

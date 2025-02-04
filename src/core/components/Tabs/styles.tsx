@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const TabsContainer = styled.nav`
   background: ${({ theme }) => theme.palette.system.background};
   border-radius: 4px 4px 0 0;
-  border: 1px solid #edeef2;
+  border: 1px solid ${({ theme }) => theme.palette.system.dividers};
 `;
 
 export const TabsList = styled.ul`
@@ -19,17 +19,17 @@ export const TabItem = styled.li`
 export const TabButton = styled.button`
   padding: 0.75em;
   margin-right: 0.5em;
-  background-color: #ffffff;
+  background-color:${({ theme }) => theme.palette.system.background};
   border: none;
   border-bottom: 2px solid transparent;
   cursor: pointer;
   outline: none;
-  color: #abaeba;
+  color: ${({ theme }) => theme.palette.neutral.shade2};
   ${({ theme }) => theme.typography.bodyBold}
   text-align: center;
 
   &:hover {
-    color: #818698;
+    color: ${({ theme }) => theme.palette.neutral.shade3};
   }
 
   &.active {

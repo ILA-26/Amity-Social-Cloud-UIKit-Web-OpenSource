@@ -13,7 +13,7 @@ const MenuList = styled.div`
   overflow-y: auto;
   min-height: 3em;
   max-height: 400px;
-  background: #fff;
+  background: ${({ theme }) => theme.palette.system.background};
   border-radius: 4px;
   cursor: pointer;
 `;
@@ -22,7 +22,7 @@ const Placeholder = styled.div`
   flex: 1 1 auto;
   z-index: 1;
   position: relative;
-  background: #fff;
+  background: ${({ theme }) => theme.palette.system.background};
   padding: 18px 72px 18px 72px;
   color: ${({ theme }) => theme.palette.base.shade3};
   font-size: 14px;

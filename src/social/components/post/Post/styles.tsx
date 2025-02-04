@@ -24,7 +24,7 @@ export const PostContainer = styled(PlainPostContainer)`
   padding: 16px;
   padding-bottom: 8px;
   background: ${({ theme }) => theme.palette.system.background};
-  border: 1px solid #edeef2;
+  border: 1px solid ${({ theme }) => theme.palette.system.borders};
   border-radius: 4px;
   :dir(rtl) & {
     [data-qa-anchor='post-share-modal'] > div:first-child > svg {

@@ -37,6 +37,10 @@ export const FooterContainer = styled.div`
 
 export const OkButton = styled(PrimaryButton)`
   margin-left: 15px;
+  :dir(rtl) & {
+    margin-left: unset;
+    margin-right: 15px;
+  }
 `;
 
 export const CancelButton = styled(SecondaryButton)``;

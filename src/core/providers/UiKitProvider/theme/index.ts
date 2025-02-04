@@ -10,7 +10,8 @@ import { buildTypographyTheme } from './typography';
 const buildGlobalTheme = (overrideTheme = {}) => {
   const mergedTheme = merge(defaultTheme, overrideTheme);
 
-  const paletteExtended = buildPaletteTheme(mergedTheme.palette);
+
+  const paletteExtended = buildPaletteTheme(mergedTheme.palette, mergedTheme?.mode);
   const typographyExtended = buildTypographyTheme(mergedTheme.typography);
 
   return {

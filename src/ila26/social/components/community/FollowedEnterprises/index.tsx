@@ -8,7 +8,6 @@ import TrendingItem, { UITrendingItem } from '~/social/components/community/Tren
 import { useNavigation } from '~/social/providers/NavigationProvider';
 import Title from '~/social/components/community/Title';
 import useCommunitiesCollection from '~/social/hooks/collections/useCommunitiesCollection';
-import defaultTheme from '~/core/providers/UiKitProvider/theme/default-theme';
 
 const Footer = styled.div`
   display: flex;
@@ -16,7 +15,7 @@ const Footer = styled.div`
 `;
 
 const LoadMore = styled.span`
-  color: ${defaultTheme.palette.base};
+  color: ${({ theme }) => theme.palette.neutral.main};
   font-size: 12px !important;
   margin: 10px auto;
   cursor: pointer;

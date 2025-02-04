@@ -16,8 +16,9 @@ export const MembersReturn = styled.div`
   width: 100%;
   height: 52px;
   padding-left: 20px;
-  color: ${({ theme }) => theme.palette.neutral.shade2};
-  border-bottom: 1px solid #e3e4e8;
+  color: ${({ theme }) => theme.palette.neutral.shade1};
+  border-bottom: 1px solid ${({ theme }) => theme.palette.system.dividers};
+  
   cursor: pointer;
 
   &:hover {

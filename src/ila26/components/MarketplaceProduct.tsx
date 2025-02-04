@@ -1,6 +1,7 @@
 import { ILA26_MarketplaceProductProps } from '../types/componentProps';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { SharedCustomPostContentType, StyledPrice } from './styles';
 
 const formatter = new Intl.NumberFormat('fr-FR', {
   style: 'currency',
@@ -64,16 +65,9 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
           }}
         ></div>
       </div>
-      <span
-        style={{
-          background: '#5C2DD3',
-          color: '#fff',
-          padding: '0.2rem 0.5rem',
-          borderRadius: '3px',
-        }}
-      >
+      <SharedCustomPostContentType>
         <FormattedMessage id="post.listing" />
-      </span>
+      </SharedCustomPostContentType>
 
       <h1>{metadata?.title}</h1>
       <p
@@ -91,16 +85,7 @@ const ILA26_MarketplaceProduct = ({ metadata }: ILA26_MarketplaceProductProps) =
       <p>
         <FormattedMessage id="post.price" />
 
-        <span
-          style={{
-            color: '#5C2DD3',
-            fontWeight: '700',
-            marginLeft: '5px',
-            fontSize: '17px',
-          }}
-        >
-          {formatter.format(metadata?.price || 0)}
-        </span>
+        <StyledPrice>{formatter.format(metadata?.price || 0)}</StyledPrice>
       </p>
     </>
   );

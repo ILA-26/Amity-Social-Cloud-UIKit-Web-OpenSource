@@ -6,16 +6,16 @@ export const ChatItemContainer = styled(SideMenuItem).withConfig({
   shouldForwardProp: (prop) => prop !== 'active',
 })<{ active?: boolean }>`
   display: flex;
-  align-items: center;
+  align-items: center; 
   justify-content: space-between;
   width: 100%;
   height: 60px;
   margin: 0;
   padding: 0 18px 0 16px;
   border-radius: 0;
-  ${({ active }) => active && 'background-color: #EFF4FE;'};
+    ${({ active, theme }) => active && `background-color: ${theme.mode === "light" ? "#EFF4FE;" : "#0b2b4d;"}`};
   &:hover {
-    background-color: #ebecee;
+    background-color: ${({ theme }) => theme.mode === "light" ? "#ebecee" : "#184574"};
   }
 `;
 
@@ -41,7 +41,7 @@ export const TitleContainer = styled.div`
 export const Title = styled.div`
   ${({ theme }) => theme.typography.bodyBold};
   line-height: 20px;
-  color: #000;
+  color: ${({ theme }) => theme.palette.neutral.main};
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -50,7 +50,7 @@ export const Title = styled.div`
 export const SubTitle = styled.div`
   font-size: 12px !important;
   font-weight: normal;
-  color: grey;
+  color: ${({ theme }) => theme.palette.neutral.shade2};
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
