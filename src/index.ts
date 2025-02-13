@@ -14,8 +14,9 @@ import withUIStyles from './ila26/exportsWrapper';
 
 import fr from '~/ila26/i18n/fr.json';
 import ar from '~/ila26/i18n/ar.json';
+import es from '~/ila26/i18n/es.json';
 import en from '~/i18n/en.json';
-export const ILA26_IntlMessages = { fr, en, ar };
+export const ILA26_IntlMessages = { fr, en, ar, es };
 
 // ILA26 exports with UIStyles wrap at component level
 export const ILA26_AmityUiKitChat = withUIStyles(ILA26_AmityUiKitChat_unwrapped);
