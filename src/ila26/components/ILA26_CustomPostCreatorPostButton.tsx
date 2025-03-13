@@ -22,9 +22,9 @@ const PostOptions = styled(Menu)`
   color: ${({ theme }) => theme.palette.base.main};
 `;
 
-const PostSingleOption = styled(MenuItem)`
-  background: #fff;
-`;
+const PostSingleOption = styled(MenuItem)(({ theme }) => ({
+  background: theme.palette.system.background,
+}));
 const ILA26_CustomPostCreatorPostButton = ({
   isCommunityManager,
   communityName,

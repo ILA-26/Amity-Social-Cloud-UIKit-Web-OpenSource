@@ -13,7 +13,6 @@ import { ILA26_Values } from '~/ila26/utils';
 
 export interface ChatProps {
   channelId: string;
-  ila26_displayName?: string;
   ila26_variant?: 'regular' | 'popup';
   onChatActionClick: () => void;
 }
@@ -22,7 +21,6 @@ export type MessageType = ILA26_Values<typeof MessageContentType>;
 
 export const PropsContext = createContext<{
   variant: 'regular' | 'popup';
-  auth_displayName?: string;
 }>({
   variant: 'regular',
 });

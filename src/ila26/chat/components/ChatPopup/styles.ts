@@ -3,9 +3,9 @@ import { styled } from 'styled-components';
 export const Popup = styled.div`
   position: fixed;
   bottom: 0px;
-  right: 50px;
+  right: 100px;
   :dir(rtl) & {
-    left: 50px;
+    left: 100px;
     right: unset;
   }
   height: 70vh;
