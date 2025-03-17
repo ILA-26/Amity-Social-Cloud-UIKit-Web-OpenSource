@@ -49,15 +49,9 @@ const RecommendedList = () => {
     limit: 6,
   });
 
-  const parseOrderFromDescription = useCallback((description: string | undefined): number => {
-    if (!description) return Infinity;
-    const match = description.match(/<!--order:(\d+)-->/);
-    return match ? parseInt(match[1], 10) : Infinity;
-  }, []);
-
   const sortedCommunities: Amity.Community[] = useMemo(() => {
     return communities.sort((a, b) => {
-      return parseOrderFromDescription(a.description) - parseOrderFromDescription(b.description);
+      return b.membersCount - a.membersCount;
     });
   }, [communities]);
 
