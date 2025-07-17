@@ -84,6 +84,7 @@ const GlobalFeed = ({
                   hidePostTarget={false}
                   readonly={readonly}
                   onDeleted={(postId) => removeItem(postId)}
+                  getInternalData={ILA26_getInternalData}
                 />
               ))}
             />

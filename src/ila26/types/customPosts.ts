@@ -1,30 +1,35 @@
 type ILA26_internalData =
   | null
   | ({
-      title: string;
-      creator: {
-        fullName: string;
-        userId: string;
-      };
-      [key: string]: any;
-    } & {
-      type: ILA26_internalElementsTypes;
-    });
+  title: string;
+  creator: {
+    fullName: string;
+    userId: string;
+  };
+  [key: string]: any;
+} & {
+  type: ILA26_internalElementsTypes;
+});
 
-type ILA26_internalElementsTypes = 'serviceOffer' | 'marketplaceProduct';
+type ILA26_internalElementsTypes =
+  'serviceOffer'
+  | 'marketplaceProduct'
+  | 'real_estate_property_post'
+  | 'real_estate_project_post'
+  | 'real_estate_service_booking_post';
 
 type ILA26_internalFeedProps = {
   ILA26_communityManagerProps:
     | {
-        isCommunityManager: true;
-        communityId: string;
-        communityName: string;
-      }
+    isCommunityManager: true;
+    communityId: string;
+    communityName: string;
+  }
     | {
-        isCommunityManager: false;
-        communityId: undefined;
-        communityName: undefined;
-      };
+    isCommunityManager: false;
+    communityId: undefined;
+    communityName: undefined;
+  };
   ILA26_getInternalData: (
     typeOfRequest: ILA26_internalElementsTypes,
     elementId: string,

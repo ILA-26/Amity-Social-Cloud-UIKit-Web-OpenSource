@@ -10,6 +10,7 @@ import { PostContentType_extended } from '~/ila26/constants';
 import { ILA26_internalData } from '~/ila26/types/customPosts';
 import ILA26_CustomPostContent from '~/ila26/components/ILA26_CustomPostContent';
 import { PostContentType } from '@amityco/ts-sdk';
+import RealEstateCustomPostContent from '~/ila26/components/real_estate_custom_post_content';
 
 interface PostContentProps {
   data?: any;
@@ -29,6 +30,10 @@ const PostContent = ({ data, dataType, postMaxLines, mentionees, metadata, hasCh
     )
   ) {
     return null;
+  }
+
+  if (dataType === PostContentType_extended.SHARE_CUSTOM_POST) {
+    return <RealEstateCustomPostContent {...{ metadata, dataType: dataType ?? '', data }} />;
   }
 
   if (
