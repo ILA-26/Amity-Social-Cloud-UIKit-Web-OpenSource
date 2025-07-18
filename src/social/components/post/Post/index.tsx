@@ -79,7 +79,7 @@ const Post = ({ postId, className, hidePostTarget, readonly, onDeleted, getInter
       const type = post?.metadata?.type;
       const id = post?.metadata?.id;
 
-      if (!post || !getInternalData || !type || !id) return;
+      if (!post || !getInternalData || !type || !id || !post?.metadata) return;
 
       try {
         const metadata = await getInternalData(type, id);
@@ -87,13 +87,12 @@ const Post = ({ postId, className, hidePostTarget, readonly, onDeleted, getInter
           setPostData({ ...post, metadata });
         }
       } catch (error) {
-        console.error("Failed to load internal data:", error);
+        console.error('Failed to load internal data:', error);
       }
     };
 
     loadInternalData();
   }, [post, getInternalData]);
-
 
   if (post == null || postRenderFn == null) {
     return <DefaultPostRenderer loading />;

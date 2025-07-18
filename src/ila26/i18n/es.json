@@ -37,6 +37,8 @@
   "post.repost": "Republicar",
   "post.unknownPost.description": "No pudimos reconocer esta publicación.",
   "post.unknownPost.title": "Ha ocurrido un problema",
+  "post.unavailableContent.title": "La publicación ya no está disponible",
+  "post.unavailableContent.description": "No pudimos reconocer esta publicación.",
   "post.renderingError.description": "No pudimos mostrar esta publicación.",
   "post.renderingError.title": "Ha ocurrido un problema",
   "post.community": "Comunidad",

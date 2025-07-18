@@ -37,6 +37,8 @@
   "post.repost": "إعادة النشر",
   "post.unknownPost.description": "لم نتمكن من التعرف على هذا المنشور.",
   "post.unknownPost.title": "حدثت مشكلة",
+  "post.unavailableContent.title": "هذا المنشور لم يعد متاحًا",
+  "post.unavailableContent.description": "لم نتمكن من التعرف على هذا المنشور.",
   "post.renderingError.description": "لم نتمكن من عرض هذا المنشور.",
   "post.renderingError.title": "حدثت مشكلة",
   "post.community": "المجتمع",

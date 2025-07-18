@@ -37,6 +37,8 @@
   "post.repost": "Republier",
   "post.unknownPost.description": "Nous n'avons pas pu reconnaître ce post.",
   "post.unknownPost.title": "Un problème est survenu",
+  "post.unavailableContent.title": "Le post n'est plus disponible",
+  "post.unavailableContent.description": "Nous n'avons pas pu reconnaître ce post.",
   "post.renderingError.description": "Nous n'avons pas pu afficher ce post.",
   "post.renderingError.title": "Un problème est survenu",
   "post.community": "Communauté",

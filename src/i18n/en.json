@@ -38,6 +38,8 @@
   "post.repost": "Repost",
   "post.unknownPost.description": "We couldn’t recognize this post.",
   "post.unknownPost.title": "Something went wrong",
+  "post.unavailableContent.title": "The post is no longer available",
+  "post.unavailableContent.description": "We couldn't recognize this post.",
   "post.renderingError.description": "We couldn’t render this post.",
   "post.renderingError.title": "Something went wrong",
   "post.community": "Community",

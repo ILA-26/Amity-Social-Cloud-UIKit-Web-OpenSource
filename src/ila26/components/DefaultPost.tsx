@@ -5,7 +5,7 @@ import { SharedCustomPostContentType, StyledPrice } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 
-const RealEstatePost = ({ metadata }: ILA26_RealEstateProps) => {
+const DefaultPost = ({ metadata }: ILA26_RealEstateProps) => {
   return (
     <>
       <div
@@ -87,4 +87,4 @@ const RealEstatePost = ({ metadata }: ILA26_RealEstateProps) => {
   );
 };
 
-export default RealEstatePost;
+export default DefaultPost;
