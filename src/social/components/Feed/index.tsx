@@ -196,6 +196,7 @@ const MyFeed = ({
                       postId={post.postId}
                       hidePostTarget={true}
                       readonly={readonly}
+                      getInternalData={ILA26_getInternalData}
                     />
                   ))}
                 </>
@@ -301,6 +302,7 @@ const CommunityFeed = ({
                       postId={post.postId}
                       hidePostTarget
                       readonly={readonly}
+                      getInternalData={ILA26_getInternalData}
                     />
                   ))}
                 </>
@@ -407,6 +409,7 @@ const BaseFeed = ({
                       postId={post.postId}
                       hidePostTarget
                       readonly={readonly}
+                      getInternalData={ILA26_getInternalData}
                     />
                   ))}
                 </>
