@@ -51,7 +51,9 @@
   "post.listing": "Listing",
   "post.price": "Price",
   "post.unknownDataType": "Unknown data type",
-
+  "post.real_estate_property_post": "Property",
+  "post.real_estate_project_post": "Project",
+  "post.real_estate_service_booking_post": "Booking service",
   "post.success.approved": "Post approved",
   "post.success.declined": "Post declined",
   "post.success.reposted": "Post reposted",

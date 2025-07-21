@@ -50,7 +50,9 @@
   "post.listing": "Annonce",
   "post.price": "Prix",
   "post.unknownDataType": "Type de data non reconnu",
-
+  "post.real_estate_property_post": "Propriété",
+  "post.real_estate_project_post": "Projet",
+  "post.real_estate_service_booking_post": "Service de réservation",
   "post.success.approved": "Post approuvé",
   "post.success.declined": "Post refusé",
   "post.success.reposted": "Post reposté",

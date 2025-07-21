@@ -48,9 +48,10 @@ const DefaultPost = ({ metadata }: ILA26_RealEstateProps) => {
           }}
         ></div>
       </div>
-      <SharedCustomPostContentType>
-        <FormattedMessage id="post.listing" />
-      </SharedCustomPostContentType>
+      {metadata?.type &&
+        <SharedCustomPostContentType>
+          <FormattedMessage id={`post.${metadata?.type}`} />
+        </SharedCustomPostContentType>}
 
       <h1>{metadata?.title}</h1>
       {metadata?.address && <p

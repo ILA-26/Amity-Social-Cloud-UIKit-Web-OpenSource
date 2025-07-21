@@ -50,7 +50,9 @@
   "post.listing": "إعلان",
   "post.price": "السعر",
   "post.unknownDataType": "نوع البيانات غير معروف",
-
+  "post.real_estate_property_post": "عقار",
+  "post.real_estate_project_post": "مشروع",
+  "post.real_estate_service_booking_post": "خدمة الحجز",
   "post.success.approved": "تمت الموافقة على المنشور",
   "post.success.declined": "تم رفض المنشور",
   "post.success.reposted": "تمت إعادة نشر المنشور",
