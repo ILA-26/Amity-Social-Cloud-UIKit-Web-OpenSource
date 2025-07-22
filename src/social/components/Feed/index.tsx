@@ -84,6 +84,7 @@ const GlobalFeed = ({
                   hidePostTarget={false}
                   readonly={readonly}
                   onDeleted={(postId) => removeItem(postId)}
+                  getInternalData={ILA26_getInternalData}
                 />
               ))}
             />
@@ -195,6 +196,7 @@ const MyFeed = ({
                       postId={post.postId}
                       hidePostTarget={true}
                       readonly={readonly}
+                      getInternalData={ILA26_getInternalData}
                     />
                   ))}
                 </>
@@ -300,6 +302,7 @@ const CommunityFeed = ({
                       postId={post.postId}
                       hidePostTarget
                       readonly={readonly}
+                      getInternalData={ILA26_getInternalData}
                     />
                   ))}
                 </>
@@ -406,6 +409,7 @@ const BaseFeed = ({
                       postId={post.postId}
                       hidePostTarget
                       readonly={readonly}
+                      getInternalData={ILA26_getInternalData}
                     />
                   ))}
                 </>

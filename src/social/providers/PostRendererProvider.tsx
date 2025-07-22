@@ -1,5 +1,5 @@
 import { PostContentType } from '@amityco/ts-sdk';
-import React, { ReactNode, createContext, useContext, useMemo } from 'react';
+import React, { createContext, ReactNode, useContext, useMemo } from 'react';
 import DefaultPostRenderer from '../components/post/Post/DefaultPostRenderer';
 import UnknownPostRenderer from '../components/post/Post/UnknownPostRenderer';
 import { PostContentType_extended } from '~/ila26/constants';
@@ -43,6 +43,7 @@ const defaultPostRenderer: PostRendererConfigType = {
   [PostContentType_extended.MARKETPLACE_PRODUCT]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
   [PostContentType_extended.MARKETPLACE_SERVICEOFFER]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
   [PostContentType_extended.SHARE]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
+  [PostContentType_extended.SHARE_CUSTOM_POST]: (props: PostRendererProps) => <DefaultPostRenderer {...props} />,
 };
 
 const PostRendererContext = createContext(defaultPostRenderer);
