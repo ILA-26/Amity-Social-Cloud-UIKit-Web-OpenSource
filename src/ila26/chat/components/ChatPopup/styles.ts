@@ -10,7 +10,7 @@ export const Popup = styled.div`
   }
   height: 70vh;
   width: 30vw;
-  z-index: 1;
+  z-index: 10;
   box-shadow: 0px 0px 5px lightgray;
   border-radius: 10px;
   overflow: hidden;
