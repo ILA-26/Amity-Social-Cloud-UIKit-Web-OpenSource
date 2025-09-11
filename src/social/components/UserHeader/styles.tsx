@@ -11,13 +11,6 @@ export const UserHeaderContainer = styled.div.withConfig({
   grid-template-rows: min-content min-content;
   grid-gap: 0 0.5em;
   padding: 1em;
-  &:hover {
-    background-color: #ebecee;
-  }
-  &:active {
-    background-color: #eff4fe;
-  }
-
   cursor: pointer;
   ${({ noSubtitle }) =>
     !noSubtitle &&

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const Container = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '50vh',
-  backgroundColor: '#fff',
-});
+export const Container = styled('div')`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  background: ${({ theme }) => theme.palette.system.background};
+`;
 
 export const Label = styled('span')({
   color: 'lightgray',
